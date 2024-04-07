@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Damier</title>
+    <title>Damier de 8x8</title>
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
