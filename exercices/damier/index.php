@@ -8,7 +8,7 @@
 
 <body>
 
-<form action="damier.php" method="post">
+<form action="index.php" method="post">
     <ul>
         <li>
             <label>Couleur case impaire</label>
