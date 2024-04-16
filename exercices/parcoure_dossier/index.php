@@ -18,21 +18,20 @@ echo "Liste des fichiers dans le dossier racine du serveur PHP en cours d'éxéc
 
 <ol class="liste_fichiers">
 
-    <?php
- while (false != ($monfichier = readdir($pointeur))) {;
-     // si c'est un dossier en gras, si un fichier en bleu italic via le CSS
-     if (is_dir($_SERVER["DOCUMENT_ROOT"] . "\\" .$monfichier)) {
-         ?> <li class="directory">
-             <?php } else { ?>
+    <?php while (false != ($monfichier = readdir($pointeur))) : ?>
+    <!-- si c'est un dossier en gras, si un fichier en bleu italic via le CSS -->
+        <?php if (is_dir($_SERVER["DOCUMENT_ROOT"] . "\\" .$monfichier)) : ?>
+            <li class="directory">
+        <?php else :?>
             <li class = "file">
-     <?php }
-     echo $monfichier; ?>
+        <?php endif ?>
+
+        <?php echo $monfichier; ?>
             </li>
-    <?php }
+    <?php endwhile ?>
 
-closedir($pointeur);
+<?php closedir($pointeur); ?>
 
-?>
 </ol>
 </html>
 
