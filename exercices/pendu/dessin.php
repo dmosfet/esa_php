@@ -1,12 +1,13 @@
 <?php
 
 $titre = "
-  _____               _       
- |  __ \             | |      
- | |__) |__ _ __   __| |_   _ 
- |  ___/ _ \ '_ \ / _` | | | |
- | |  |  __/ | | | (_| | |_| |
- |_|   \___|_| |_|\__,_|\__,_|
+       _____               _       
+      |  __ \             | |      
+      | |__) |__ _ __   __| |_   _ 
+      |  ___/ _ \ '_ \ / _` | | | |
+      | |  |  __/ | | | (_| | |_| |
+      |_|   \___|_| |_|\__,_|\__,_|
+            
 ";
 
 function dessinPendu($l):string
@@ -25,7 +26,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
 
         case 1:
             return "
@@ -40,7 +40,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
         case 2:
             return "
     ____
@@ -54,7 +53,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
         case 3:
             return "
     ____
@@ -68,7 +66,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
         case 4:
             return "
     ____
@@ -82,7 +79,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
         case 5:
             return "
     ____
@@ -96,7 +92,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
         case 6:
             return "
     
@@ -109,7 +104,6 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
         case 7:
             return "
   _ _
@@ -117,9 +111,7 @@ function dessinPendu($l):string
  |          |
  |__________|
 		";
-            break;
-        case 8:
+        default:
             return " ";
     }
-
 }
