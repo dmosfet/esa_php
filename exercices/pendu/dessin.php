@@ -106,6 +106,7 @@ function dessinPendu($l):string
 		";
         case 7:
             return "
+                        
   _ _
  |   |______
  |          |

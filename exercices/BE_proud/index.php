@@ -12,9 +12,14 @@
 <?php
 if (isset($_GET['msg'])){
     $message = $_GET['msg'];
-    echo "<script type='text/javascript'>alert('$message');</script>";
-}
-?>
+    ?>
+    <dialog open>
+        <p><?php echo $message ?></p>
+        <form method="dialog">
+            <button>OK</button>
+        </form>
+    </dialog>
+<?php } ?>
 
 <form action="colored_string.php" method="post">
     <fieldset>
