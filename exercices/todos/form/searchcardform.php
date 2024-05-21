@@ -10,21 +10,13 @@
     <title>Ajouter une nouvelle tâche</title>
 </head>
 <body>
-<?php
-include('../function.php');
-$allstaks = readcsv('../tasks.csv');
-$number = lastnumber($allstaks);
-$today = date("d-m-Y");
-
-?>
-<div class="addform">
-    <form action="../action/addcard.php" method="post">
+<div>
+    <form action="../action/searchcard.php" method="post">
         <fieldset>
-            <legend>Recherche une tâche sur base de son nom ou du numéro</legend>
-            <label>Numéro</label>
-            <input type="text" name="number" value="<?php echo $number + 1; ?>"/>
+            <legend>Recherche une tâche sur base de son nom</legend>
             <label>Nom de la tâche</label>
             <input type="text" name="name"/>
+            <input type="submit" name="submit" value="Rechercher">
         </fieldset>
     </form>
 </div>

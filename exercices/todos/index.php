@@ -11,7 +11,7 @@
 </head>
 <header>
     <h2>Planificateur de tâches
-        <a onclick="window.open('./view/recycle.php','local', 'width=400 , height=500')" title="Consulter les tâches supprimées">
+        <a onclick="window.open('./view/recycle.php','local', 'width=400 , height=100')" title="Consulter les tâches supprimées">
             <div class="bin"></div>
         </a>
     </h2>
@@ -24,7 +24,7 @@ include('function.php');
     <fieldset class="nouveau">
         <legend>Back log
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=500')"
+                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')"
                    title="Rechercher une tâche">
                     <div class="button search"></div>
                 </a>
@@ -38,11 +38,11 @@ include('function.php');
             </div>
         </legend>
         <?php
-        $newtasks = affichenewtasks("tasks.csv");
+        $newtasks = filtertaskonstatus("tasks.csv", "0");
         foreach ($newtasks as $task) {
             ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=200 , min-height=300')"
                    title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
                     <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
                 </a>
@@ -66,7 +66,7 @@ include('function.php');
     <fieldset class="cours">
         <legend>En cours
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=700')">
+                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')">
                     <div class="button search"></div>
                 </a>
                 <a onclick="window.open('./form/addcardform.php?status=1','local', 'width=400 , height=700')">
@@ -78,11 +78,11 @@ include('function.php');
             </div>
         </legend>
         <?php
-        $openedtasks = afficheopenedtasks("tasks.csv");
+        $openedtasks = filtertaskonstatus("tasks.csv", "1");
         foreach ($openedtasks as $task) {
             ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=210')"
+                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=560')"
                    title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
                     <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
                 </a>
@@ -107,7 +107,7 @@ include('function.php');
     <fieldset class="terminé">
         <legend>Terminé
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=700')">
+                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')">
                     <div class="button search"></div>
                 </a>
                 <a onclick="window.open('./form/addcardform.php?status=2','local', 'width=400 , height=700')">
@@ -119,10 +119,10 @@ include('function.php');
             </div>
         </legend>
         <?php
-        $closedtasks = afficheclosedtasks("tasks.csv");
+        $closedtasks = filtertaskonstatus("tasks.csv", "2");
         foreach ($closedtasks as $task) { ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=210')"
+                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=560')"
                    title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
                     <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
                 </a>
@@ -142,7 +142,7 @@ include('function.php');
     <fieldset class="annulé">
         <legend>Annulé
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=700')">
+                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')">
                     <div class="button search"></div>
                 </a>
                 <a onclick="window.open('./form/addcardform.php?status=3','local', 'width=400 , height=700')">
@@ -154,10 +154,10 @@ include('function.php');
             </div>
         </legend>
         <?php
-        $droppedtasks = affichedroppedtasks("tasks.csv");
+        $droppedtasks = filtertaskonstatus("tasks.csv", "3");
         foreach ($droppedtasks as $task) { ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=210')"
+                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=560')"
                    title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
                     <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
                 </a>
@@ -178,10 +178,7 @@ include('function.php');
         }
         ?>
     </fieldset>
-
 </div>
-<?php
-?>
 </body>
 <footer>
     <p>Tous droits réservés - Jonathan Istace - 2024</p>

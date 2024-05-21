@@ -11,36 +11,37 @@
 </head>
 <body>
 <?php
-include("../function.php");
-$deletedtask = [];
-$alltasks = arrayfromcsv("../tasks.csv");
-foreach ($alltasks as $task) {
-    if ($task['status'] == "-1") {
-        $deletedtask[] = $task;
+
+include('../function.php');
+
+$idfindedtasks = isset($_GET['tasks']) ? $_GET['tasks'] : '';
+$idfindedtasks = rtrim($idfindedtasks,';');
+$idarray = explode(';', $idfindedtasks);
+
+$alltasks = arrayfromcsv('../tasks.csv');
+$findedtasks = [];
+
+foreach ($idarray as $id) {
+    foreach ($alltasks as $task) {
+        if ($task['number'] == $id) {
+            $findedtasks[] = $task;
+        }
     }
 }
 
-if ($deletedtask != null) {
-    foreach ($deletedtask as $task) {
+if (count($findedtasks) > 0) {
+    foreach ($findedtasks as $task) {
         ?>
         <div class="cartouche">
             <a onclick="window.open('./card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
-               title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
+               title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
                 <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
-            </a>
-            <a onclick="window.open('../action/definitelydeletecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
-               title="Supprimer définitivement une tâche">
-                <div class="button delete"></div>
-            </a>
-            <a onclick="window.open('../action/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
-               title="Restaurer une tâche">
-                <div class="button start"></div>
             </a>
         </div>
         <?php
     }
 } else {
-    echo "Il n'y a pas de tâche supprimée dans la poubelle actuellement";
+    echo "Aucune tâche trouvée";
 }
 ?>
 <form>

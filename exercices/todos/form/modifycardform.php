@@ -11,41 +11,36 @@
 </head>
 <body>
 <?php include("../function.php");
-$number = isset($_POST['number']) ? $_POST['number'] : $_GET['task'];
+$tasknumber = isset($_POST['number']) ? $_POST['number'] : $_GET['task'];
 $array = arrayfromcsv("../tasks.csv");
-$task = findtask($array, $number);
+$task = findtask($array, $tasknumber);
+
+$number = $task['number'];
+$name = $task['name'];
+$status = $task['status'];
+$old_status = $task['old_status'];
+$creation= $task['creation'];
+$start = $task['start'];
+$due = $task['due'];
+$closed = $task['closed'];
+$cancelled = $task['cancelled'];
+$tags = $task['tags'];
+
 ?>
 <form action="../action/modifycard.php" method="post">
     <fieldset>
-        <legend><?php echo '#' . $number . " -" . $task['name']; ?></legend>
-        <?php
-        foreach ($task as $clef => $valeur) {
-            $label = match($clef) {
-                'number' => 'Numéro',
-                'name' => 'Nom',
-                'status' => 'Statut actuel',
-                'old_status' => 'Ancien statut',
-                'creation' => 'Date de creation',
-                'start' => 'Date de début',
-                'due' => 'Echéance',
-                'closed' => 'Date de cloture',
-                'canceled' => 'Date d\'annulation',
-                'tags' => 'Catégories',
-            };
-            if (($clef == "number") || ($clef == "status") || ($clef == "old_status")) {
-                ?>
-                <input type="hidden"
-
-                <?php } else { ?>
-                <input type="text"
-            <?php } ?>
-            name="<?php echo $clef;?>" placeholder ="<?php echo $label; ?>" value ="<?php echo $valeur;?>">
-        <?php
-        }
-        ?>
-        <input type="submit" name="submit" value="Valider">
+        <legend>Modifier la tâche <?php echo '#' . $tasknumber?></legend>
+        <?php include("../model/form_model.php"); ?>
+        <input type="submit" name="submit" value="Confirmer">
+        <input type="submit" name="close" value="Annuler" onclick="refreshAndClose()">
     </fieldset>
 </form>
+<script type="text/javascript">
+    function refreshAndClose() {
+        window.opener.location.reload(true);
+        window.close();
+    }
+</script>
 </body>
 </html>
 

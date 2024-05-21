@@ -12,33 +12,28 @@
 <?php
 include('../function.php');
 $allstaks = readcsv('../tasks.csv');
-$number = lastnumber($allstaks);
+$nextnumber = lastnumber($allstaks) + 1;
 $today = date("d-m-Y");
+
+
+$number = $nextnumber;
+$name = "";
 $status = isset($_GET["status"]) ? $_GET["status"] : "0";
+$old_status = "0";
+$creation= $today;
+$start = "";
+$due = "";
+$closed = "";
+$cancelled = "";
+$tags = "";
 
 ?>
 <div class="addform">
     <form action="../action/addcard.php" method="post">
         <fieldset>
             <legend>Ajouter une nouvelle tâche</legend>
-            <input type="hidden" name="number" value="<?php echo $number + 1; ?>"/>
-            <label>Nom de la tâche</label>
-            <input type="text" name="name"/>
-            <input type="hidden" name="status" value="<?php echo $status; ?>"/>
-            <input type="hidden" name="old_status" value="<?php echo $status; ?>"/>
-            <label>Date de création</label>
-            <input type="text" name="creation" value="<?php echo $today; ?>"/>
-            <label>Date de début</label>
-            <input type="text" name="start" value="Non démarré"/>
-            <label>Echeance</label>
-            <input type="text" name="due" value=""/>
-            <label>Date de clôture</label>
-            <input type="text" name="closed" value=""/>
-            <label>Date d'abandon</label>
-            <input type="text" name="giveup" value=""/>
-            <label>Tags</label>
-            <input type="text" name="tags" value=""/>
-            <input type="submit" name="soumettre"/>
+            <?php include('../model/form_model.php'); ?>
+            <input type="submit" name="Confirmer"/>
         </fieldset>
     </form>
 </div>

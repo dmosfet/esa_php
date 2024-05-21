@@ -28,53 +28,19 @@ function readcsv ($filename) {
     return $lignes;
 }
 
-function afficheclosedtasks ($filename) {
-    $closedtasks = [];
+
+function filtertaskonstatus ($filename, $status) {
+    $result = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
-        if ($row[2]==2) {
-            $closedtasks[] = $row;
+        if ($row[2]==$status) {
+            $result[] = $row;
         }
     }
     fclose($fp);
-    return $closedtasks;
+    return $result;
 }
 
-function afficheopenedtasks ($filename) {
-    $closedtasks = [];
-    $fp = fopen($filename, 'r');
-    while (($row = fgetcsv($fp)) !== false) {
-        if ($row[2]==1) {
-            $closedtasks[] = $row;
-        }
-    }
-    fclose($fp);
-    return $closedtasks;
-}
-
-function affichenewtasks ($filename) {
-    $newtasks = [];
-    $fp = fopen($filename, 'r');
-    while (($row = fgetcsv($fp)) !== false) {
-        if ($row[2]==0) {
-            $newtasks[] = $row;
-        }
-    }
-    fclose($fp);
-    return $newtasks;
-}
-
-function affichedroppedtasks ($filename) {
-    $closedtasks = [];
-    $fp = fopen($filename, 'r');
-    while (($row = fgetcsv($fp)) !== false) {
-        if ($row[2]==3) {
-            $closedtasks[] = $row;
-        }
-    }
-    fclose($fp);
-    return $closedtasks;
-}
 
 function arrayfromcsv ($filename): array {
     $datas=[];
