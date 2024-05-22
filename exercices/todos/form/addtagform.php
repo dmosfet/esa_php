@@ -11,30 +11,16 @@
 <body>
 <?php
 include('../function.php');
-$allstaks = readcsv('../tasks.csv');
-$nextnumber = lastnumber($allstaks) + 1;
-
-$today = date("d-m-Y");
-
-$alltags = arrayfromcsv('../tags.csv');
-
-$number = $nextnumber;
-$name = "";
-$status = isset($_GET["status"]) ? $_GET["status"] : "0";
-$old_status = isset($_GET["status"]) ? $_GET["status"] : "0";
-$creation= $today;
-$start = "";
-$due = "";
-$closed = "";
-$cancelled = "";
-$tags = $alltags;
-
+$alltags = readcsv('../tags.csv');
+$nextnumber = lastnumber($alltags) + 1;
 ?>
 <div class="addform">
-    <form action="../action/addcard.php" method="post">
+    <form action="../action/addtag.php" method="post">
         <fieldset>
-            <legend>Ajouter une nouvelle tâche</legend>
-            <?php include('../model/form_model.php'); ?>
+            <legend>Ajouter une nouvelle catégorie</legend>
+            <input type="hidden" name="number"  placeholder="Numéro" value="<?php echo $nextnumber; ?>">
+            <input type="text" name="name"  placeholder="Nom" value="" required>
+            <input type="color" name="color"  placeholder="color" value="" required>
             <input type="submit" name="Confirmer"/>
         </fieldset>
     </form>

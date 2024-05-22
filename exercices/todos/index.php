@@ -11,8 +11,11 @@
 </head>
 <header>
     <h2>Planificateur de tâches
-        <a onclick="window.open('./view/recycle.php','local', 'width=400 , height=100')" title="Consulter les tâches supprimées">
+        <a onclick="window.open('./view/recycle.php','local', 'width=400 , height=800')" title="Consulter les tâches supprimées">
             <div class="bin"></div>
+        </a>
+        <a onclick="window.open('./view/settings.php','local', 'width=800 , height=900')" title="Consulter les paramètres de l'application">
+            <div class="settings"></div>
         </a>
     </h2>
 </header>
@@ -32,7 +35,7 @@ include('function.php');
                    title="Ajouter une tâche">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filter=asc','local', 'width=400 , height=700')" title="Filtrer">
+                <a onclick="window.open('.index.php?filternew=all','local', 'width=400 , height=700')" title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
@@ -72,7 +75,7 @@ include('function.php');
                 <a onclick="window.open('./form/addcardform.php?status=1','local', 'width=400 , height=700')">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filter=asc','local', 'width=400 , height=700')">
+                <a onclick="window.open('.index.php?filterstart=all','local', 'width=400 , height=700')" title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
@@ -113,7 +116,7 @@ include('function.php');
                 <a onclick="window.open('./form/addcardform.php?status=2','local', 'width=400 , height=700')">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filter=asc','local', 'width=400 , height=700')">
+                <a onclick="window.open('.index.php?filterclose=all','local', 'width=400 , height=700')" title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
@@ -148,7 +151,7 @@ include('function.php');
                 <a onclick="window.open('./form/addcardform.php?status=3','local', 'width=400 , height=700')">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filter=asc','local', 'width=400 , height=700')">
+                <a onclick="window.open('.index.php?filtercancel=all','local', 'width=400 , height=700')" title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>

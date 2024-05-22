@@ -27,7 +27,10 @@ if (isset($_GET['msg'])) {
 }
 $number = $_GET['task'];
 $alltasks = arrayfromcsv("../tasks.csv");
+$alltags = arrayfromcsv("../tags.csv");
+
 $task = findtask($alltasks, $number);
+
 ?>
 <form action="../form/modifycardform.php" method="post">
 
@@ -69,7 +72,24 @@ $task = findtask($alltasks, $number);
                 $value = $statut;
             }
             ?>
-            <p><?php echo $label . ": " . $value;?></p>
+            <p>
+                <?php
+                if ($key =="tags") {
+                    echo $label . ": ";
+                    if ((isset($value))) {
+                        $tags= explode(",", $value);
+                        foreach ($tags as $tag) {
+                            ?>
+                            <span class="tag <?php echo $tag;?>"><?php echo $tag;?></span>
+                            <?php
+                        }
+                    } else {
+                        $tags="";
+                    }
+                } else {
+                    echo $label . ": " . $value;
+                }?>
+            </p>
         <?php }
         ?>
         <input type="hidden" name="number" value="<?php echo $number; ?>">

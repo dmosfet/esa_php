@@ -28,7 +28,6 @@ function readcsv ($filename) {
     return $lignes;
 }
 
-
 function filtertaskonstatus ($filename, $status) {
     $result = [];
     $fp = fopen($filename, 'r');
@@ -45,6 +44,7 @@ function filtertaskonstatus ($filename, $status) {
 function arrayfromcsv ($filename): array {
     $datas=[];
     $record=[];
+    $result=[];
     $fp = fopen($filename, 'r');
     $columns = fgetcsv($fp);
     $numbercolumns = count($columns)-1;
