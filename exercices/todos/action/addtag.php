@@ -6,10 +6,11 @@ $color = isset($_POST['color']) ? $_POST['color'] : '';
 
 $newligne = [$number,$name, $color];
 
-
 addnewtag ($newligne);
 $msg = 'Ajout de la catégorie avec succes';
-header('Location: ../view/settings.php?msg='.$msg);
+$msg = urlencode($msg);
+
+header('Location: ../view/categories.php?msg='.$msg);
 
 function addnewtag ($task):bool {
     $fp = fopen('../tags.csv', 'a');

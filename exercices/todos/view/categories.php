@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../CSS/pico/pico.min.css">
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/style.php">
     <title>Tâche</title>
 </head>
 <body>
@@ -25,7 +25,8 @@ if (isset($_GET['msg'])) {
     </dialog>
     <?php
 }
-$alltags = arrayfromcsv('../tags.csv')
+$alltags = arrayfromcsv('../tags.csv');
+$colortheme = arrayfromcsv('../colortheme.csv');
 
 ?>
 <table>
@@ -60,6 +61,7 @@ $alltags = arrayfromcsv('../tags.csv')
    title="Ajouter une catégorie">
     <div class="addtag"></div>
 </a>
+
 <form method="post">
     <fieldset>
         <input type="submit" name="close" value="Fermer" onclick="refreshAndClose()">

@@ -25,11 +25,11 @@ copytasktodeletedtask($tasktocancel);
 unset($allstasks[$position]);
 
 // réécrit le fichier csv
-$msg = "Task not deleted";
+$msg = "La tâche n'a pas pu être supprimée";
 if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "Task deleted successfully";
+    $msg = "La tâche a été supprimée";
 }
-
+$msg = urlencode($msg);
 header('Location: ../view/recycle.php?msg='.$msg);
 
 function copytasktodeletedtask ($task):bool {

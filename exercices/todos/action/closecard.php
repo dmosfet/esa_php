@@ -26,16 +26,12 @@ $tasktoclose['closed'] = date("d-m-Y");
 $allstasks[$position] = $tasktoclose;
 
 // réécrit le fichier csv
-$msg = "Task not closed";
+$msg = "La tâche n'a pas pu être terminée";
 if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "Task closed";
+    $msg = "La tâche a été clôturée";
 }
-
+$msg = urlencode($msg);
 header('Location: ../view/card.php?task='.$number.'&msg='.$msg);
-
 ?>
-
-</form>
 </body>
 </html>
-

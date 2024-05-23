@@ -24,11 +24,12 @@ $tasktocancel['status'] = -1;
 $allstasks[$position] = $tasktocancel;
 
 // réécrit le fichier csv
-$msg = "Task not deleted";
+$msg = "La tâche n'a pu être supprimée";
 if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "Task deleted successfully";
+    $msg = "La tâche a été supprimée";
 }
 
+$msg = urlencode($msg);
 header('Location: ../view/card.php?task='.$number.'&msg='.$msg);
 ?>
 

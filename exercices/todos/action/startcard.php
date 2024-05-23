@@ -25,11 +25,11 @@ $tasktostart['start'] = date("d-m-Y");
 $allstasks[$position] = $tasktostart;
 
 // réécrit le fichier csv
-$msg = "Task not started";
+$msg = "La tâche n'a pu être démarée";
 if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "Task started";
+    $msg = "La tâche a démarré";
 }
-
+$msg = urlencode($msg);
 header('Location: ../view/card.php?task='.$number.'&msg='.$msg);
 
 ?>

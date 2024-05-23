@@ -12,21 +12,21 @@
 </head>
 <body>
 <?php
+include("../function.php");
 
-include('../function.php');
-$name = strtolower(isset($_POST['name']) ? $_POST['name'] : '');
-$alltasks = arrayfromcsv('../tasks.csv');
-$idfindedtask = "";
-
-foreach ($alltasks as $task) {
-    if (str_contains(strtolower($task['name']), $name)) {
-        $idfindedtask .= $task['number'] . ";";
-    }
-}
-
-header('Location: ../view/search.php?tasks='.$idfindedtask);
-
+// On récupère les données du formulaire
+$filter= $_POST['filter'];
+$kanban= $_POST['kanban'];
+setcookie($kanban, $filter, time() + (86400 * 30), "/");
 ?>
+
+<input type="submit" name="close" value="Fermer" onclick="refreshAndClose()">
+<script type="text/javascript">
+    function refreshAndClose() {
+        window.opener.location.reload(true);
+        window.close();
+    }
+</script>
 </body>
 </html>
 

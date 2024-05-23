@@ -21,19 +21,17 @@ $position = array_search($tasktocancel, $allstasks);
 
 // update la valeur orginal puis update la liste via son index
 $tasktocancel['status'] = 3;
-$tasktocancel['canceled'] = date("d-m-Y");
+$tasktocancel['cancelled'] = date("d-m-Y");
 $allstasks[$position] = $tasktocancel;
 
 // réécrit le fichier csv
-$msg = "Task not given up";
+$msg = "La tâche n'as pas pu être annulée";
 if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "Task given up";
+    $msg = "La tâche a été annulée";
 }
-
+$msg = urlencode($msg);
 header('Location: ../view/card.php?task='.$number.'&msg='.$msg);
 ?>
-
-</form>
 </body>
 </html>
 

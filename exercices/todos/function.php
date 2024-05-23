@@ -1,5 +1,11 @@
 <?php
 
+function stringdatereverse ($date) {
+    $annee = substr($date, 0, 4);
+    $mois = substr($date, 5, 2);
+    $jour = substr($date, 8, 2);
+    return $jour."-".$mois."-".$annee;
+}
 function lastnumber ($arrays) :int {
     $max=0;
     foreach ($arrays as $record){
@@ -28,19 +34,27 @@ function readcsv ($filename) {
     return $lignes;
 }
 
-function filtertaskonstatus ($filename, $status) {
-    $result = [];
+function statusfilteredarrayfromcsv ($filename, $status): array {
+    $datas=[];
+    $record=[];
+    $result=[];
     $fp = fopen($filename, 'r');
+    $columns = fgetcsv($fp);
+    $numbercolumns = count($columns)-1;
     while (($row = fgetcsv($fp)) !== false) {
-        if ($row[2]==$status) {
-            $result[] = $row;
+        $datas[] = $row;
+    }
+    foreach ($datas as $ligne) {
+        if ($ligne[2]==$status) {
+            for ($i=0; $i<=$numbercolumns; $i++) {
+                $record[$columns[$i]] = $ligne[$i];
+            }
+            $result[] = $record;
         }
     }
     fclose($fp);
     return $result;
 }
-
-
 function arrayfromcsv ($filename): array {
     $datas=[];
     $record=[];
@@ -75,4 +89,54 @@ function csvfromarray ($array, $filename) {
     return true;
 }
 
+function taskname_ascsort($a, $b)
+{
+    if (strtolower($a['name']) < strtolower($b['name'])) {
+        return -1;
+    }
+    if (strtolower($a['name']) > strtolower($b['name'])) {
+        return 1;
+    }
+    if (strtolower($a['name']) == strtolower($b['name'])) {
+        return 0;
+    }
+}
+
+function taskname_descsort($a, $b)
+{
+    if (strtolower($a['name']) > strtolower($b['name'])) {
+        return -1;
+    }
+    if (strtolower($a['name']) < strtolower($b['name'])) {
+        return 1;
+    }
+    if (strtolower($a['name']) == strtolower($b['name'])) {
+        return 0;
+    }
+}
+function taskid_ascsort($a, $b)
+{
+    if ($a['number'] < $b['number']) {
+        return -1;
+    }
+    if ($a['number'] > $b['number']) {
+        return 1;
+    }
+    if ($a['number'] == $b['number']) {
+        return 0;
+    }
+}
+
+function taskid_descsort($a, $b)
+{
+    if ($a['number'] > $b['number']) {
+        return -1;
+    }
+    if ($a['number'] < $b['number']) {
+        return 1;
+    }
+    if ($a['number'] == $b['number']) {
+        return 0;
+    }
+}
 

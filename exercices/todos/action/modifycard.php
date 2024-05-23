@@ -18,10 +18,12 @@ $updatedtask = $_POST;
 // On supprime l'input "submit" du formulaire reçu
 unset($updatedtask['submit']);
 
+var_dump($updatedtask);
+
+// On recherche les données originales de la tâche à modifier
 // On récupère toutes les tâches déjà encodées
 $alltasks = arrayfromcsv("../tasks.csv");
 
-// On recherche les données originales de la tâche à modifier
 foreach ($alltasks as $task) {
     if ($task['number'] == $updatedtask['number']) {
         $oldvaluetask = $task;
@@ -29,22 +31,42 @@ foreach ($alltasks as $task) {
     }
 }
 
-echo $oldvaluetask['start'];
-echo $updatedtask['status'];
+// On vérifie si la données est mise à jour
+if ($updatedtask['start'] != $oldvaluetask['start']) {
+    // On converti les dates du formulaire en JJ-MM-YYYY si non vide
+    $updatedtask['start'] = !(empty($updatedtask['start'])) ? stringdatereverse($updatedtask['start']) : '';
+    }
+if ($updatedtask['due'] != $oldvaluetask['due']) {
+    // On converti les dates du formulaire en JJ-MM-YYYY si non vide
+    $updatedtask['due'] = !(empty($updatedtask['due'])) ? stringdatereverse($updatedtask['due']) : '';
+}
+if ($updatedtask['closed'] != $oldvaluetask['closed']) {
+    // On converti les dates du formulaire en JJ-MM-YYYY si non vide
+    $updatedtask['closed'] = !(empty($updatedtask['closed'])) ? stringdatereverse($updatedtask['closed']) : '';
+}
+if ($updatedtask['cancelled'] != $oldvaluetask['cancelled']) {
+    // On converti les dates du formulaire en JJ-MM-YYYY si non vide
+    $updatedtask['cancelled'] = !(empty($updatedtask['cancelled'])) ? stringdatereverse($updatedtask['cancelled']) : '';
+}
+
+// On transforme l'array tags reçues en un string séparé par une virgule'
+if (!(empty($updatedtask['tags']))) {
+    $updatedtask['tags'] = implode(",", $updatedtask['tags']);
+} else {
+    $updatedtask['tags'] = "";
+}
+
 // On réalise des vérifications avant de réécrire
-// On initialise une variable $checked à true. On la change en false si on trouve une incohérence
+//On initialise une variable $checked à true. On la change en false si on trouve une incohérence
 $checked = true;
 
 if ((empty($oldvaluetask['start']))  and !(empty($updatedtask['start']))) {
     $updatedtask['status'] = "1";
 }
-echo $updatedtask['status'];
 
 if ($updatedtask['due'] !="" && $updatedtask['due'] < $updatedtask['start']) {
     $checked = false;
 }
-
-var_dump($updatedtask['status']);
 
 // Si la vérification s'est bien passée, on remplace l'ancienne tâche par la nouvelle
 // dans la liste de toutes les tâches en se basant sur sa position
@@ -58,6 +80,8 @@ if ($checked) {
 } else {
     $msg = "Modification annulée";
 }
+
+$msg = urlencode($msg);
 
 // On retourne en mode vue pour afficher les changements
 header('Location: ../view/card.php?task='.$updatedtask['number'].'&msg='.$msg);

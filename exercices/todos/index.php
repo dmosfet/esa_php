@@ -6,58 +6,86 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="CSS/pico/pico.min.css">
-    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/style.php">
     <title>Gestionnaire de tâches</title>
 </head>
 <header>
     <h2>Planificateur de tâches
-        <a onclick="window.open('./view/recycle.php','local', 'width=400 , height=800')" title="Consulter les tâches supprimées">
+        <a onclick="window.open('./view/recycle.php','local', 'width=400 , height=800')"
+           title="Consulter les tâches supprimées">
             <div class="bin"></div>
         </a>
-        <a onclick="window.open('./view/settings.php','local', 'width=800 , height=900')" title="Consulter les paramètres de l'application">
-            <div class="settings"></div>
+        <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')"
+           title="Rechercher une tâche">
+            <div class="search"></div>
+        </a>
+        <a onclick="window.open('./view/categories.php','local', 'width=800 , height=900')"
+           title="Gestionnaire de catégories">
+            <div class="categories"></div>
+        </a>
+        <a onclick="window.open('./colormenu.php?mode=view','local', 'width=800 , height=900')"
+           title="Consulter la palette de couleurs">
+            <div class="colors"></div>
         </a>
     </h2>
 </header>
 <body>
 <?php
 include('function.php');
+
+$filternew = $_COOKIE['new'] ?? 'taskid_ascsort';
+$filterstarted = $_COOKIE['started'] ?? 'taskid_ascsort';
+$filterclosed = $_COOKIE['closed'] ?? 'taskid_ascsort';
+$filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
 ?>
 <div class="kanban">
     <fieldset class="nouveau">
-        <legend>Back log
+        <legend class="legendkanban">Back log
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')"
-                   title="Rechercher une tâche">
-                    <div class="button search"></div>
-                </a>
                 <a onclick="window.open('./form/addcardform.php?status=0','local', 'width=400 , height=700')"
                    title="Ajouter une tâche">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filternew=all','local', 'width=400 , height=700')" title="Filtrer">
+                <a onclick="window.open('./form/filtermenuform.php?kanban=new','local', 'width=400 , height=700')"
+                   title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
+
         </legend>
         <?php
-        $newtasks = filtertaskonstatus("tasks.csv", "0");
+        $newtasks = statusfilteredarrayfromcsv('tasks.csv', "0");
+        switch ($filternew) {
+            case 'taskid_ascsort':
+                usort($newtasks, 'taskid_ascsort');
+                break;
+            case 'taskid_descsort':
+                usort($newtasks, 'taskid_descsort');
+                break;
+            case 'taskname_ascsort':
+                usort($newtasks, 'taskname_ascsort');
+                break;
+            case 'taskname_descsort':
+                usort($newtasks, 'taskname_descsort');
+                break;
+        };
+
         foreach ($newtasks as $task) {
             ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=200 , min-height=300')"
-                   title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
-                    <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
+                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=200 , min-height=300')"
+                   title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
+                    <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./action/cancelcard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/cancelcard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Annuler une tâche">
                     <div class="button cancel"></div>
                 </a>
-                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./action/startcard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/startcard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Démarrer une tâche">
                     <div class="button start"></div>
                 </a>
@@ -66,38 +94,51 @@ include('function.php');
         }
         ?>
     </fieldset>
-    <fieldset class="cours">
-        <legend>En cours
+    <fieldset class="encours">
+        <legend class="legendkanban">En cours
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')">
-                    <div class="button search"></div>
-                </a>
                 <a onclick="window.open('./form/addcardform.php?status=1','local', 'width=400 , height=700')">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filterstart=all','local', 'width=400 , height=700')" title="Filtrer">
+                <a onclick="window.open('./form/filtermenuform.php?kanban=started','local', 'width=400 , height=700')"
+                   title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
         </legend>
         <?php
-        $openedtasks = filtertaskonstatus("tasks.csv", "1");
-        foreach ($openedtasks as $task) {
+        $startedtasks = statusfilteredarrayfromcsv("tasks.csv", "1");
+        switch ($filterstarted) {
+            case 'taskid_ascsort':
+                usort($startedtasks, 'taskid_ascsort');
+                break;
+            case 'taskid_descsort':
+                usort($startedtasks, 'taskid_descsort');
+                break;
+            case 'taskname_ascsort':
+                usort($startedtasks, 'taskname_ascsort');
+                break;
+            case 'taskname_descsort':
+                usort($startedtasks, 'taskname_descsort');
+                break;
+        };
+
+        foreach ($startedtasks as $task) {
             ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=560')"
-                   title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
-                    <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
+                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=560')"
+                   title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
+                    <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./action/cancelcard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/cancelcard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Annuler une tâche">
                     <div class="button cancel"></div>
                 </a>
-                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./action/closecard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/closecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Terminer une tâche">
                     <div class="button close"></div>
                 </a>
@@ -108,32 +149,44 @@ include('function.php');
         ?>
     </fieldset>
     <fieldset class="terminé">
-        <legend>Terminé
+        <legend class="legendkanban">Terminé
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')">
-                    <div class="button search"></div>
-                </a>
                 <a onclick="window.open('./form/addcardform.php?status=2','local', 'width=400 , height=700')">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filterclose=all','local', 'width=400 , height=700')" title="Filtrer">
+                <a onclick="window.open('./form/filtermenuform.php?kanban=closed','local', 'width=400 , height=700')"
+                   title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
         </legend>
         <?php
-        $closedtasks = filtertaskonstatus("tasks.csv", "2");
+        $closedtasks = statusfilteredarrayfromcsv("tasks.csv", "2");
+        switch ($filterclosed) {
+            case 'taskid_ascsort':
+                usort($closedtasks, 'taskid_ascsort');
+                break;
+            case 'taskid_descsort':
+                usort($closedtasks, 'taskid_descsort');
+                break;
+            case 'taskname_ascsort':
+                usort($closedtasks, 'taskname_ascsort');
+                break;
+            case 'taskname_descsort':
+                usort($closedtasks, 'taskname_descsort');
+                break;
+        };
         foreach ($closedtasks as $task) { ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=560')"
-                   title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
-                    <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
+                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=560')"
+                   title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
+                    <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./action/restorecard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Restaurer une tâche">
                     <div class="button start"></div>
                 </a>
@@ -143,36 +196,48 @@ include('function.php');
         ?>
     </fieldset>
     <fieldset class="annulé">
-        <legend>Annulé
+        <legend class="legendkanban">Annulé
             <div class="action">
-                <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')">
-                    <div class="button search"></div>
-                </a>
                 <a onclick="window.open('./form/addcardform.php?status=3','local', 'width=400 , height=700')">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('.index.php?filtercancel=all','local', 'width=400 , height=700')" title="Filtrer">
+                <a onclick="window.open('./form/filtermenuform.php?kanban=cancelled','local', 'width=400 , height=700')"
+                   title="Filtrer">
                     <div class="button filter"></div>
                 </a>
             </div>
         </legend>
         <?php
-        $droppedtasks = filtertaskonstatus("tasks.csv", "3");
-        foreach ($droppedtasks as $task) { ?>
+        $cancelledtasks = statusfilteredarrayfromcsv("tasks.csv", "3");
+        switch ($filtercancelled) {
+            case 'taskid_ascsort':
+                usort($cancelledtasks, 'taskid_ascsort');
+                break;
+            case 'taskid_descsort':
+                usort($cancelledtasks, 'taskid_descsort');
+                break;
+            case 'taskname_ascsort':
+                usort($cancelledtasks, 'taskname_ascsort');
+                break;
+            case 'taskname_descsort':
+                usort($cancelledtasks, 'taskname_descsort');
+                break;
+        };
+        foreach ($cancelledtasks as $task) { ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=560')"
-                   title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
-                    <div class="titre"><p><?php echo '#' . $task[0] . ' - ' . $task[1]; ?></p></div>
+                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=560')"
+                   title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
+                    <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./action/deletecard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/deletecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Supprimer une tâche">
                     <div class="button delete"></div>
                 </a>
-                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./action/restorecard.php?task=<?php echo $task[0]; ?>','local', 'width=400 , height=700')"
+                <a onclick="window.open('./action/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Restaurer une tâche">
                     <div class="button start"></div>
                 </a>

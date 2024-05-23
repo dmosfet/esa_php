@@ -28,11 +28,12 @@ $tasktorestore['closed'] = "";
 $allstasks[$position] = $tasktorestore;
 
 // réécrit le fichier csv
-$msg = "Task not reopened";
+$msg = "La tâche n'a pu être restaurée";
 if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "Task reopened";
+    $msg = "La tâche a été restaurée";
 }
 
+$msg = urlencode($msg);
 header('Location: ../view/card.php?task='.$number.'&msg='.$msg);
 ?>
 
