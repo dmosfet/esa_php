@@ -6,6 +6,11 @@ body {
 min-height:800px;
 }
 
+h2 {
+padding-left: 30px;
+font-style: italic;
+}
+
 .kanban {
 display: grid;
 width: 100%;
@@ -39,7 +44,7 @@ width: 50px;
 height: 50px;
 margin-left:5px;
 background-position: center;
-background-image : url('../images/color_palette.png ');
+background-image : url('../images/color.png ');
 background-size: 90%;
 }
 

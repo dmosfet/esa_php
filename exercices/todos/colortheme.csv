@@ -8,7 +8,7 @@ body,background-color,#7fffd4
 .encours,border-color,#008b8b
 .annulé,border-color,#008b8b
 .terminé,border-color,#008b8b
-.cartouche,background-color,#90ee90
+.cartouche,background-color,#7fffd4
 .cartouche,border-color,#008b8b
 .dialog,border-color,#008b8b
 .tag,border-color,#008b8b

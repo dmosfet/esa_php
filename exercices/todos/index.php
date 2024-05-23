@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="CSS/pico/pico.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="CSS/style.php">
     <title>Gestionnaire de tâches</title>
 </head>
@@ -51,7 +51,6 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
                     <div class="button filter"></div>
                 </a>
             </div>
-
         </legend>
         <?php
         $newtasks = statusfilteredarrayfromcsv('tasks.csv', "0");
@@ -68,8 +67,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             case 'taskname_descsort':
                 usort($newtasks, 'taskname_descsort');
                 break;
-        };
-
+        }
         foreach ($newtasks as $task) {
             ?>
             <div class="cartouche">
@@ -121,8 +119,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             case 'taskname_descsort':
                 usort($startedtasks, 'taskname_descsort');
                 break;
-        };
-
+        }
         foreach ($startedtasks as $task) {
             ?>
             <div class="cartouche">
@@ -175,7 +172,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             case 'taskname_descsort':
                 usort($closedtasks, 'taskname_descsort');
                 break;
-        };
+        }
         foreach ($closedtasks as $task) { ?>
             <div class="cartouche">
                 <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=560')"
@@ -222,7 +219,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             case 'taskname_descsort':
                 usort($cancelledtasks, 'taskname_descsort');
                 break;
-        };
+        }
         foreach ($cancelledtasks as $task) { ?>
             <div class="cartouche">
                 <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=560')"

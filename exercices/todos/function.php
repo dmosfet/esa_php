@@ -79,7 +79,6 @@ function csvfromarray ($array, $filename) {
     $fp = fopen($filename, 'r');
     $columns = fgetcsv($fp);
     fclose($fp);
-
     $fp = fopen($filename, 'w');
     fputcsv($fp, $columns);
     foreach ($array as $ligne) {
@@ -139,4 +138,3 @@ function taskid_descsort($a, $b)
         return 0;
     }
 }
-

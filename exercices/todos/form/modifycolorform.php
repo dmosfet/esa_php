@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../CSS/pico/pico.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="../CSS/style.php">
     <title>Tâche à modifier</title>
 </head>
@@ -42,9 +42,9 @@
                     <option value="#008b8b" title="darkcyan">Darkcyan</option>
                     <option value="#f08080" title="lightcoral">Lightcoral</option>
                     <option value="#7fffd4" title="aquamarine">Aquamarine</option>
-                    <option value="#08e8de" title="lightcoral">Brighturquoise</option>
-                    <option value="#1dacd6" title="aquamarine">Brightcerulean</option>
-                    <option value="#ffa500" title="aquamarine">Orange</option>
+                    <option value="#08e8de" title="brightturquoise">Brighturquoise</option>
+                    <option value="#1dacd6" title="brightcerulean">Brightcerulean</option>
+                    <option value="#ffa500" title="orange">Orange</option>
                 </datalist>
             <?php
             }
