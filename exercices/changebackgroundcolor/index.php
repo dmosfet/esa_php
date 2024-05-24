@@ -9,9 +9,11 @@
     <title>Document</title>
 </head>
 <?php
+
 // Si une valeur $_POST existe, je la récupère et je l'utilise pour set un cookie. Je l'utilise pour changer le fond
 // sinon
 // Si un cookie existe, j'utilise sa valeur pour changer le fond d'écran, sinon je choisi le blanc.
+
 if (isset($_POST['color'])) {
     setcookie("color", $_POST['color'], time() + (30), "/");
     $color = $_POST['color'];
