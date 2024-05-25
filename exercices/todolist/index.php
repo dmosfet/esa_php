@@ -37,6 +37,9 @@ $filternew = $_COOKIE['new'] ?? 'taskid_ascsort';
 $filterstarted = $_COOKIE['started'] ?? 'taskid_ascsort';
 $filterclosed = $_COOKIE['closed'] ?? 'taskid_ascsort';
 $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
+
+$alltasks = arrayfromcsv('tasks.csv')
+
 ?>
 <div class="kanban">
     <fieldset class="nouveau">
@@ -53,7 +56,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             </div>
         </legend>
         <?php
-        $newtasks = statusfilteredarrayfromcsv('tasks.csv', "0");
+        $newtasks = statusfilteredarray($alltasks, "0");
         switch ($filternew) {
             case 'taskid_ascsort':
                 usort($newtasks, 'taskid_ascsort');
@@ -105,7 +108,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             </div>
         </legend>
         <?php
-        $startedtasks = statusfilteredarrayfromcsv("tasks.csv", "1");
+        $startedtasks = statusfilteredarray($alltasks, "1");
         switch ($filterstarted) {
             case 'taskid_ascsort':
                 usort($startedtasks, 'taskid_ascsort');
@@ -158,7 +161,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             </div>
         </legend>
         <?php
-        $closedtasks = statusfilteredarrayfromcsv("tasks.csv", "2");
+        $closedtasks = statusfilteredarray($alltasks, "2");
         switch ($filterclosed) {
             case 'taskid_ascsort':
                 usort($closedtasks, 'taskid_ascsort');
@@ -205,7 +208,7 @@ $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
             </div>
         </legend>
         <?php
-        $cancelledtasks = statusfilteredarrayfromcsv("tasks.csv", "3");
+        $cancelledtasks = statusfilteredarray($alltasks, "3");
         switch ($filtercancelled) {
             case 'taskid_ascsort':
                 usort($cancelledtasks, 'taskid_ascsort');

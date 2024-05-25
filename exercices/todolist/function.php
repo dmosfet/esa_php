@@ -34,25 +34,13 @@ function readcsv ($filename) {
     return $lignes;
 }
 
-function statusfilteredarrayfromcsv ($filename, $status): array {
-    $datas=[];
-    $record=[];
+function statusfilteredarray ($arrayoftasks, $status): array {
     $result=[];
-    $fp = fopen($filename, 'r');
-    $columns = fgetcsv($fp);
-    $numbercolumns = count($columns)-1;
-    while (($row = fgetcsv($fp)) !== false) {
-        $datas[] = $row;
-    }
-    foreach ($datas as $ligne) {
-        if ($ligne[2]==$status) {
-            for ($i=0; $i<=$numbercolumns; $i++) {
-                $record[$columns[$i]] = $ligne[$i];
-            }
-            $result[] = $record;
+    foreach ($arrayoftasks as $task) {
+        if ($task['status'] == $status) {
+            $result[] = $task;
         }
     }
-    fclose($fp);
     return $result;
 }
 function arrayfromcsv ($filename): array {
@@ -137,4 +125,30 @@ function taskid_descsort($a, $b)
     if ($a['number'] == $b['number']) {
         return 0;
     }
+}
+
+function addnewtask ($task):bool {
+    $fp = fopen('../tasks.csv', 'a');
+    fputcsv($fp,$task );
+    fclose($fp);
+    return true;
+}
+
+function addnewfile ($file):bool {
+    $fp = fopen('../files.csv', 'a');
+    fputcsv($fp,$file );
+    fclose($fp);
+    return true;
+}
+
+function findcardfiles ($filename, $number) {
+    $lignes = [];
+    $fp = fopen($filename, 'r');
+    while (($row = fgetcsv($fp)) !== false) {
+        if ($row[0] == $number) {
+            $lignes[] = $row;
+        }
+    }
+    fclose($fp);
+    return $lignes;
 }

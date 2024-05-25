@@ -9,5 +9,4 @@ echo 'Type du fichier :' . $_FILES['nomFile']['type'] .'<br />';
 echo 'Erreur de téléchargement :' . $_FILES['nomFile']['error'] .'<br />';
 
 $destination ='./'.$_FILES['nomFile']['name'];
-
 move_uploaded_file($_FILES['nomFile']['tmp_name'], $destination);

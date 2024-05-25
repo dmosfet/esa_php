@@ -19,6 +19,7 @@ $alltags = arrayfromcsv('../tags.csv');
 
 $number = $task['number'];
 $name = $task['name'];
+$description = $task['description'];
 $status = $task['status'];
 $old_status = $task['old_status'];
 $creation = $task['creation'];

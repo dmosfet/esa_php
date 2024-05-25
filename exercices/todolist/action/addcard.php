@@ -2,6 +2,7 @@
 include ('../function.php');
 $number = isset($_POST['number']) ? $_POST['number'] : '1';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
+$description = isset($_POST['description']) ? $_POST['description'] : '';
 $status = isset($_POST['status']) ? $_POST['status'] : '0';
 $old_status = isset($_POST['old_status']) ? $_POST['old_status'] : '0';
 $creation = !(empty($_POST['creation'])) ? stringdatereverse($_POST['creation']) : $today = date("d-m-Y");
@@ -11,7 +12,7 @@ $closed = (isset($_POST['closed'])  && !(empty($_POST['due']))) ? stringdatereve
 $cancelled = (isset($_POST['cancelled']) && !(empty($_POST['due']))) ? stringdatereverse($_POST['cancelled']) : '';
 $tags = isset($_POST['tags']) ? implode(",",$_POST['tags']) : '';
 
-$newligne = [$number,$name, $status,$old_status, $creation, $start, $due, $closed, $cancelled, $tags];
+$newligne = [$number,$name, $description, $status, $old_status, $creation, $start, $due, $closed, $cancelled, $tags];
 
 $checked = true;
 if (!empty($due) && $due< $start) {
@@ -29,10 +30,5 @@ if ($checked) {
     header('Location: ../form/addcardform.php?task='.$number.'&msg='.$msg);
 }
 
-function addnewtask ($task):bool {
-    $fp = fopen('../tasks.csv', 'a');
-    fputcsv($fp,$task );
-    fclose($fp);
-    return true;
-}
+
 

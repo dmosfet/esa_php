@@ -17,6 +17,7 @@ $alltags = arrayfromcsv('../tags.csv');
 
 $number = $nextnumber;
 $name = "";
+$description="";
 $status = isset($_GET["status"]) ? $_GET["status"] : "0";
 $old_status = isset($_GET["status"]) ? $_GET["status"] : "0";
 $creation= date("Y-m-d");

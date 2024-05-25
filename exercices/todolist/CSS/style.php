@@ -20,7 +20,7 @@ width: 100%;
 height: 575px;
 }
 
-.nouveau, .encours, .annulé, .terminé {
+.nouveau, .encours, .annulé, .terminé, .card {
 border: 5px solid;
 border-radius: 20px;
 overflow-y: scroll;
@@ -176,12 +176,12 @@ margin-left: 25%;
 }
 
 .tag {
-text-align:center;
-margin-right: 12px;
-border:1px solid;
-border-radius:10px;
-padding-left:10px;
-padding-right:10px;
+    text-align:center;
+    margin-right: 12px;
+    border:1px solid;
+    border-radius:10px;
+    padding-left:10px;
+    padding-right:10px;
 }
 
 .legendkanban {
@@ -192,6 +192,82 @@ padding-right:10px;
     padding-left:10px;
     border-radius: 10px;
 }
+
+.card {
+    margin: 5%;
+    width:90%;
+}
+
+.cardview {
+    padding: 20px;
+}
+
+.cardheader {
+text-align: right;
+}
+
+.s_new {
+border: 1px solid lightgrey;
+background-image: linear-gradient(white,lightgrey);
+border-radius:10px;
+}
+
+.s_started {
+border: 1px solid lightgrey;
+background-image: linear-gradient(steelblue,skyblue);
+border-radius:20px;
+}
+
+.s_closed {
+border: 1px solid lightgrey;
+background-image: linear-gradient(lightseagreen,cyan);
+border-radius:20px;
+}
+
+.s_cancelled {
+border: 1px solid lightgrey;
+background-image: linear-gradient(coral,orange);
+border-radius:20px;
+}
+
+.s_deleted {
+background-color: red;
+border-radius:20px;
+}
+
+.carddescription {
+    height: 100px;
+    background-color: lightgrey;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.cardcomments {
+height: 100px;
+background-color: lightgrey;
+border: 2px solid black;
+border-radius: 10px;
+}
+
+.cardtags p {
+    display: inline;
+}
+
+.joinfile {
+    background-image: url('../images/paperclip.png');
+    background-size: cover;
+}
+
+.cardheader h2 {
+    text-align: left;
+}
+
+hr {
+    border: 5px solid darkcyan;
+}
+
+
+
 <?php
 include ('../function.php');
 // Background-color gérée par le fichier colortheme.csv
