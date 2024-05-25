@@ -168,7 +168,7 @@ $oldstatut = match ($task['old_status']) {
         <?php } else { ?>
             <div class="cardcomments">
                 <p>Aucun commentaire</p>
-        </div>
+            </div>
         <?php
         }?>
     <p></p>
