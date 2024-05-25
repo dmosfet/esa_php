@@ -155,7 +155,6 @@ float:left;
 }
 
 .titre p {
-
 max-width: 175px;
 white-space: nowrap;
 overflow: hidden;
@@ -220,7 +219,7 @@ border-radius:20px;
 
 .s_closed {
 border: 1px solid lightgrey;
-background-image: linear-gradient(lightseagreen,cyan);
+background-image: linear-gradient(lime,green);
 border-radius:20px;
 }
 
@@ -235,18 +234,15 @@ background-color: red;
 border-radius:20px;
 }
 
-.carddescription {
+.carddescription, .cardcomments {
     height: 100px;
     background-color: lightgrey;
     border: 2px solid black;
     border-radius: 10px;
 }
 
-.cardcomments {
-height: 100px;
-background-color: lightgrey;
-border: 2px solid black;
-border-radius: 10px;
+.carddescription p, .cardcomments p {
+    padding:10px;
 }
 
 .cardtags p {
@@ -257,6 +253,39 @@ border-radius: 10px;
     background-image: url('../images/paperclip.png');
     background-size: cover;
 }
+
+.addcomment{
+background-image: url('../images/comment.png');
+background-size: cover;
+}
+
+.commentlign {
+    display: flex;
+}
+
+.cardcomments {
+
+    max-height: 100px;
+    width: 85%;
+    overflow-y: scroll;
+    background-color: lightgrey;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-bottom:10px;
+}
+
+.deletecommentmenu{
+    height: 100px;
+    width: 10%;
+    margin-left: 30px;
+}
+
+.deletecommentbutton{
+    margin-top: 35px;
+    background-image: url('../images/trash.png');
+    background-size: cover;
+}
+
 
 .cardheader h2 {
     text-align: left;

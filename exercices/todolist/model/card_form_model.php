@@ -1,5 +1,5 @@
 <input type="hidden" name="number" placeholder="Numéro de la tâche" value="<?php echo $number; ?>"/>
-<input type="text" name="name" placeholder="Nom de la tâche" value="<?php echo $name; ?>" pattern="[A-Za-zà-üÀ-Ü\s]+"
+<input type="text" name="name" placeholder="Nom de la tâche" value="<?php echo $comment; ?>" pattern="[A-Za-zà-üÀ-Ü\s]+"
        required/>
 <input type="text" name="description" placeholder="Description de la tâche" value="<?php echo $description; ?>"
        required/>

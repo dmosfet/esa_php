@@ -141,7 +141,37 @@ function addnewfile ($file):bool {
     return true;
 }
 
-function findcardfiles ($filename, $number) {
+function addnewcomment($file):bool {
+    $fp = fopen('../comments.csv', 'a');
+    fputcsv($fp,$file );
+    fclose($fp);
+    return true;
+}
+
+function findfilefromtasknumber ($filename, $number) {
+    $lignes = [];
+    $fp = fopen($filename, 'r');
+    while (($row = fgetcsv($fp)) !== false) {
+        if ($row[0] == $number) {
+            $lignes[] = $row;
+        }
+    }
+    fclose($fp);
+    return $lignes;
+}
+
+function findtasknumberfromfile ($filename,$fichier) {
+    $fp = fopen($filename, 'r');
+    while (($row = fgetcsv($fp)) !== false) {
+        if ($row[1] == $fichier) {
+            return $row[0];
+        }
+    }
+    fclose($fp);
+    return -1;
+}
+
+function findcommentsfromtasknumber ($filename, $number) {
     $lignes = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {

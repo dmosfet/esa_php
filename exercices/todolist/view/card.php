@@ -74,67 +74,109 @@ $oldstatut = match ($task['old_status']) {
 ?>
 <fieldset class="card">
     <div class="cardview">
-            <div class="cardheader">
-                <h2>
-                    <span><?php echo '#' . $task['number'] . " - " . $task['name']; ?></span>
-                    <div class="button <?php echo $statusicon; ?>"></div>
-                </h2>
-                <p><?php echo "Date de création: " . $task['creation']; ?></p>
-            </div>
-            <hr>
-            <div class="cardtags">
-                <p>Catégories: </p>
-                <?php
-                if ((isset($task['tags']))) {
-                    $tags = explode(",", $task['tags']);
-                    foreach ($tags as $tag) {
-                        ?>
-                        <span class="tag <?php echo $tag; ?>"><?php echo $tag; ?></span>
-                        <?php
-                    }
+        <div class="cardheader">
+            <h2>
+                <span><?php echo '#' . $task['number'] . " - " . $task['name']; ?></span>
+                <div class="button <?php echo $statusicon; ?>"></div>
+            </h2>
+            <p><?php echo "Date de création: " . $task['creation']; ?></p>
+        </div>
+        <hr>
+        <div class="cardtags">
+            <p>Catégories: </p>
+            <?php
+            if ((isset($task['tags']))) {
+                $tags = explode(",", $task['tags']);
+                foreach ($tags as $tag) {
+                    ?>
+                    <span class="tag <?php echo $tag; ?>"><?php echo $tag; ?></span>
+                    <?php
                 }
-                ?>
+            }
+            ?>
+        </div>
+        <hr>
+        <div>
+            <p>Description: </p>
+            <div class="carddescription">
+                <p><?php echo $task['description']; ?></p>
             </div>
-            <hr>
-            <div>
-                <p>Description: </p>
-                <div class="carddescription">
-                    <p><?php echo $task['description']; ?></p>
-                </div>
-            </div>
-            <hr>
-            <div class="cardfiles">
-                <span>Pièces jointes: </span>
-                <?php
-                if (isset($_GET['join']) && $_GET['join'] == "true"){
-                    include('../model/card_joinfile_form.php');
-                } ?>
-                <a href="card.php?task=<?php echo $number;?>&join=<?php echo "true";?>"><div class="button joinfile"></div></a>
-
-                <?php
-                $piecesjointes = findcardfiles('../files.csv', $number);
-                if ($piecesjointes) {
-                    foreach ($piecesjointes as $fichier){
-                        ?>
-                <p><a href="../upload/<?php echo $fichier[1];?>"><?php echo $fichier[1];?></a></p>
-                <?php
-                    }
-                }
-                ?>
-            </div>
-            <hr>
-            <div>
-                <p>Commentaires: </p>
-                <div class="cardcomments">
-                    <p>Aucun commentaires</p>
-                </div>
-            </div>
+        </div>
+        <hr>
+        <div class="cardfiles">
+            <span>Pièces jointes: </span>
+            <?php
+            if (isset($_GET['join']) && $_GET['join'] == "true") {
+                include('../model/card_joinfile_form.php');
+            } ?>
+            <a href="card.php?task=<?php echo $number; ?>&join=<?php echo "true"; ?>">
+                <div class="button joinfile"></div>
+            </a>
             <p></p>
-        <form action="../form/modifycardform.php" method="post">
-            <input type="hidden" name="number" value="<?php echo $number; ?>">
-            <input type="submit" name="modify" value="Modifier">
-            <input type="submit" name="close" value="Fermer" onclick="refreshAndClose()">
-        </form>
+            <?php
+            $piecesjointes = findfilefromtasknumber('../files.csv', $number);
+            if ($piecesjointes) {
+                foreach ($piecesjointes as $fichier) {
+                    ?>
+                    <div>
+                    <span>
+                        <a href="../upload/<?php echo $fichier[1]; ?>"><?php echo $fichier[1]; ?></a>
+                    </span>
+                        <span>
+                            <?php $file = urlencode($fichier[1]); ?>
+                        <a onclick="window.open('../action/deletefile.php?task=<?php echo $number; ?>&file=<?php echo $file; ?>','local', 'width=400 , height=700')">
+                            <div class="button deletecomment"></div>
+                        </a>
+                    </span>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        <hr>
+        <div>
+            <?php
+            if (isset($_GET['comment']) && $_GET['comment'] == "true") {
+                include('../model/card_addcomment_form.php');
+            }
+            ?>
+            <span>Commentaires: </span>
+            <a href="card.php?task=<?php echo $number; ?>&comment=<?php echo "true"; ?>">
+                <div class="button addcomment"></div>
+            </a>
+            <p></p>
+        </div>
+
+        <?php
+        $comments = findcommentsfromtasknumber('../comments.csv', $number);
+        if ($comments) {
+            foreach ($comments as $comment) { ?>
+                <div class="commentlign">
+                    <div class="cardcomments">
+                        <p><?php echo $comment[1]; ?></p>
+                    </div>
+                    <div class="deletecommentmenu">
+                        <p>Date du commentaire</p>
+                    </div>
+                    <?php $comment = urlencode($comment[1]); ?>
+                    <a onclick="window.open('../action/deletecomment.php?task=<?php echo $number; ?>&comment=<?php echo $comment;?>','local', 'width=400 , height=700')">
+                        <div class="button deletecommentbutton"></div>
+                    </a>
+                </div>
+            <?php } ?>
+        <?php } else { ?>
+            <div class="cardcomments">
+                <p>Aucun commentaire</p>
+        </div>
+        <?php
+        }?>
+    <p></p>
+    <form action="../form/modifycardform.php" method="post">
+        <input type="hidden" name="number" value="<?php echo $number; ?>">
+        <input type="submit" name="modify" value="Modifier">
+        <input type="submit" name="close" value="Fermer" onclick="refreshAndClose()">
+    </form>
     </div>
 </fieldset>
 
