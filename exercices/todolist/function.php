@@ -182,3 +182,30 @@ function findcommentsfromtasknumber ($filename, $number) {
     fclose($fp);
     return $lignes;
 }
+
+function checksondate($start, $due, $closed, $cancelled)
+{
+    $result = [];
+    do {
+        // La date d'échéance est antérieur à la date de début de la tâche
+        if (!empty($due) && ($due < $start)) {
+            $checked = false;
+            $msg = "Echéance antérieur au début de la tâche";
+            $error[] = $checked;
+            $error[] = $msg;
+            $result[] = $error;
+            unset($error);
+        }
+        // Une date de fin et d'annulation ont été encodées
+        if (!empty($closed) && !empty($cancelled)) {
+            $checked = false;
+            $msg = "Une tâche terminée ne peut pas être annulée";
+            $error[] = $checked;
+            $error[] = $msg;
+            $result[] = $error;
+            unset($error);
+        }
+    } while (0);
+
+    return $result;
+}

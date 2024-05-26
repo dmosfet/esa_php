@@ -2,8 +2,9 @@
 include ('../function.php');
 $number = $_POST['number'];
 $comment = isset($_POST['comment']) ? $_POST['comment'] : 'Aucun commentaires';
+$date = date("d-m-Y \n H:i:s");
 
-$newligne = [$number,$comment];
+$newligne = [$number,$comment,$date];
 
 $msg=urlencode("Ce commentaire n'a pu être ajouté");
 

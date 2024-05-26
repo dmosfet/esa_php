@@ -10,10 +10,11 @@
     <title>Tâche à modifier</title>
 </head>
 <body>
+<div class="modifycolor">
 <form action="./action/modifycolor.php" method="post">
-    <fieldset>
+    <fieldset class="card">
         <legend>Modifier les couleurs</legend>
-        <fieldset>
+        <fieldset class="colorform">
             <?php
             foreach ($colortheme as $color) {
                 $label = match ($color['balise']) {
@@ -23,7 +24,9 @@
                     '.terminé' => "Tâches terminées",
                     '.annulé' => "Tâches annulées",
                     '.cartouche' => "Tâche",
+                    '.card' => "Vue tâche",
                     '.start' => "Bouton démarrer",
+                    '.restart' => "Bouton restaurer",
                     '.edit' => "Bouton éditer",
                     '.close' => "Bouton fermer",
                     '.cancel' => "Bouton annuler",
@@ -54,6 +57,7 @@
         </fieldset>
     </fieldset>
 </form>
+</div>
 
 <script type="text/javascript">
     function refreshAndClose() {

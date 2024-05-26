@@ -48,6 +48,16 @@ background-image : url('../images/color.png ');
 background-size: 90%;
 }
 
+.chart {
+float:right;
+width: 50px;
+height: 50px;
+margin-left:5px;
+background-position: center;
+background-image : url('../images/chart.png ');
+background-size: 90%;
+}
+
 .search {
 float:right;
 width: 50px;
@@ -125,6 +135,13 @@ background-size: 90%;
 border-radius:10px;
 }
 
+.restart {
+background-image: url("../images/restore_task.png");
+background-size: 90%;
+border-radius:10px;
+}
+
+
 .edit {
 background-image: url("../images/edit_task.png");
 background-size: 90%;
@@ -192,29 +209,34 @@ margin-left: 25%;
     border-radius: 10px;
 }
 
-.card {
-    margin: 5%;
-    width:90%;
-}
-
-.cardview {
+.cardview, .formview {
     padding: 20px;
 }
 
-.cardheader {
-text-align: right;
+.cardtitle {
+    text-align: right;
+}
+
+.viewcard {
+    padding: 20px;
+}
+
+.addform, .modifyfilter, .filterform, .searchcard, .searchform, .modifycolor, .colorform {
+    padding: 20px;
 }
 
 .s_new {
-border: 1px solid lightgrey;
-background-image: linear-gradient(white,lightgrey);
-border-radius:10px;
+    height: 45px;
+    width: 45px;
+    border: 1px solid lightgrey;
+    background-image: linear-gradient(white,lightgrey);
+    border-radius:10px;
 }
 
 .s_started {
-border: 1px solid lightgrey;
-background-image: linear-gradient(steelblue,skyblue);
-border-radius:20px;
+    border: 1px solid lightgrey;
+    background-image: linear-gradient(steelblue,skyblue);
+    border-radius:20px;
 }
 
 .s_closed {
@@ -234,6 +256,11 @@ background-color: red;
 border-radius:20px;
 }
 
+.cardheader table tr td {
+    border: transparent;
+    background-color: transparent;
+}
+
 .carddescription, .cardcomments {
     height: 100px;
     background-color: lightgrey;
@@ -245,7 +272,7 @@ border-radius:20px;
     padding:10px;
 }
 
-.cardtags p {
+.taglist {
     display: inline;
 }
 
@@ -254,8 +281,13 @@ border-radius:20px;
     background-size: cover;
 }
 
+.deletefile{
+    background-image: url('../images/trash.png');
+    background-size: cover;
+}
+
 .addcomment{
-background-image: url('../images/comment.png');
+background-image: url('../images/add.png');
 background-size: cover;
 }
 
@@ -264,9 +296,8 @@ background-size: cover;
 }
 
 .cardcomments {
-
     max-height: 100px;
-    width: 85%;
+    width: 100%;
     overflow-y: scroll;
     background-color: lightgrey;
     border: 2px solid black;
@@ -274,10 +305,15 @@ background-size: cover;
     margin-bottom:10px;
 }
 
-.deletecommentmenu{
+.commentmenu{
     height: 100px;
-    width: 10%;
+    line-height: 100px;
+    font-size: 10pt;
+    width: 150px;
     margin-left: 30px;
+}
+.commentmenu p{
+    float:right;
 }
 
 .deletecommentbutton{
@@ -287,7 +323,7 @@ background-size: cover;
 }
 
 
-.cardheader h2 {
+.cardtitle h2 {
     text-align: left;
 }
 
@@ -295,6 +331,13 @@ hr {
     border: 5px solid darkcyan;
 }
 
+input:invalid {
+border: 2px solid red;
+}
+
+input:valid {
+border: 2px solid lime;
+}
 
 
 <?php

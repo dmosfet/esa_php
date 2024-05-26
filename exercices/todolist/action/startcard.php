@@ -21,7 +21,7 @@ $position = array_search($tasktostart, $allstasks);
 
 // update la valeur orginal puis update la liste via son index
 $tasktostart['status'] = 1;
-$tasktostart['start'] = date("d-m-Y");
+$tasktostart['start'] = time();
 $allstasks[$position] = $tasktostart;
 
 // réécrit le fichier csv

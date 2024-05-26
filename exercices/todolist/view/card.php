@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../CSS/style.php">
     <title>Tâche</title>
 </head>
-<body>
+<body class="viewcard">
 <?php
 include("../function.php");
 if (isset($_GET['msg'])) {
@@ -74,26 +74,64 @@ $oldstatut = match ($task['old_status']) {
 ?>
 <fieldset class="card">
     <div class="cardview">
-        <div class="cardheader">
+        <div class="cardtitle">
             <h2>
                 <span><?php echo '#' . $task['number'] . " - " . $task['name']; ?></span>
                 <div class="button <?php echo $statusicon; ?>"></div>
             </h2>
-            <p><?php echo "Date de création: " . $task['creation']; ?></p>
+            <p><?php echo "Date de création: " . date('d-m-Y', $task['creation']); ?></p>
+        </div>
+        <hr>
+        <div class="cardheader">
+            <table>
+                <tr>
+                    <td><?php if (!empty($task['due'])) {
+                            echo "Echéance: " . date('d-m-Y', $task['due']);
+                        } else {
+                            echo "Echéance: Non déterminée";
+                        }
+                        ?>
+                    </td>
+                    <td><?php if (!empty($task['start'])) {
+                            echo "Début: " . date('d-m-Y', $task['start']);
+                        } else {
+                            echo "Début: Non déterminé";
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php if (!empty($task['closed'])) {
+                            echo "Date de clôture: " . date('d-m-Y', $task['closed']);
+                        } else {
+                            echo "Date de clôture: Non terminée";
+                        }
+                        ?></td>
+                    <td><?php if (!empty($task['cancelled'])) {
+                            echo "Date d'annulation': " . date('d-m-Y', $task['cancelled']);
+                        } else {
+                            echo "Date d'annulation: Non annulée";
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="cardtags">
             <p>Catégories: </p>
-            <?php
-            if ((isset($task['tags']))) {
-                $tags = explode(",", $task['tags']);
-                foreach ($tags as $tag) {
-                    ?>
-                    <span class="tag <?php echo $tag; ?>"><?php echo $tag; ?></span>
-                    <?php
+            <div class="taglist">
+                <?php
+                if (!(empty($task['tags']))) {
+                    $tags = explode(",", $task['tags']);
+                    foreach ($tags as $tag) {
+                        ?>
+                        <span class="tag <?php echo $tag; ?>"><?php echo $tag; ?></span>
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
         <hr>
         <div>
@@ -110,67 +148,69 @@ $oldstatut = match ($task['old_status']) {
                 include('../model/card_joinfile_form.php');
             } ?>
             <a href="card.php?task=<?php echo $number; ?>&join=<?php echo "true"; ?>">
-                <div class="button joinfile"></div>
+                <div class="button joinfile" title="Ajouter une pièce-jointe"></div>
             </a>
             <p></p>
             <?php
             $piecesjointes = findfilefromtasknumber('../files.csv', $number);
             if ($piecesjointes) {
-                foreach ($piecesjointes as $fichier) {
-                    ?>
-                    <div>
+            foreach ($piecesjointes
+
+            as $fichier) {
+            ?>
+            <div>
                     <span>
                         <a href="../upload/<?php echo $fichier[1]; ?>"><?php echo $fichier[1]; ?></a>
                     </span>
-                        <span>
+                <span>
                             <?php $file = urlencode($fichier[1]); ?>
                         <a onclick="window.open('../action/deletefile.php?task=<?php echo $number; ?>&file=<?php echo $file; ?>','local', 'width=400 , height=700')">
-                            <div class="button deletecomment"></div>
-                        </a>
-                    </span>
-                    </div>
-                    <?php
-                }
-            }
-            ?>
-        </div>
-        <hr>
-        <div>
-            <?php
-            if (isset($_GET['comment']) && $_GET['comment'] == "true") {
-                include('../model/card_addcomment_form.php');
-            }
-            ?>
-            <span>Commentaires: </span>
-            <a href="card.php?task=<?php echo $number; ?>&comment=<?php echo "true"; ?>">
-                <div class="button addcomment"></div>
+                            <div class="button deletefile" title="""Supprimer la pièce-jointe"></div>
             </a>
-            <p></p>
+            </span>
         </div>
+        <?php
+        }
+        }
+        ?>
+    </div>
+    <hr>
+    <div>
+        <?php
+        if (isset($_GET['comment']) && $_GET['comment'] == "true") {
+            include('../model/card_addcomment_form.php');
+        }
+        ?>
+        <span>Commentaires: </span>
+        <a href="card.php?task=<?php echo $number; ?>&comment=<?php echo "true"; ?>">
+            <div class="button addcomment" title="Ajouter un commentaire"></div>
+        </a>
+        <p></p>
+    </div>
 
-        <?php
-        $comments = findcommentsfromtasknumber('../comments.csv', $number);
-        if ($comments) {
-            foreach ($comments as $comment) { ?>
-                <div class="commentlign">
-                    <div class="cardcomments">
-                        <p><?php echo $comment[1]; ?></p>
-                    </div>
-                    <div class="deletecommentmenu">
-                        <p>Date du commentaire</p>
-                    </div>
-                    <?php $comment = urlencode($comment[1]); ?>
-                    <a onclick="window.open('../action/deletecomment.php?task=<?php echo $number; ?>&comment=<?php echo $comment;?>','local', 'width=400 , height=700')">
-                        <div class="button deletecommentbutton"></div>
-                    </a>
+    <?php
+    $comments = findcommentsfromtasknumber('../comments.csv', $number);
+    if ($comments) {
+        foreach ($comments as $comment) { ?>
+            <div class="commentlign">
+                <div class="cardcomments">
+                    <p><?php echo $comment[1]; ?></p>
                 </div>
-            <?php } ?>
-        <?php } else { ?>
-            <div class="cardcomments">
-                <p>Aucun commentaire</p>
+                <div class="commentmenu">
+                    <p><?php echo $comment[2]; ?></p>
+                </div>
+                <?php $comment = urlencode($comment[1]); ?>
+                <a onclick="window.open('../action/deletecomment.php?task=<?php echo $number; ?>&comment=<?php echo $comment; ?>','local', 'width=400 , height=700')">
+                    <div class="button deletecommentbutton" title="Effacer le commentaire"></div>
+                </a>
             </div>
+        <?php } ?>
+    <?php } else { ?>
+        <div class="cardcomments">
+            <p>Aucun commentaire</p>
+        </div>
         <?php
-        }?>
+    } ?>
     <p></p>
     <form action="../form/modifycardform.php" method="post">
         <input type="hidden" name="number" value="<?php echo $number; ?>">

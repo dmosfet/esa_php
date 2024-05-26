@@ -10,9 +10,11 @@ body,background-color,#7fffd4
 .terminé,border-color,#008b8b
 .cartouche,background-color,#7fffd4
 .cartouche,border-color,#008b8b
-.dialog,border-color,#008b8b
-.tag,border-color,#008b8b
-.start,background-color,#008080
+.card,border-color,#008b8b
+.dialog,border-color,#1dacd6
+.tag,border-color,#a8a4a6
+.start,background-color,#1dacd6
+.restart,background-color,#ccffcc
 .edit,background-color,#20b2aa
 .cancel,background-color,#ffa500
 .close,background-color,#00ffff

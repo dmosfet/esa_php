@@ -21,7 +21,7 @@ $position = array_search($tasktocancel, $allstasks);
 
 // update la valeur orginal puis update la liste via son index
 $tasktocancel['status'] = 3;
-$tasktocancel['cancelled'] = date("d-m-Y");
+$tasktocancel['cancelled'] = time();
 $allstasks[$position] = $tasktocancel;
 
 // réécrit le fichier csv

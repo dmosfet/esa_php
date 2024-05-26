@@ -24,20 +24,34 @@ if (isset($_GET['msg'])) {
     </dialog>
 <?php }
 $kanban = isset($_GET['kanban']) ? $_GET['kanban'] : 'new';
+
+$nomkanban = match ($kanban) {
+    'new' => "Backlog",
+    'started' => "En cours",
+    'closed' => "Terminé",
+    'cancelled' => 'Annulé',
+}
+
 ?>
-<form action="<?php echo "../action/modifyfilter.php?kanban=" . $kanban; ?>" method="post">
-    <label>Filter de la colonne <?php echo $kanban;?></label>
-    <input type="hidden" name="kanban" value="<?php echo $kanban;?>">
-    <input type="text" list="filtertype" name="filter" placeholder="Ordre croissant" value="">
-    <datalist id="filtertype">
-        <option label="Par numéro, ordre croissant" value="taskid_ascsort"></option>
-        <option label="Par numéro, ordre décroissant" value="taskid_descsort"></option>
-        <option label="Par nom, ordre croissant" value="taskname_ascsort"></option>
-        <option label="Par nom, ordre décroissant" value="taskname_descsort"></option>
-    </datalist>
-    <input type="submit" value="Filtrer">
-    <input type="submit" name="close" value="Annuler" onclick="refreshAndClose()">
-</form>
+<div class="modifyfilter">
+    <form action="<?php echo "../action/modifyfilter.php?kanban=" . $kanban; ?>" method="post">
+        <fieldset class="card">
+            <div class="filterform">
+                <label>Filtre de la colonne: <?php echo $nomkanban; ?></label>
+                <input type="hidden" name="kanban" value="<?php echo $kanban; ?>">
+                <input type="text" list="filtertype" name="filter" placeholder="Ordre croissant" value="">
+                <datalist id="filtertype">
+                    <option label="Par numéro, ordre croissant" value="taskid_ascsort"></option>
+                    <option label="Par numéro, ordre décroissant" value="taskid_descsort"></option>
+                    <option label="Par nom, ordre croissant" value="taskname_ascsort"></option>
+                    <option label="Par nom, ordre décroissant" value="taskname_descsort"></option>
+                </datalist>
+                <input type="submit" value="Filtrer">
+                <input type="submit" name="close" value="Annuler" onclick="refreshAndClose()">
+            </div>
+        </fieldset>
+    </form>
+</div>
 <script type="text/javascript">
     function refreshAndClose() {
         window.opener.location.reload(true);

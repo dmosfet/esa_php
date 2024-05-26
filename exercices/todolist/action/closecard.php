@@ -22,13 +22,22 @@ $position = array_search($tasktoclose, $allstasks);
 // update la valeur orginal puis update la liste via son index
 $tasktoclose['old_status'] = $tasktoclose['status'];
 $tasktoclose['status'] = 2;
-$tasktoclose['closed'] = date("d-m-Y");
+$tasktoclose['closed'] = time();
 $allstasks[$position] = $tasktoclose;
 
+$checked = true;
+
+if (empty($tasktoclose['start'])) {
+    $msg = "La tâche n'a pas débutée";
+    $checked = false;
+}
+
 // réécrit le fichier csv
-$msg = "La tâche n'a pas pu être terminée";
-if (csvfromarray($allstasks,'../tasks.csv')) {
-    $msg = "La tâche a été clôturée";
+
+if ($checked) {
+    if (csvfromarray($allstasks,'../tasks.csv')) {
+        $msg = "La tâche a été clôturée";
+    }
 }
 $msg = urlencode($msg);
 header('Location: ../view/card.php?task='.$number.'&msg='.$msg);

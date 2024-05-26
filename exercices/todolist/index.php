@@ -15,7 +15,7 @@
            title="Consulter les tâches supprimées">
             <div class="bin"></div>
         </a>
-        <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=200')"
+        <a onclick="window.open('./form/searchcardform.php','local', 'width=400 , height=332')"
            title="Rechercher une tâche">
             <div class="search"></div>
         </a>
@@ -26,6 +26,10 @@
         <a onclick="window.open('./colormenu.php?mode=view','local', 'width=800 , height=900')"
            title="Consulter la palette de couleurs">
             <div class="colors"></div>
+        </a>
+        <a onclick="window.open('./view/statistiques.php?mode=view','local', 'width=800 , height=900')"
+           title="Consulter les statistiques">
+            <div class="chart"></div>
         </a>
     </h2>
 </header>
@@ -46,10 +50,10 @@ $alltasks = arrayfromcsv('tasks.csv')
         <legend class="legendkanban">Back log
             <div class="action">
                 <a onclick="window.open('./form/addcardform.php?status=0','local', 'width=400 , height=700')"
-                   title="Ajouter une tâche">
+                   title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('./form/filtermenuform.php?kanban=new','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/filtermenuform.php?kanban=new','local', 'width=400 , height=332')"
                    title="Filtrer">
                     <div class="button filter"></div>
                 </a>
@@ -98,10 +102,11 @@ $alltasks = arrayfromcsv('tasks.csv')
     <fieldset class="encours">
         <legend class="legendkanban">En cours
             <div class="action">
-                <a onclick="window.open('./form/addcardform.php?status=1','local', 'width=400 , height=700')">
+                <a onclick="window.open('./form/addcardform.php?status=1','local', 'width=400 , height=700')"
+                   title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('./form/filtermenuform.php?kanban=started','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/filtermenuform.php?kanban=started','local', 'width=400 , height=332')"
                    title="Filtrer">
                     <div class="button filter"></div>
                 </a>
@@ -126,7 +131,7 @@ $alltasks = arrayfromcsv('tasks.csv')
         foreach ($startedtasks as $task) {
             ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=560')"
+                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=800 , height=800')"
                    title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
                     <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
@@ -151,10 +156,11 @@ $alltasks = arrayfromcsv('tasks.csv')
     <fieldset class="terminé">
         <legend class="legendkanban">Terminé
             <div class="action">
-                <a onclick="window.open('./form/addcardform.php?status=2','local', 'width=400 , height=700')">
+                <a onclick="window.open('./form/addcardform.php?status=2','local', 'width=400 , height=700')"
+                   title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('./form/filtermenuform.php?kanban=closed','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/filtermenuform.php?kanban=closed','local','width=400 , height=332')"
                    title="Filtrer">
                     <div class="button filter"></div>
                 </a>
@@ -188,7 +194,7 @@ $alltasks = arrayfromcsv('tasks.csv')
                 </a>
                 <a onclick="window.open('./action/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Restaurer une tâche">
-                    <div class="button start"></div>
+                    <div class="button restart"></div>
                 </a>
             </div>
             <?php
@@ -198,10 +204,11 @@ $alltasks = arrayfromcsv('tasks.csv')
     <fieldset class="annulé">
         <legend class="legendkanban">Annulé
             <div class="action">
-                <a onclick="window.open('./form/addcardform.php?status=3','local', 'width=400 , height=700')">
+                <a onclick="window.open('./form/addcardform.php?status=3','local', 'width=400 , height=700')"
+                   title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
-                <a onclick="window.open('./form/filtermenuform.php?kanban=cancelled','local', 'width=400 , height=700')"
+                <a onclick="window.open('./form/filtermenuform.php?kanban=cancelled','local', 'width=400 , height=332')"
                    title="Filtrer">
                     <div class="button filter"></div>
                 </a>
@@ -239,7 +246,7 @@ $alltasks = arrayfromcsv('tasks.csv')
                 </a>
                 <a onclick="window.open('./action/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
                    title="Restaurer une tâche">
-                    <div class="button start"></div>
+                    <div class="button restart"></div>
                 </a>
             </div>
             <?php

@@ -10,13 +10,15 @@
     <title>Ajouter une nouvelle tâche</title>
 </head>
 <body>
-<div>
+<div class="searchcard">
     <form action="../action/searchcard.php" method="post">
-        <fieldset>
-            <legend>Recherche une tâche sur base de son nom</legend>
-            <label>Nom de la tâche</label>
-            <input type="text" name="name"/>
-            <input type="submit" name="submit" value="Rechercher">
+        <fieldset class="card">
+            <legend> Rechercher une tâche </legend>
+            <div class="searchform">
+                <label>Nom de la tâche contient</label>
+                <input type="text" name="name"/>
+                <input type="submit" name="submit" value="Rechercher">
+            </div>
         </fieldset>
     </form>
 </div>
