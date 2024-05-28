@@ -58,6 +58,16 @@ background-image : url('../images/chart.png ');
 background-size: 90%;
 }
 
+.gantt {
+float:right;
+width: 50px;
+height: 50px;
+margin-left:5px;
+background-position: center;
+background-image : url('../images/gantt.png ');
+background-size: 90%;
+}
+
 .search {
 float:right;
 width: 50px;
@@ -221,7 +231,7 @@ margin-left: 25%;
     padding: 20px;
 }
 
-.addform, .modifyfilter, .filterform, .searchcard, .searchform, .modifycolor, .colorform {
+.addform, .modifyfilter, .filterform, .searchcard, .searchform, .modifycolor, .colorform, .planning, .viewplanning,.legendplanning {
     padding: 20px;
 }
 
@@ -337,6 +347,58 @@ border: 2px solid red;
 
 input:valid {
 border: 2px solid lime;
+}
+
+.T {
+    background-color: limegreen;
+}
+
+.B {
+    background-color: gold;
+}
+
+.P {
+    background-color: deepskyblue;
+}
+
+.M {
+background-color: crimson;
+}
+
+.W {
+background-color: wheat;
+}
+
+.L {
+background-color: lightslategray;
+}
+
+.planning {
+    padding:10px;
+    margin:auto;
+    table-layout: fixed;
+}
+
+.taskcolumn {
+width: 300px;
+}
+
+.datecolumn {
+width:45px;
+}
+
+.weekafter {
+background-image: url("../images/after.png");
+background-repeat: no-repeat;
+background-size: 90%;
+border-radius:10px;
+}
+
+.weekbefore {
+background-image: url("../images/before.png");
+background-repeat: no-repeat;
+background-size: 90%;
+border-radius:10px;
 }
 
 

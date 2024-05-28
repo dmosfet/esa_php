@@ -1,2 +1,7 @@
 number,name,color
-1,Urgent,#d41111
+1,On,#c91313
+2,Peut,#42bbbd
+3,Définir,#42d791
+4,Ses,#cce64c
+5,Propres,#e67a7a
+6,Catégories,#7d80e3

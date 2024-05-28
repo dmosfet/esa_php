@@ -209,3 +209,38 @@ function checksondate($start, $due, $closed, $cancelled)
 
     return $result;
 }
+
+function checkdateforplanning($date,$start, $due, $closed, $cancelled)
+{
+    $status = "";
+    if (!empty($start) && !empty($due)) {
+        if (empty($cancelled)) {
+            if ($start <= $date && $date <= $due) {
+                $status = "P";
+            }
+        } else {
+            if ($start <= $date && $date <= $due) {
+                $status = "W";
+            }
+            if ($start <= $date && $date <= $due && $date <= $cancelled) {
+                $status = "L";
+            }
+        }
+
+    }
+    if (!empty($start) && !empty($closed)) {
+        if ($start <= $date && $date <= $closed) {
+            $status = "T";
+        }
+    }
+    if (!empty($start) && !empty($due) && !empty($closed)) {
+        if ($date > $closed && $date <= $due) {
+            $status = "B";
+        }
+        if ($date > $due && $date <= $closed) {
+            $status = "M";
+        }
+    }
+
+    return $status;
+}

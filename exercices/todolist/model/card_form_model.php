@@ -1,6 +1,6 @@
 <input type="hidden" name="number" placeholder="Numéro de la tâche" value="<?php echo $number; ?>"/>
 <input type="text" name="name" placeholder="Nom de la tâche" value="<?php echo $name; ?>" required
-       pattern="[A-Za-zà-üÀ-Ü\s]+"/>
+       pattern="[A-Za-zà-üÀ-Ü\-\!\'\s]+"/>
 <input type="text" name="description" placeholder="Description de la tâche" value="<?php echo $description; ?>"
        required/>
 <input type="hidden" name="status" placeholder="Status actuel" value="<?php echo $status; ?>"/>

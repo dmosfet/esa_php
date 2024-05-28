@@ -27,9 +27,13 @@
            title="Consulter la palette de couleurs">
             <div class="colors"></div>
         </a>
-        <a onclick="window.open('./view/statistiques.php?mode=view','local', 'width=800 , height=900')"
+        <a onclick="window.open('./view/statistiques.php','local', 'width=800 , height=900')"
            title="Consulter les statistiques">
             <div class="chart"></div>
+        </a>
+        <a onclick="window.open('./view/planner.php?year=<?php echo $year = date('Y')."&sem=". $week = date('W')?>','local', 'width=800 , height=900')"
+           title="Consulter le planning">
+            <div class="gantt"></div>
         </a>
     </h2>
 </header>

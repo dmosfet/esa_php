@@ -48,29 +48,35 @@ if ($nbrclosedtasks > 0) {
     <thead>
     <tr>
         <th scope="col">Tâches</th>
-        <th scope="col">Nombres</th>
+        <th scope="col">Total</th>
+        <th scope="col">%</th>
     </tr>
     </thead>
     <tbody>
     <tr>
         <td>Nouvelles</td>
         <td><?php echo $nbrnewtasks;?></td>
+        <td><?php echo $nbrnewtasks/$nbrtasks*100 . " %";?></td>
     </tr>
     <tr>
         <td>En cours</td>
         <td><?php echo $nbrstartedtasks;?></td>
+        <td><?php echo $nbrstartedtasks/$nbrtasks*100 . " %";?></td>
     </tr>
     <tr>
         <td>Terminée</td>
         <td><?php echo $nbrclosedtasks;?></td>
+        <td><?php echo $nbrclosedtasks/$nbrtasks*100 . " %";?></td>
     </tr>
     <tr>
         <td>Abandonnée</td>
         <td><?php echo $nbrcancelledtasks;?></td>
+        <td><?php echo $nbrcancelledtasks/$nbrtasks*100 . " %";?></td>
     </tr>
     <tr>
         <td>Total</td>
         <td><?php echo $nbrtasks;?></td>
+        <td><?php echo $nbrtasks/$nbrtasks*100 . " %";?></td>
     </tr>
 
     </tbody>
