@@ -32,10 +32,13 @@ if (isset($_POST['color'])) {
 <form action="" method="post">
     <label>Merci de choisir une couleur de fond d'écran
         <select name="color" id="listecouleurs">
-            <option value="lightseagreen">Light Sea Green</option>
-            <option value="darkcyan">Dark cyan</option>
-            <option value="aquamarine">Aquamarine</option>
-            <option value="lightcoral">Light coral</option>
+            <option value="lightseagreen" <?php if ($color="lightseagreen") { echo 'selected="selected"';}?>>Light Sea Green</option>
+            <option value="darkcyan" <?php if ($color="darkcyan") { echo 'selected="selected"';}?>>Dark cyan</option>
+            <option value="aquamarine" <?php if ($color="aquamarine") { echo 'selected="selected"';}?>>Aquamarine</option>
+            <option value="lightcoral" <?php if ($color="lightcoral") { echo 'selected="selected"';}?>>Light coral</option>
+            <option value="blueviolet" <?php if ($color="blueviolet") { echo 'selected="selected"';}?>>Blue Violet</option>
+            <option value="darkslategrey" <?php if ($color="darkslategrey") { echo 'selected="selected"';}?>>DarkSlateGrey</option>
+            <option value="olive" <?php if ($color="olive") { echo 'selected="selected"';}?>>Olive</option>
         </select>
     </label>
     <input type="submit" name="submit">

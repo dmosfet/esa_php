@@ -1,0 +1,8 @@
+number,name,description,status,old_status,creation,start,due,closed,cancelled,tags
+1,"Ceci est ma première tâche","Tâche qui consiste à tester le comportement de l'application",0,0,1716768000,,,,,"On,Peut,Définir,Ses,Propres,Catégories"
+2,"Deuxième tâche en cours","Il est temps de se mettre en action",1,1,1716768000,1716854400,1719014400,,,
+3,"J'ai fini !","J'ai bien bossé.",2,2,1716768000,1716336000,1719014400,1716768000,,
+4,Oups,"Ajouter un diagramme de Gantt",3,3,1716768000,,,,1716854400,
+5,"Fausse bonne idée :(","J'ai perdu du temps pour rien",3,3,1716854400,1716854400,1718409600,,1717286400,
+6,"J'ai mis trop de temps...","C'était plus compliqué que prévu !",-1,2,1716854400,1716422400,1717286400,1717891200,,
+7,"Petit test de restauration de données","D'abord on supprimer la tâche",0,0,1718150400,,,,,

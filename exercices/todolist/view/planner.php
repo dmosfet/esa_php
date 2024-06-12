@@ -1,22 +1,6 @@
-<!doctype html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <link rel="stylesheet" href="../CSS/style.php">
-    <style> td, th {
-            border: 1px solid black;
-        }</style>
-    <title>Planning</title>
-</head>
-<body>
 <?php
-include("../function.php");
 
-$alltasks = arrayfromcsv('../tasks.csv');
+$alltasks = arrayfromcsv('./model/tasks.csv');
 $annee = isset($_GET["year"]) ? $_GET["year"] : date('Y');
 $sem = isset($_GET["sem"]) ? $_GET["sem"] : date('W');
 $date = date_create();
@@ -30,7 +14,7 @@ $date = date_create();
                 <tr>
                     <th colspan="8">
                         Semaine <?php echo $sem; ?>
-                        <a href="planner.php?year=<?php
+                        <a href="index.php?mode=planner&year=<?php
                         if ($sem == "52") {
                             echo $annee+1 . "&sem=1";
                         } else {
@@ -39,7 +23,7 @@ $date = date_create();
                         ?>">
                             <div class="button weekafter"></div>
                         </a>
-                        <a href="planner.php?year=<?php
+                        <a href="index.php?mode=planner&year=<?php
                         if ($sem == "1") {
                             echo $annee-1 . "&sem=52";
                         } else {
@@ -119,12 +103,6 @@ $date = date_create();
                 ?>
                 </tbody>
             </table>
-
-            <form method="post">
-                <fieldset>
-                    <input type="submit" name="close" value="Fermer" onclick="refreshAndClose()">
-                </fieldset>
-            </form>
         </div>
     </fieldset>
 </div>
@@ -165,12 +143,3 @@ $date = date_create();
         </div>
     </fieldset>
 </div>
-<script type="text/javascript">
-    function refreshAndClose() {
-        window.opener.location.reload(true);
-        window.close();
-    }
-</script>
-</body>
-</html>
-
