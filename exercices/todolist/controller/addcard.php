@@ -1,6 +1,8 @@
 <?php
-
 include('../function.php');
+
+// On récupère les données du formulaires
+
 $number = isset($_POST['number']) ? $_POST['number'] : '1';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
 $description = isset($_POST['description']) ? $_POST['description'] : '';
@@ -13,11 +15,29 @@ $closed = (!(empty($_POST['closed']))) ? strtotime($_POST['closed']) : '';
 $cancelled = (!(empty($_POST['cancelled']))) ? strtotime($_POST['cancelled']) : '';
 $tags = isset($_POST['tags']) ? implode(",", $_POST['tags']) : '';
 
-$newligne = [$number, $name, $description, $status, $old_status, $creation, $start, $due, $closed, $cancelled, $tags];
+// On vérifie si une tâche porte déjà ce nom
+
+$alltasks = arrayfromcsv('../model/tasks.csv');
+
+$exist = false;
+
+foreach ($alltasks as $task) {
+    echo $task['name'];
+    if ($task['name'] == $name) {
+        $exist = true;
+        break;
+    }
+}
+
+if ($exist) {
+    $msg = "Une tâche portant ce nom existe déjà";
+    header('Location: ../index.php?mode=addcard&task=' . $number . '&msg=' . urlencode($msg));
+} else {
+    $newligne = [$number, $name, $description, $status, $old_status, $creation, $start, $due, $closed, $cancelled, $tags];
+    $errors = checksondate($start, $due, $closed, $cancelled);
+}
 
 $msg = 'Impossible de créer cette nouvelle tâche';
-
-$errors = checksondate($start, $due, $closed, $cancelled);
 
 if ($errors) {
     foreach ($errors as $error) {

@@ -1,14 +1,14 @@
 <?php ob_start();
 include("../function.php");
 
-$number = $_GET['task'];
-$entryname= urldecode($_GET['entry']);
+$number = $_GET['entry'];
 
 $allentrylist = arrayfromcsv('../model/minitasklist.csv', $number);
 
 foreach ($allentrylist as $entry) {
-        if ($entry['task'] == $number && $entry['name'] == $entryname) {
+        if ($entry['id'] == $number) {
             $entrytodelete = $entry;
+            $task = $entry['task'];
             break;
         }
 }
@@ -27,4 +27,4 @@ if (csvfromarray($allentrylist,'../model/minitasklist.csv')) {
 }
 
 $msg = urlencode($msg);
-header('Location: ../index.php?mode=cardviewer&task='.$number.'&msg='.$msg);
+header('Location: ../index.php?mode=cardviewer&task='.$task.'&msg='.$msg);

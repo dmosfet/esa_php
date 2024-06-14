@@ -6,7 +6,7 @@
         <dialog open>
             <form method="dialog">
                 <div class="dialog">
-                    <label><?php echo $message ?></label>
+                    <label><?php echo urldecode($message) ?></label>
                     <button>OK</button>
                 </div>
             </form>
@@ -139,6 +139,7 @@
             </div>
             <?php
             $entrylist = findentrylistfromtasknumber('./model/minitasklist.csv', $number);
+            $lastidentry = nextnumber(readcsv('./model/minitasklist.csv'));
             if ($entrylist) {
                 $taskchecked = 0;
                 $totaltask = 0;
@@ -149,20 +150,20 @@
                     ?>
                     <ol>
                         <li class="entrylist">
-                            <a href="./controller/checkentrylist.php?task=<?php echo $number; ?>&entry=<?php echo urlencode($entry[1]); ?>">
-                                <div class="<?php if ($entry[2] == 1) {
+                            <a href="./controller/checkentrylist.php?entry=<?php echo $entry[0]; ?>">
+                                <div class="<?php if ($entry[3] == 1) {
                                     echo "checkedentrylistbutton";
                                 } else {
                                     echo "uncheckedentrylistbutton";
                                 } ?>" title="Valider/Invalider"></div>
                             </a>
                             <input type="checkbox" class="hidden"
-                                   pattern="[A-Za-zà-üÀ-Ü\-\!\'\s]+" <?php if ($entry[2] == 1) {
+                                   pattern="[A-Za-zà-üÀ-Ü\-\!\'\s]+" <?php if ($entry[3] == 1) {
                                 echo "checked";
                                 $taskchecked++;
                             } ?>>
-                            <label><?php echo $entry[1]; ?></label>
-                            <a href="./controller/deleteentrylist.php?task=<?php echo $number; ?>&entry=<?php echo urlencode($entry[1]); ?>">
+                            <label><?php echo $entry[2]; ?></label>
+                            <a href="./controller/deleteentrylist.php?entry=<?php echo $entry[0]; ?>">
                                 <div class="deleteentrylistbutton" title="Effacer cette entrée"></div>
                             </a>
                         </li>

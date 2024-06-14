@@ -295,25 +295,6 @@ function findtasknumberfromfile ($filename, $fichier) {
 }
 
 /**
- * Fonction qui récupère dans un fichier CSV qui contient les commentaires la liste des commentaires liés à une tâche
- * basé sur son numéro de tâche
- *
- * @param $filename String: Chemin d'accès du fichier qui contient les commentaires.
- * @param $number int : Numéro de la tâche concernée
- * @return array : Liste des commentaires récupérés
- */
-function findcommentsfromtasknumber ($filename, $number) {
-    $lignes = [];
-    $fp = fopen($filename, 'r');
-    while (($row = fgetcsv($fp)) !== false) {
-        if ($row[0] == $number) {
-            $lignes[] = $row;
-        }
-    }
-    fclose($fp);
-    return $lignes;
-}
-/**
  * Fonction qui récupère dans un fichier CSV qui contient les entrées d'une liste lié à une tâche
  * basé sur son numéro
  *
@@ -325,7 +306,7 @@ function findentrylistfromtasknumber ($filename, $number) {
     $lignes = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
-        if ($row[0] == $number) {
+        if ($row[1] == $number) {
             $lignes[] = $row;
         }
     }

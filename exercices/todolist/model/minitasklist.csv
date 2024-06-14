@@ -1,4 +1,4 @@
-task,name,status
-1,"On peut créér des sous-tâches",0
-1,"Pratique pour voir l'évolution de l'avancement",0
-1,"Une sous-tache terminée",1
+id,task,name,status
+1,1,"On peut créér des sous-tâches",0
+2,1,"Pratique pour voir l'évolution de l'avancement",0
+3,1,"On peut aussi les terminer",1
