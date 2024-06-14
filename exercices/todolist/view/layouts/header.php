@@ -12,3 +12,4 @@
 <header>
     <?php require ('./view/menu/mainmenu.php');?>
 </header>
+<body>

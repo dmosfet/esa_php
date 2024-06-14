@@ -16,11 +16,11 @@ if ($deletedtask != null) {
                title="<?php echo '#' . $task[0] . ' - ' . $task[1]; ?>">
                 <div class="titrerecycle"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
             </a>
-            <a href="./model/definitelydeletecard.php?task=<?php echo $task['number']; ?>"
+            <a href="./controller/definitelydeletecard.php?task=<?php echo $task['number']; ?>"
                title="Supprimer définitivement une tâche">
                 <div class="button delete"></div>
             </a>
-            <a href="./model/restorecard.php?task=<?php echo $task['number']; ?>"
+            <a href="./controller/restorecard.php?task=<?php echo $task['number']; ?>"
                title="Restaurer une tâche">
                 <div class="button start"></div>
             </a>

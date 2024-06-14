@@ -39,15 +39,15 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
                    title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
                     <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./controller/cancelcard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/cancelcard.php?task=<?php echo $task['number']; ?>"
                    title="Annuler une tâche">
                     <div class="button cancel"></div>
                 </a>
-                <a onclick="window.open('./view/form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="index.php?mode=cardmodifyer&task=<?php echo $task['number']; ?>"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./controller/startcard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/startcard.php?task=<?php echo $task['number']; ?>"
                    title="Démarrer une tâche">
                     <div class="button start"></div>
                 </a>
@@ -59,7 +59,7 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
     <fieldset class="encours">
         <legend class="legendkanban">En cours
             <div class="action">
-                <a onclick="window.open('./view/form/addcardform.php?status=1','local', 'width=400 , height=700')"
+                <a href="index.php?mode=addcard&status=1"
                    title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
@@ -84,19 +84,19 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
         foreach ($startedtasks as $task) {
             ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=800 , height=800')"
+                <a href="index.php?mode=cardviewer&task=<?php echo $task['number'];?>"
                    title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
                     <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./controller/cancelcard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/cancelcard.php?task=<?php echo $task['number']; ?>"
                    title="Annuler une tâche">
                     <div class="button cancel"></div>
                 </a>
-                <a onclick="window.open('./view/form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="index.php?mode=cardmodifyer&task=<?php echo $task['number']; ?>"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./controller/closecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/closecard.php?task=<?php echo $task['number']; ?>"
                    title="Terminer une tâche">
                     <div class="button close"></div>
                 </a>
@@ -109,7 +109,7 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
     <fieldset class="terminé">
         <legend class="legendkanban">Terminé
             <div class="action">
-                <a onclick="window.open('./view/form/addcardform.php?status=2','local', 'width=400 , height=700')"
+                <a href="index.php?mode=addcard&status=2"
                    title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
@@ -133,15 +133,15 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
         }
         foreach ($closedtasks as $task) { ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','local', 'width=800 , height=800')"
+                <a href="index.php?mode=cardviewer&task=<?php echo $task['number'];?>"
                    title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
                     <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./view/form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="index.php?mode=cardmodifyer&task=<?php echo $task['number']; ?>"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./controller/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/restorecard.php?task=<?php echo $task['number']; ?>"
                    title="Restaurer une tâche">
                     <div class="button restart"></div>
                 </a>
@@ -153,7 +153,7 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
     <fieldset class="annulé">
         <legend class="legendkanban">Annulé
             <div class="action">
-                <a onclick="window.open('./view/form/addcardform.php?status=3','local', 'width=400 , height=700')"
+                <a href="index.php?mode=addcard&status=3"
                    title="Créer une tâche dans ce menu">
                     <div class="button create"></div>
                 </a>
@@ -177,19 +177,19 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
         }
         foreach ($cancelledtasks as $task) { ?>
             <div class="cartouche">
-                <a onclick="window.open('./view/card.php?task=<?php echo $task['number']; ?>','_blank', 'width=800 , height=800')"
+                <a href="index.php?mode=cardviewer&task=<?php echo $task['number'];?>"
                    title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
                     <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
                 </a>
-                <a onclick="window.open('./controller/deletecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/deletecard.php?task=<?php echo $task['number']; ?>"
                    title="Supprimer une tâche">
                     <div class="button delete"></div>
                 </a>
-                <a onclick="window.open('./view/form/modifycardform.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="index.php?mode=cardmodifyer&task=<?php echo $task['number']; ?>"
                    title="Modifier une tâche">
                     <div class="button edit"></div>
                 </a>
-                <a onclick="window.open('./controller/restorecard.php?task=<?php echo $task['number']; ?>','local', 'width=400 , height=700')"
+                <a href="./controller/restorecard.php?task=<?php echo $task['number']; ?>"
                    title="Restaurer une tâche">
                     <div class="button restart"></div>
                 </a>

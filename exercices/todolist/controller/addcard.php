@@ -24,7 +24,7 @@ if ($errors) {
         $errorlist[] = $error[1];
     }
     $msg = urlencode(implode(',', $errorlist));
-    header('Location: ../index.php?mode=addcard.php&task=' . $number . '&msg=' . $msg);
+    header('Location: ../index.php?mode=addcard&task=' . $number . '&msg=' . $msg);
 } else {
     if (addnewtask($newligne)) {
         $msg = "Ajout de la nouvelle tâche";

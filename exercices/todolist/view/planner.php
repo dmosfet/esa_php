@@ -7,7 +7,7 @@ $date = date_create();
 ?>
 <div class="viewplanning">
     <fieldset class="card">
-        <legend>Planning</legend>
+        <legend class="legendkanban">Planning<div class="button gantt"></div></legend>
         <div class="planning">
             <table>
                 <thead>
@@ -108,7 +108,7 @@ $date = date_create();
 </div>
 <div class="legendplanning">
     <fieldset class="card">
-        <legend>Legend</legend>
+        <legend class="legendkanban">Legende</legend>
         <div class="planning">
             <table>
                 <tr>

@@ -1,15 +1,21 @@
 <?php
+
 $alltasks = arrayfromcsv('./model/tasks.csv');
+
+
 $newtasks = statusfilteredarray($alltasks, "0");
 $startedtasks = statusfilteredarray($alltasks, "1");
 $closedtasks = statusfilteredarray($alltasks, "2");
 $cancelledtasks = statusfilteredarray($alltasks, "3");
+
+
 
 $nbrnewtasks = count($newtasks);
 $nbrstartedtasks = count($startedtasks);
 $nbrclosedtasks = count($closedtasks);
 $nbrcancelledtasks = count($cancelledtasks);
 $nbrtasks = count($alltasks);
+
 
 $delais = [];
 $maxdelai = 0;

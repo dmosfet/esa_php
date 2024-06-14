@@ -344,7 +344,7 @@ function findentrylistfromtasknumber ($filename, $number) {
  * @param $cancelled int: Date d'annulation de la tâche
  * @return array : Tableau d'erreurs. Chaque erreur est compilée dans un tableau
  */
-function checksondate($start, $due, $closed, $cancelled)
+function checksondate($start, $due, $closed, $cancelled): array
 {
     $result = [];
     do {
@@ -361,6 +361,15 @@ function checksondate($start, $due, $closed, $cancelled)
         if (!empty($closed) && !empty($cancelled)) {
             $checked = false;
             $msg = "Une tâche terminée ne peut pas être annulée";
+            $error[] = $checked;
+            $error[] = $msg;
+            $result[] = $error;
+            unset($error);
+        }
+        // Une date de cloture avant la date de début a été encodées
+        if (!empty($closed) && ($closed < $start)) {
+            $checked = false;
+            $msg = "Une tâche ne peut être terminée avant son commencement";
             $error[] = $checked;
             $error[] = $msg;
             $result[] = $error;
@@ -422,6 +431,12 @@ function checkdateforplanning($date,$start, $due, $closed, $cancelled)
     return $status;
 }
 
+/**
+ * Fonction qui retourne une liste de commentaires sur base d'une liste de tous les commentaires et le numéro d'une tâche
+ * @param $arrayofcomments array : Liste de tous les commentaires
+ * @param $tasknumber string : Numéro de la tâche
+ * @return array : Liste des commentaires de la tâche en question
+ */
 function tasknumberfilteredcomments ($arrayofcomments, $tasknumber): array {
     $result=[];
     foreach ($arrayofcomments as $comment) {

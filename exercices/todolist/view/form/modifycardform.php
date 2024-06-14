@@ -20,9 +20,8 @@ $message = $_GET['msg'];
 </dialog>
 <?php
 }
-echo "coucou";
-echo $_SESSION['task'];
-$tasknumber = $_SESSION['task'];
+
+$tasknumber = $_GET['task'] ?? $_SESSION['task'];
 $alltasks = arrayfromcsv("./model/tasks.csv");
 $task = findtask($alltasks, $tasknumber);
 

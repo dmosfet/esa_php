@@ -1,17 +1,7 @@
-<?php ob_start()?>
-<!doctype html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tâche</title>
-</head>
-<body>
-<?php include("../function.php");
+<?php ob_start();
+include("../function.php");
 $number = $_GET['task'];
-$allstasks = arrayfromcsv("../tasks.csv");
+$allstasks = arrayfromcsv("../model/tasks.csv");
 
 // retourne les valeurs complètes de la tâches qu'on démarre.
 $tasktoclose=findtask($allstasks, $number);
@@ -35,12 +25,9 @@ if (empty($tasktoclose['start'])) {
 // réécrit le fichier csv
 
 if ($checked) {
-    if (csvfromarray($allstasks,'../tasks.csv')) {
+    if (csvfromarray($allstasks,'../model/tasks.csv')) {
         $msg = "La tâche a été clôturée";
     }
 }
 $msg = urlencode($msg);
-header('Location: ../view/card.php?task='.$number.'&msg='.$msg);
-?>
-</body>
-</html>
+header('Location: ../index.php?mode=cardviewer&task='.$number.'&msg='.$msg);

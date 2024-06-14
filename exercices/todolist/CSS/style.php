@@ -1,9 +1,11 @@
 <?php header('content-type: text/css'); ?>
 
-// Attributs statiques
-
 body {
     min-height:800px;
+}
+
+header, footer {
+    min-height: 100px;
 }
 
 h2 {
@@ -11,13 +13,24 @@ h2 {
     font-style: italic;
 }
 
+.recyclenumber {
+    height: 15px;
+    width: 15px;
+    line-height: 15px;
+    font-size: 10px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid red;
+    background-color: red;
+    text: black;
+}
+
 .kanban {
     display: grid;
     width: 100%;
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 50px;
-    width: 100%;
-    height: 575px;
+    height: 650px;
 }
 
 .nouveau, .encours, .annulé, .terminé, .card {
@@ -268,6 +281,7 @@ dialog form button {
 .addform, .modifyfilter, .filterform, .searchcard, .searchform, .modifycolor, .colorform, .planning, .viewplanning,.legendplanning, .stattable, .viewstat, .viewtag, .tagtable, .tagform, .colortable, .colorview, .sorttable {
     padding: 20px;
 }
+
 
 .s_new {
     height: 45px;

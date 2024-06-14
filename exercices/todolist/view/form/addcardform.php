@@ -21,15 +21,26 @@ if (isset($_GET['msg'])) {
     <?php
 }
 
+// Je récupère les tâches pour déterminer le numéro de tâche le plus important
 $allstaks = readcsv( './model/tasks.csv');
 $nextnumber = nextnumber($allstaks);
+
+// Je récupère les tâches supprimées pour déterminer le numéro de tâche le plus important
+$alldeletedstaks = readcsv( './model/deletedtasks.csv');
+$nextnumberdeleted = nextnumber($alldeletedstaks);
+
+// Je garde le chiffre le plus élevé. Je ne veux pas de tâches qui portent le même numéro.
+if ($nextnumber < $nextnumberdeleted) {
+    $nextnumber = $nextnumberdeleted;
+}
+
 $alltags = arrayfromcsv('./model/tags.csv');
 
 $number = $nextnumber;
 $name = "";
 $description = "";
-$status = isset($_GET["status"]) ? $_GET["status"] : "0";
-$old_status = isset($_GET["status"]) ? $_GET["status"] : "0";
+$status = $_GET["status"] ?? "0";
+$old_status = $_GET["status"] ?? "0";
 $creation = date("d-m-Y");
 $start = "";
 $due = "";

@@ -1,7 +1,19 @@
+<?php
+$alltasks = arrayfromcsv('./model/tasks.csv');
+$deletedtasks = statusfilteredarray($alltasks, "-1");
+$recyclenumber = count($deletedtasks);
+?>
+
 <h2>Planificateur de tâches
     <a href="index.php?recycle=true"
        title="Consulter les tâches supprimées">
-        <div class="bin"></div>
+        <div class="bin">
+            <?php
+            if ($recyclenumber > 0) { ?>
+                <p class="recyclenumber"><?php echo $recyclenumber;?></p>
+            <?php } ?>
+        </div>
+
     </a>
     <a href="index.php?mode=settings"
        title="Paramètres du site">
