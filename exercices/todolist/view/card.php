@@ -179,35 +179,33 @@
             <hr>
             <div class="cardfiles">
                 <span>Pièces jointes: </span>
-                <?php
-                if (isset($_GET['join']) && $_GET['join'] == "true") {
-                    include('./view/form/cardform/card_joinfile_form.php');
-                } ?>
                 <a href="index.php?mode=cardviewer&task=<?php echo $number; ?>&join=<?php echo "true"; ?>">
                     <div class="button joinfile" title="Ajouter une pièce-jointe"></div>
                 </a>
                 <p></p>
                 <?php
                 $piecesjointes = findfilefromtasknumber('./model/files.csv', $number);
+                $lastidfile = nextnumber(readcsv('./model/files.csv'));
                 if ($piecesjointes) {
-                foreach ($piecesjointes
-
-                as $fichier) {
+                    foreach ($piecesjointes as $fichier) {
                 ?>
-                <div>
-                    <span>
-                        <a href="./upload/<?php echo $fichier[1]; ?>"><?php echo $fichier[1]; ?></a>
-                    </span>
-                    <span>
-                            <?php $file = urlencode($fichier[1]); ?>
-                        <a href="./controller/deletefile.php?task=<?php echo $number; ?>&file=<?php echo $file; ?>">
-                            <div class="button deletefile" title="""Supprimer la pièce-jointe"></div></a>
-                    </span>
-            </div>
-        <?php
+                    <div>
+                        <span>
+                            <a href="./upload/<?php echo $fichier[2]; ?>"><?php echo $fichier[2]; ?></a>
+                        </span>
+                        <span>
+                            <a href="./controller/deletefile.php?task=<?php echo $number; ?>&file=<?php echo $fichier[0]; ?>">
+                            <div class="button deletefile" title="Supprimer la pièce-jointe"></div>
+                            </a>
+                        </span>
+                    </div>
+                <?php
                     }
                 }
-        ?>
+
+        if (isset($_GET['join']) && $_GET['join'] == "true") {
+            include('./view/form/cardform/card_joinfile_form.php');
+        } ?>
         </div>
         <hr>
         <div>

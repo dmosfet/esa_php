@@ -268,7 +268,7 @@ function findfilefromtasknumber ($filename, $number) {
     $lignes = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
-        if ($row[0] == $number) {
+        if ($row[1] == $number) {
             $lignes[] = $row;
         }
     }

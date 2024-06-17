@@ -1,13 +1,14 @@
 <?php ob_start()?>
 <?php include("../function.php");
 
+$id = $_GET['file'];
 $number = $_GET['task'];
-$file = urldecode($_GET['file']);
+
 
 $allfiles = arrayfromcsv('../model/files.csv');
 
 foreach ($allfiles as $file) {
-    if ($file['number'] == $number && $file['namefile'] == $file) {
+    if ($file['id'] == $id) {
         $filetodelete = $file;
         break;
     }
@@ -22,8 +23,8 @@ $msg = "La pièce-jointe n'a pu être supprimée";
 
 if (csvfromarray($allfiles,'../model/files.csv')) {
     $msg = "La pièce-jointe a été supprimée";
-    if (file_exists('../upload/'.$filetodelete[1])) {
-        unlink('../upload/'.$filetodelete[1]);
+    if (file_exists('../upload/'.$filetodelete['namefile'])) {
+        unlink('../upload/'.$filetodelete['namefile']);
     }
 }
 $msg = urlencode($msg);
