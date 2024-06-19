@@ -2,6 +2,8 @@
 $alltasks = arrayfromcsv('./model/tasks.csv');
 $deletedtasks = statusfilteredarray($alltasks, "-1");
 $recyclenumber = count($deletedtasks);
+$notifications = arrayfromcsv('./model/notification.csv');
+$newnotifications = newnotifications($notifications, $_SESSION['id']);
 ?>
 
 <h2>Planificateur de tâches
@@ -13,11 +15,24 @@ $recyclenumber = count($deletedtasks);
                 <p class="recyclenumber"><?php echo $recyclenumber;?></p>
             <?php } ?>
         </div>
-
+    </a>
+    <a href="index.php?mode=notification"
+       title="Consulter les notifications">
+        <div class="bell">
+            <?php
+            if ($newnotifications > 0) { ?>
+                <p class="recyclenumber">
+                    <?php echo $newnotifications;?></p>
+            <?php } ?>
+        </div>
     </a>
     <a href="index.php?mode=settings"
        title="Paramètres du site">
         <div class="settings"></div>
+    </a>
+    <a href="index.php?mode=user"
+       title="Profil de l'utilisateur">
+        <div class="user"></div>
     </a>
     <a href="index.php?search=true"
        title="Rechercher une tâche">

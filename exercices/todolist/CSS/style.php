@@ -1,4 +1,7 @@
-<?php header('content-type: text/css'); ?>
+<?php session_start();
+header('content-type: text/css');
+include ('../function.php');
+?>
 
 body {
     min-height:800px;
@@ -49,6 +52,26 @@ h2 {
     background-position: center;
     background-image : url('../images/trash.png ');
     background-size: 90%;
+}
+
+.bell {
+    float:right;
+    width: 50px;
+    height: 50px;
+    margin-left:5px;
+    background-position: center;
+    background-image : url('../images/bell.png ');
+    background-size: 90%;
+}
+
+.read {
+
+}
+
+.notread {
+    font-weight: bold;
+    background-color: lightgrey;
+    opacity: 0.8;
 }
 
 .colors {
@@ -105,6 +128,23 @@ h2 {
     background-position: center;
     background-image : url('../images/settings.png ');
     background-size: 90%;
+}
+
+.user {
+    float:right;
+    width: 50px;
+    height: 50px;
+    margin-left:5px;
+    background-position: center;
+    background-image : url('../images/user.png ');
+    background-size: 90%;
+}
+
+.profilepicture {
+    height: 150px;
+    width: 100px;
+    background-position: center;
+    background-size: cover;
 }
 
 .categories {
@@ -274,11 +314,19 @@ dialog form button {
     text-align: right;
 }
 
+.attributes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.owner {
+    text-align: left;
+}
+
 .viewcard {
     padding: 20px;
 }
 
-.addform, .modifyfilter, .filterform, .searchcard, .searchform, .modifycolor, .colorform, .planning, .viewplanning,.legendplanning, .stattable, .viewstat, .viewtag, .tagtable, .tagform, .colortable, .colorview, .sorttable {
+.addform, .modifyfilter, .filterform, .searchcard, .searchform, .modifycolor, .colorform, .planning, .viewplanning,.legendplanning, .stattable, .viewstat, .viewtag, .tagtable, .tagform, .colortable, .colorview, .sorttable, .notiftable {
     padding: 20px;
 }
 
@@ -353,6 +401,11 @@ dialog form button {
 }
 
 .addcomment{
+    background-image: url('../images/add.png');
+    background-size: cover;
+}
+
+.adduser{
     background-image: url('../images/add.png');
     background-size: cover;
 }
@@ -510,10 +563,13 @@ input:invalid {
 }
 
 <?php
-include ('../function.php');
 // Background-color gérée par le fichier colortheme.csv
 $colortheme = arrayfromcsv('../model/colortheme.csv');
 $alltags = arrayfromcsv('../model/tags.csv');
+
+// Photo de profil géré par le fichier profilepicture.csv
+$profilepictures = arrayfromcsv('../model/profilepicture.csv');
+$userimage = findprofilepicture($profilepictures, $_SESSION['id']);
 
 foreach ($colortheme as $color) {
     echo $color['balise'] ."{" . $color['attribut'] . " : " . $color['color'] . ";}";
@@ -522,5 +578,12 @@ foreach ($colortheme as $color) {
 foreach ($alltags as $tag) {
     echo ".". $tag['name'] ."{ background-color : " . $tag['color'] . ";}";
 }
+if (!$userimage) {
+    echo ".profilepicture { background-image: url('../images/profile/Bio-red.png');}";
+} else {
+    echo ".profilepicture { background-image: url('../images/profile/". $userimage ."');}";
+}
+
+
 
 ?>

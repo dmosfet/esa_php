@@ -3,18 +3,19 @@
 /**
  * Fonction qui retourne la valeur la plus grande de la première colonne (emplacement de l'id) dans un tableau à deux dimension
  *
- * @param $arrays: Tableau à deux dimension qui contient une liste de tâche
+ * @param $arrays : Tableau à deux dimension qui contient une liste de tâche
  * @return int : valeur maximum du numéro d'identification de la tâche
  */
-function nextnumber ($arrays) :int {
-    $max=0;
-    foreach ($arrays as $record){
+function nextnumber($arrays): int
+{
+    $max = 0;
+    foreach ($arrays as $record) {
 
-        if ($record[0] > $max){
-            $max=(int)$record[0];
+        if ($record[0] > $max) {
+            $max = (int)$record[0];
         }
     }
-    return $max+1;
+    return $max + 1;
 }
 
 /**
@@ -24,10 +25,45 @@ function nextnumber ($arrays) :int {
  * @param $number : Numéro de la tâche à chercher
  * @return false|mixed
  */
-function findtask ($array, $number){
+function findtask($array, $number)
+{
     foreach ($array as $tasks) {
         if ($tasks['number'] == $number) {
             return $tasks;
+        }
+    }
+    return false;
+}
+
+/**
+ * Fonction qui retourne les informations d'un utilisateur
+ *
+ * @param $array array: Tableau à deux dimension qui tous les utilisateurs
+ * @param $number : Numéro de l'utilisateur
+ * @return false|mixed
+ */
+function finduser($array, $number)
+{
+    foreach ($array as $user) {
+        if ($user['id'] == $number) {
+            return $user;
+        }
+    }
+    return false;
+}
+
+/**
+ * Fonction qui retourne la photo de profil personnalisée de l'utilisateur
+ *
+ * @param $array array: Tableau à deux dimension qui toutes les photos de profils personnalisées
+ * @param $number : Numéro de l'utilisateur
+ * @return false|mixed
+ */
+function findprofilepicture($array, $number)
+{
+    foreach ($array as $picture) {
+        if ($picture['id'] == $number) {
+            return $picture['namefile'];
         }
     }
     return false;
@@ -39,7 +75,8 @@ function findtask ($array, $number){
  * @param $filename String: Chemin d'accès du fichier
  * @return array
  */
-function readcsv ($filename) {
+function readcsv($filename)
+{
     $lignes = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
@@ -57,11 +94,29 @@ function readcsv ($filename) {
  * @param $status string: Statut sur lequel on filtre
  * @return array
  */
-function statusfilteredarray ($arrayoftasks, $status): array {
-    $result=[];
+function statusfilteredarray($arrayoftasks, $status): array
+{
+    $result = [];
     foreach ($arrayoftasks as $task) {
         if ($task['status'] == $status) {
             $result[] = $task;
+        }
+    }
+    return $result;
+}
+
+/**
+ * Fonction qui sur base d'une liste de notification retourne le nombre de notificatons non lues de l'utilisateuur connectée
+ *
+ * @param $arrayoftasks array: tableau qui contient toutes les notifications
+ * @return integer nombre de notifications non lues
+ */
+function newnotifications($array, $id): int
+{
+    $result = 0;
+    foreach ($array as $notification) {
+        if ($notification['status'] == '0' && $notification['iduser'] == $id) {
+            $result++;
         }
     }
     return $result;
@@ -74,18 +129,19 @@ function statusfilteredarray ($arrayoftasks, $status): array {
  * @param $filename String: Chemin d'accès du fichier
  * @return array
  */
-function arrayfromcsv ($filename): array {
-    $datas=[];
-    $record=[];
-    $result=[];
+function arrayfromcsv($filename): array
+{
+    $datas = [];
+    $record = [];
+    $result = [];
     $fp = fopen($filename, 'r');
     $columns = fgetcsv($fp);
-    $numbercolumns = count($columns)-1;
+    $numbercolumns = count($columns) - 1;
     while (($row = fgetcsv($fp)) !== false) {
         $datas[] = $row;
     }
     foreach ($datas as $ligne) {
-        for ($i=0; $i<=$numbercolumns; $i++) {
+        for ($i = 0; $i <= $numbercolumns; $i++) {
             $record[$columns[$i]] = $ligne[$i];
         }
         $result[] = $record;
@@ -101,7 +157,8 @@ function arrayfromcsv ($filename): array {
  * @param $filename string: chemin d'accès au fichier à corriger
  * @return true
  *  */
-function csvfromarray ($array, $filename) {
+function csvfromarray($array, $filename)
+{
     $fp = fopen($filename, 'r');
     $columns = fgetcsv($fp);
     fclose($fp);
@@ -198,9 +255,10 @@ function taskid_descsort($a, $b)
  * @param $task array: qui contient les données de la tâche
  * @return bool True si ajout réussi, False, si échoué
  */
-function addnewtask ($task):bool {
+function addnewtask($task): bool
+{
     $fp = fopen('../model/tasks.csv', 'a');
-    fputcsv($fp,$task );
+    fputcsv($fp, $task);
     fclose($fp);
     return true;
 }
@@ -211,12 +269,28 @@ function addnewtask ($task):bool {
  * @param $file String: Nom de fichier de la pièce-jointe à ajouter
  * @return bool: True si ajout réussi, False, si échoué
  */
-function addnewfile (array $file):bool {
+function addnewfile(array $file): bool
+{
     $fp = fopen('../model/files.csv', 'a');
-    fputcsv($fp,$file );
+    fputcsv($fp, $file);
     fclose($fp);
     return true;
 }
+
+/**
+ * Fonction qui change la nouvelle photo de profil
+ *
+ * @param $file String: Nom de fichier de la photo à ajouter
+ * @return bool: True si ajout réussi, False, si échoué
+ */
+function addnewprofile(array $file): bool
+{
+    $fp = fopen('../model/profilepicture.csv', 'a');
+    fputcsv($fp, $file);
+    fclose($fp);
+    return true;
+}
+
 
 /**
  * Fonction qui rajoute un nouveau commentaire dans une tâche
@@ -224,10 +298,11 @@ function addnewfile (array $file):bool {
  * @param $comment array: Commentaire à ajouter
  * @return bool : True si ajout réussi, False, si échoué
  */
-function addnewcomment(array $comment):bool {
+function addnewcomment(array $comment): bool
+{
     $fp = fopen('../model/comments.csv', 'a');
 
-    fputcsv($fp,$comment );
+    fputcsv($fp, $comment);
     fclose($fp);
     return true;
 }
@@ -238,9 +313,10 @@ function addnewcomment(array $comment):bool {
  * @param $entry array: Entrée à ajouter à la liste de cette tâche
  * @return bool : True si ajout réussi, False, si échoué
  */
-function addnewentrylist(array $entry):bool {
+function addnewentrylist(array $entry): bool
+{
     $fp = fopen('../model/minitasklist.csv', 'a');
-    fputcsv($fp,$entry );
+    fputcsv($fp, $entry);
     fclose($fp);
     return true;
 }
@@ -251,9 +327,55 @@ function addnewentrylist(array $entry):bool {
  * @param $task array Nouvelle catégorie à rajouter
  * @return bool true si l'ajout à fonctionné
  */
-function addnewtag (array $tag):bool {
+function addnewtag(array $tag): bool
+{
     $fp = fopen('../model/tags.csv', 'a');
-    fputcsv($fp,$tag );
+    fputcsv($fp, $tag);
+    fclose($fp);
+    return true;
+}
+
+/**
+ * Fonction qui ajoute un nouvel utilisateur
+ *
+ * @param $task array Nouvel utilisateur
+ * @return bool true si l'ajout à fonctionné
+ */
+function addnewuser(array $user): bool
+{
+    $fp = fopen('../model/users.csv', 'a');
+    fputcsv($fp, $user);
+    fclose($fp);
+    return true;
+}
+
+/**
+ * Fonction qui retourne le nom et prénom de l'utilisateur
+ *
+ * @param $iduser int Tous les utilisateurs
+ * @return string true si l'ajout à fonctionné
+ */
+function getusername(int $iduser): string
+{
+    $allusers = arrayfromcsv('./model/users.csv');
+    foreach ($allusers as $user) {
+        if ($user['id'] == $iduser) {
+            return $user['firstname'] . " " . $user['lastname'];
+        }
+    }
+    return "Utilisateur inconnu ou supprimé";
+}
+
+/**
+ * Fonction qui ajoute une nouvelle notifications
+ *
+ * @param $task array Nouvelle notification
+ * @return bool true si l'ajout à fonctionné
+ */
+function addnewnotification(array $notification): bool
+{
+    $fp = fopen('../model/notification.csv', 'a');
+    fputcsv($fp, $notification);
     fclose($fp);
     return true;
 }
@@ -264,7 +386,8 @@ function addnewtag (array $tag):bool {
  * @param $number int: Numéro de la tâche dont je dois récupérer la liste des pièces-jointes
  * @return array: Liste des pièces-jointes
  */
-function findfilefromtasknumber ($filename, $number) {
+function findfilefromtasknumber($filename, $number)
+{
     $lignes = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
@@ -283,7 +406,8 @@ function findfilefromtasknumber ($filename, $number) {
  * @param $fichier String: Nom du fichier à rechercher
  * @return int|mixed : retourne le numéro de la tâche ou -1 si pas trouvé
  */
-function findtasknumberfromfile ($filename, $fichier) {
+function findtasknumberfromfile($filename, $fichier)
+{
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
         if ($row[1] == $fichier) {
@@ -302,7 +426,8 @@ function findtasknumberfromfile ($filename, $fichier) {
  * @param $number int : Numéro de la tâche concernée
  * @return array : Liste des entrées récupérés
  */
-function findentrylistfromtasknumber ($filename, $number) {
+function findentrylistfromtasknumber($filename, $number)
+{
     $lignes = [];
     $fp = fopen($filename, 'r');
     while (($row = fgetcsv($fp)) !== false) {
@@ -379,7 +504,7 @@ function checksondate($start, $due, $closed, $cancelled): array
  * L pour les jours entre la date de début et la date d'annulation
  * W pour les jours entre la date d'annulation et l'échéance
  */
-function checkdateforplanning($date,$start, $due, $closed, $cancelled)
+function checkdateforplanning($date, $start, $due, $closed, $cancelled)
 {
     $status = "";
     if (!empty($start) && !empty($due)) {
@@ -418,8 +543,9 @@ function checkdateforplanning($date,$start, $due, $closed, $cancelled)
  * @param $tasknumber string : Numéro de la tâche
  * @return array : Liste des commentaires de la tâche en question
  */
-function tasknumberfilteredcomments ($arrayofcomments, $tasknumber): array {
-    $result=[];
+function tasknumberfilteredcomments($arrayofcomments, $tasknumber): array
+{
+    $result = [];
     foreach ($arrayofcomments as $comment) {
         if ($comment['tasknumber'] == $tasknumber) {
             $result[] = $comment;

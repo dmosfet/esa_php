@@ -24,4 +24,5 @@
     <?php
 }
 ?>
+<input type="text" name="user" placeholder="Attribué à" value="<?php echo $user ?>"/>
 <p></p>

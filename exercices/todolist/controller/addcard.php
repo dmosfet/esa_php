@@ -14,6 +14,7 @@ $due = (!(empty($_POST['due']))) ? strtotime($_POST['due']) : '';
 $closed = (!(empty($_POST['closed']))) ? strtotime($_POST['closed']) : '';
 $cancelled = (!(empty($_POST['cancelled']))) ? strtotime($_POST['cancelled']) : '';
 $tags = isset($_POST['tags']) ? implode(",", $_POST['tags']) : '';
+$user = isset($_POST['user']) ? $_POST['user'] : '';
 
 // On vérifie si une tâche porte déjà ce nom
 
@@ -33,7 +34,7 @@ if ($exist) {
     $msg = "Une tâche portant ce nom existe déjà";
     header('Location: ../index.php?mode=addcard&task=' . $number . '&msg=' . urlencode($msg));
 } else {
-    $newligne = [$number, $name, $description, $status, $old_status, $creation, $start, $due, $closed, $cancelled, $tags];
+    $newligne = [$number, $name, $description, $status, $old_status, $creation, $start, $due, $closed, $cancelled, $tags, $user];
     $errors = checksondate($start, $due, $closed, $cancelled);
 }
 

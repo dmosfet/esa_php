@@ -47,6 +47,7 @@ $due = "";
 $closed = "";
 $cancelled = "";
 $tags = "";
+$user ="";
 
 ?>
 <div class="addform">

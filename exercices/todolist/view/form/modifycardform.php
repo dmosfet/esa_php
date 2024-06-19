@@ -23,21 +23,21 @@ $message = $_GET['msg'];
 
 $tasknumber = $_GET['task'] ?? $_SESSION['task'];
 $alltasks = arrayfromcsv("./model/tasks.csv");
-$task = findtask($alltasks, $tasknumber);
+$user = findtask($alltasks, $tasknumber);
 
 $alltags = arrayfromcsv('./model/tags.csv');
 
-$number = $task['number'];
-$name = $task['name'];
-$description = $task['description'];
-$status = $task['status'];
-$old_status = $task['old_status'];
-$creation = !empty($task['creation']) ? date('d-m-Y', $task['creation']) : "";
-$start = !empty($task['start']) ? date('d-m-Y', $task['start']) : "";
-$due = !empty($task['due']) ? date('d-m-Y', $task['due']) : "";
-$closed = !empty($task['closed']) ? date('d-m-Y', $task['closed']) : "";
-$cancelled = !empty($task['cancelled']) ? date('d-m-Y', $task['cancelled']) : "";
-$tags = $task['tags']
+$number = $user['number'];
+$name = $user['name'];
+$description = $user['description'];
+$status = $user['status'];
+$old_status = $user['old_status'];
+$creation = !empty($user['creation']) ? date('d-m-Y', $user['creation']) : "";
+$start = !empty($user['start']) ? date('d-m-Y', $user['start']) : "";
+$due = !empty($user['due']) ? date('d-m-Y', $user['due']) : "";
+$closed = !empty($user['closed']) ? date('d-m-Y', $user['closed']) : "";
+$cancelled = !empty($user['cancelled']) ? date('d-m-Y', $user['cancelled']) : "";
+$tags = $user['tags']
 
 ?>
 <div class="addform">

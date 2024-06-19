@@ -33,6 +33,7 @@
             'closed' => 'Date de clôture',
             'cancelled' => 'Date d\'annulation',
             'tags' => 'Catégories',
+            'user' => 'Attribué à',
         };
     }
 
@@ -68,7 +69,14 @@
                     <span><?php echo '#' . $task['number'] . " - " . $task['name']; ?></span>
                     <div class="button <?php echo $statusicon; ?>"></div>
                 </h2>
-                <p><?php echo "Date de création: " . date('d-m-Y', $task['creation']); ?></p>
+                <div class="attributes">
+                    <div class="owner">Attribué à: <?php if ($task['user'] != null) { echo getusername($task['user']);} ?>
+                        <a href="./index.php?mode=addusertask&task=<?php echo $task['number'];?>">
+                            <div class="button adduser" title="Attribuer la tâche"></div>
+                        </a>
+                    </div>
+                    <p><?php echo "Date de création: " . date('d-m-Y', $task['creation']); ?></p>
+                </div>
             </div>
             <hr>
             <div class="cardheader">
@@ -188,75 +196,75 @@
                 $lastidfile = nextnumber(readcsv('./model/files.csv'));
                 if ($piecesjointes) {
                     foreach ($piecesjointes as $fichier) {
-                ?>
-                    <div>
+                        ?>
+                        <div>
                         <span>
                             <a href="./upload/<?php echo $fichier[2]; ?>"><?php echo $fichier[2]; ?></a>
                         </span>
-                        <span>
+                            <span>
                             <a href="./controller/deletefile.php?task=<?php echo $number; ?>&file=<?php echo $fichier[0]; ?>">
                             <div class="button deletefile" title="Supprimer la pièce-jointe"></div>
                             </a>
                         </span>
-                    </div>
-                <?php
+                        </div>
+                        <?php
                     }
                 }
 
-        if (isset($_GET['join']) && $_GET['join'] == "true") {
-            include('./view/form/cardform/card_joinfile_form.php');
-        } ?>
-        </div>
-        <hr>
-        <div>
-            <span>Commentaires: </span>
+                if (isset($_GET['join']) && $_GET['join'] == "true") {
+                    include('./view/form/cardform/card_joinfile_form.php');
+                } ?>
+            </div>
+            <hr>
+            <div>
+                <span>Commentaires: </span>
+                <?php
+                $allcomments = arrayfromcsv('./model/comments.csv');
+                $comments = tasknumberfilteredcomments($allcomments, $number);
+                $lastidcomment = nextnumber(readcsv('./model/comments.csv'));
+                ?>
+                <a href="index.php?mode=cardviewer&task=<?php echo $number; ?>&comment=<?php echo "true"; ?>">
+                    <div class="button addcomment" title="Ajouter un commentaire"></div>
+                </a>
+            </div>
+            <br>
             <?php
-            $allcomments = arrayfromcsv('./model/comments.csv');
-            $comments = tasknumberfilteredcomments($allcomments, $number);
-            $lastidcomment = nextnumber(readcsv('./model/comments.csv'));
-            ?>
-            <a href="index.php?mode=cardviewer&task=<?php echo $number; ?>&comment=<?php echo "true"; ?>">
-                <div class="button addcomment" title="Ajouter un commentaire"></div>
-            </a>
-        </div>
-        <br>
-        <?php
-        if ($comments) {
-            foreach ($comments as $comment) { ?>
+            if ($comments) {
+                foreach ($comments as $comment) { ?>
+                    <div class="commentlign">
+                        <div class="cardcomments">
+                            <p><?php echo $comment['comment']; ?></p>
+                        </div>
+                        <div class="commentdate">
+                            <p><?php echo $comment['date']; ?></p>
+                        </div>
+                        <div class="commentaction">
+                            <a href="./controller/deletecomment.php?id=<?php echo $comment['id']; ?>','local', 'width=400 , height=700')">
+                                <div class="button deletecommentbutton" title="Effacer le commentaire"></div>
+                            </a>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php
+            } else { ?>
                 <div class="commentlign">
                     <div class="cardcomments">
-                        <p><?php echo $comment['comment']; ?></p>
-                    </div>
-                    <div class="commentdate">
-                        <p><?php echo $comment['date']; ?></p>
-                    </div>
-                    <div class="commentaction">
-                        <a href="./controller/deletecomment.php?id=<?php echo $comment['id']; ?>','local', 'width=400 , height=700')">
-                            <div class="button deletecommentbutton" title="Effacer le commentaire"></div>
-                        </a>
+                        <p>Aucun commentaire</p>
                     </div>
                 </div>
-            <?php } ?>
-            <?php
-        } else { ?>
-            <div class="commentlign">
-                <div class="cardcomments">
-                    <p>Aucun commentaire</p>
-                </div>
-            </div>
-            <?php
-        }
-        if (isset($_GET['comment']) && $_GET['comment'] == "true") {
-            require('./view/form/cardform/card_addcomment_form.php');
-        }
-        ?>
-        <p></p>
-        <form action="index.php" method="get">
-            <input type="hidden" name="mode" value="cardmodifyer">
-            <input type="submit" name="modify" value="Modifier">
-        </form>
-        <form action="index.php" method="post">
-            <input type="submit" name="mode" value="Fermer">
-        </form>
+                <?php
+            }
+            if (isset($_GET['comment']) && $_GET['comment'] == "true") {
+                require('./view/form/cardform/card_addcomment_form.php');
+            }
+            ?>
+            <p></p>
+            <form action="index.php" method="get">
+                <input type="hidden" name="mode" value="cardmodifyer">
+                <input type="submit" name="modify" value="Modifier">
+            </form>
+            <form action="index.php" method="post">
+                <input type="submit" name="mode" value="Fermer">
+            </form>
     </fieldset>
 </div>
