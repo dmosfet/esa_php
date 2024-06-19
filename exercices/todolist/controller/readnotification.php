@@ -6,12 +6,12 @@ $allnotification = arrayfromcsv('../model/notification.csv');
 
 foreach ($allnotification as $key => $notif) {
     if ($notif['id'] == $id) {
-        if ($notif['status'] == 0) {
-            $allnotification[$key]['status'] = "1";
-        } else {
-            $allnotification[$key]['status'] = "0";
-        }
         $task = $notif['idtask'];
+        if ($notif['status'] == 1) {
+            break;
+        } else {
+            $allnotification[$key]['status'] = "1";
+        }
     }
 }
 

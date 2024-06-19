@@ -33,13 +33,11 @@ $colortheme = arrayfromcsv('./model/colortheme.csv');
             </table>
         </div>
         <div class="tagform">
-            <form method="post">
                 <a href="index.php?mode=settings&view=addtag"
                    title="Ajouter une catégorie">
                     <div class="addtag"></div>
                 </a>
                 <p>Ajouter une nouvelle catégorie</p>
-            </form>
             <?php
             if ($_GET['view'] == "addtag") {
                 include('./view/form/addtagform.php');

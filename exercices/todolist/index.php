@@ -67,10 +67,9 @@ if (!isset($_SESSION['user']) && $mode != "adduser") { ?>
             require('./view/form/cardform/card_addusertask_form.php');
             break;
         default:
-            require('./view/main.php');
+            require('./view/kanban.php');
             break;
     }
 
     require('view/layouts/footer.php');
 }
-

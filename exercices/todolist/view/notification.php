@@ -41,7 +41,7 @@ foreach ($allnotifications as $notification) {
                             echo "notread";
                         } else {
                             echo "read";
-                        } ?>"><a href="./controller/readnotification.php?id=<?php echo $lign['idtask']; ?>">voir</a>
+                        } ?>"><a href="./controller/readnotification.php?id=<?php echo $lign['id']; ?>">voir</a>
                         </td>
                     </tr>
                     <?php

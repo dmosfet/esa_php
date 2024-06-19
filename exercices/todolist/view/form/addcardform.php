@@ -56,8 +56,11 @@ $user ="";
             <div class="formview">
                 <legend>Ajouter une nouvelle tâche</legend>
                 <?php include('card_form_model.php'); ?>
-                <input type="submit" name="Confirmer"/>
+                <input type="submit" name="submit" value="Ajouter"/>
             </div>
         </fieldset>
+    </form>
+    <form action="index.php" method="post">
+        <input type="submit" name="submit" value="Annuler"/>
     </form>
 </div>

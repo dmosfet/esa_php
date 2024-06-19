@@ -135,7 +135,7 @@ $alltasks = arrayfromcsv('./model/tasks.csv');
             <div class="cartouche">
                 <a href="index.php?mode=cardviewer&task=<?php echo $task['number'];?>"
                    title="<?php echo '#' . $task['number'] . ' - ' . $task['name']; ?>">
-                    <div class="titre"><p><?php echo '#' . $task['number'] . ' - ' . $task['name']; ?></p></div>
+                    <div class="titre"><p><?php echo '<del>#' . $task['number'] . ' - ' . $task['name'] .'</del>'; ?></p></div>
                 </a>
                 <a href="index.php?mode=cardmodifyer&task=<?php echo $task['number']; ?>"
                    title="Modifier une tâche">

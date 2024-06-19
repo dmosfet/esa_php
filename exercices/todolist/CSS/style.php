@@ -36,7 +36,7 @@ h2 {
     height: 650px;
 }
 
-.nouveau, .encours, .annulé, .terminé, .card {
+.nouveau, .encours, .annulé, .terminé, .card, .kanbanbytag {
     border: 5px solid;
     border-radius: 20px;
     overflow-y: scroll;

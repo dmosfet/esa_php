@@ -1,7 +1,4 @@
 number,name,color
-1,On,#c91313
-2,Peut,#42bbbd
-3,Définir,#42d791
-4,Ses,#cce64c
-5,Propres,#e67a7a
-6,Catégories,#7d80e3
+1,Analyse,#c91313
+2,Développement,#42bbbd
+3,Test,#42d791
