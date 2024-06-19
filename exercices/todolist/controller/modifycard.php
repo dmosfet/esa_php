@@ -64,6 +64,15 @@ if (!($errors)) {
     $msg = "Modification réalisée";
     $msg = urlencode($msg);
 
+    // On notifie si un utilisateur est renseigné
+    if ($oldvaluetask['user'] != null) {
+        $allnotifications = readcsv('../model/notification.csv');
+        $nextidnotification = nextnumber($allnotifications);
+
+        $newnotification = [$nextidnotification, time(), "Une de vos tâche a été modifiée", $updatedtask['number'], $oldvaluetask['user'], "0"];
+        addnewnotification($newnotification);
+    }
+
     header('Location: ../index.php?mode=cardviewer&task=' . $number . '&msg=' . $msg);
 } else {
     foreach ($errors as $error) {

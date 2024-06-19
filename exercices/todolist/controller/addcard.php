@@ -50,6 +50,7 @@ if ($errors) {
     if (addnewtask($newligne)) {
         $msg = "Ajout de la nouvelle tâche";
     }
+
     $msg = urlencode($msg);
     header('Location: ../index.php?mode=cardviewer&task=' . $number . '&msg=' . $msg);
 }

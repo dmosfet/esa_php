@@ -2,6 +2,7 @@
     <legend><b>Ajouter votre commentaire :</b></legend>
     <input type="hidden" name="id" value="<?php echo $lastidcomment;?>">
     <input type="hidden" name="tasknumber" value="<?php echo $number;?>">
+    <input type="hidden" name="iduser" value="<?php echo $task['user'];?>">
     <input type="textarea" name="comment"/>
     <br/>
     <input type="submit" name="join" value="Envoyer"/>

@@ -15,6 +15,7 @@
        value="<?php echo $closed; ?>"/>
 <input type="text" name="cancelled" placeholder="Date d'annulation" onblur="(this.type='text')"
        onfocus="(this.type='date')" value="<?php echo $cancelled; ?>"/>
+
 <?php foreach ($alltags as $tag) {
     ?><input type="checkbox" id="<?php echo $tag['name']; ?>" name="tags[]"
              value="<?php echo $tag['name']; ?>" <?php if (str_contains($tags, $tag['name'])) {
@@ -22,7 +23,6 @@
     } ?>/>
     <label id="<?php echo $tag['name']; ?>"><?php echo $tag['name']; ?></label>
     <?php
-}
-?>
-<input type="text" name="user" placeholder="Attribué à" value="<?php echo $user ?>"/>
+}?>
+<input type="hidden" name="user" placeholder="Attribué à" value="<?php echo $user ?>"/>
 <p></p>
