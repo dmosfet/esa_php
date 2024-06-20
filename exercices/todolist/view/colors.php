@@ -23,6 +23,7 @@
                         '.encours' => "Tâches démarrées",
                         '.terminé' => "Tâches terminées",
                         '.annulé' => "Tâches annulées",
+                        '.kanbanbytag' => "Tâches par catégories",
                         '.cartouche' => "Tâche",
                         '.card' => "Vue tâche",
                         '.start' => "Bouton démarrer",
