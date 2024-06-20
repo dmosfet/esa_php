@@ -1,5 +1,6 @@
 <div class="viewcard">
     <?php
+    // Si un message est passé en $_GET (après une action sur la tâche), on l'affiche dans une dialog box
     if (isset($_GET['msg'])) {
         $message = $_GET['msg'];
         ?>
@@ -13,13 +14,17 @@
         </dialog>
         <?php
     }
+    // On récupère le numéro de la tâche que l'on doit afficher.
+    // Soit depuis un $_GET (depuis une autre page) soit depuis un $_SESSSION
     $number = $_GET['task'];
     $_SESSION['task'] = $number;
+
+    // On récupère toutes les informatiques pour afficher la tâche et les formulaires éventuels
     $alltasks = arrayfromcsv("./model/tasks.csv");
     $alltags = arrayfromcsv("./model/tags.csv");
-
     $task = findtask($alltasks, $number);
 
+    // On explicite les noms des colonnes récupérées dans les fichiers csv (pour des labels par exemple)
     foreach ($task as $key => $value) {
         $label = match ($key) {
             'number' => 'Numéro',
@@ -64,6 +69,7 @@
     ?>
     <fieldset class="card">
         <div class="cardview">
+            <!-- On affiche d'abord les informations identifiants la tâches -->
             <div class="cardtitle">
                 <h2>
                     <span><?php echo '#' . $task['number'] . " - " . $task['name']; ?></span>
@@ -79,6 +85,7 @@
                 </div>
             </div>
             <hr>
+            <!-- On affiche ensuite les informations concernant la planification (toutes les dates) -->
             <div class="cardheader">
                 <table>
                     <tr>
@@ -115,6 +122,7 @@
                 </table>
             </div>
             <hr>
+            <!-- On affiche ensuite la ou les catégories associées à la tâche -->
             <div class="cardtags">
                 <p>Catégories: </p>
                 <div class="taglist">
@@ -138,6 +146,7 @@
                 </div>
             </div>
             <hr>
+            <!-- On affiche ensuite la ou les sous-tâches à la tâche -->
             <div>
                 <span>Liste: </span>
                 <a href="index.php?mode=cardviewer&task=<?php echo $number; ?>&list=<?php echo "true"; ?>">
@@ -185,6 +194,7 @@
             }
             ?>
             <hr>
+            <!-- On affiche ensuite la ou les pièces-jointes à la tâche -->
             <div class="cardfiles">
                 <span>Pièces jointes: </span>
                 <a href="index.php?mode=cardviewer&task=<?php echo $number; ?>&join=<?php echo "true"; ?>">
@@ -216,6 +226,7 @@
                 } ?>
             </div>
             <hr>
+            <!-- On affiche ensuite la ou les commentaires de la tâche -->
             <div>
                 <span>Commentaires: </span>
                 <?php

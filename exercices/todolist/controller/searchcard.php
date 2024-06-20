@@ -1,5 +1,4 @@
 <?php ob_start();
-
 include('../function.php');
 
 $name = strtolower($_POST['name'] ?? '');
@@ -12,4 +11,4 @@ foreach ($alltasks as $task) {
     }
 }
 
-header('Location: ../index.php?mode=find&tasks='.$idfindedtask);
+header('Location: ../index.php?mode=find&tasks=' . $idfindedtask);

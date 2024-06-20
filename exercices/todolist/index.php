@@ -1,19 +1,30 @@
 <?php
+/**
+ * @author: Jonathan Istace <jonathan.istace@proximus.be>
+ * @description: Cette application web dans l'esprit d'un kanban permet de gérer vos différentes tâches.
+ * Plusieurs utilisateurs peuvent créer un profil et s'attribuer des tâches.
+ */
+
 session_start();
 include('function.php');
+
+// On ajoute le header
 require('view/layouts/header.php');
-$mode= $_GET['mode'];
+
+// On affiche une dialog box qui permet à l'utilisateur de se connecter. Une fois connecté, il pourra voir le contenu du site.
+$mode = $_GET['mode'];
+$msg = $_GET['msg'];
 if (!isset($_SESSION['user']) && $mode != "adduser") { ?>
     <dialog open>
         <form action="./controller/session.php" method="post">
             <p>email: test@test.be</p>
             <p>mot de passe: test</p>
             <p>ou s'enregistrer</p>
-            <p><?php if (isset($_GET['msg'])) {echo urldecode($_GET['msg']);}?></p>
             <label>Email</label>
             <input type="text" name="mail">
             <label>Mot de passe</label>
             <input type="password" name="password">
+            <b><?php if (isset($_GET['msg'])) {echo urldecode($_GET['msg']);}?></b>
             <input type="submit" name="submit" value="Se connecter">
             <a href="index.php?mode=adduser"><button type="button">S'enregistrer</button></a>
         </form>
@@ -21,8 +32,8 @@ if (!isset($_SESSION['user']) && $mode != "adduser") { ?>
     <?php
 } else {
 
+    // En fonction de la valeur récupérée on insère la bonne page dans l'index.php.
     $mode = $_GET['mode'] ?? 'main';
-
     switch ($mode) {
         case 'planner':
             require('./view/planner.php');
@@ -70,6 +81,6 @@ if (!isset($_SESSION['user']) && $mode != "adduser") { ?>
             require('./view/kanban.php');
             break;
     }
-
+    // On ajoute le footer
     require('view/layouts/footer.php');
 }

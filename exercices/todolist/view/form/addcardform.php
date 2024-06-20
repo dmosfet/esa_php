@@ -1,4 +1,5 @@
 <?php
+// Si un message est passé en $_GET (après une action généralement), on l'affiche dans une dialog box
 if (isset($_GET['msg'])) {
     $message = $_GET['msg'];
     ?>
@@ -34,8 +35,10 @@ if ($nextnumber < $nextnumberdeleted) {
     $nextnumber = $nextnumberdeleted;
 }
 
+// Je récupère toutes les catégories existantes
 $alltags = arrayfromcsv('./model/tags.csv');
 
+// Je prépare les valeurs par défaut de mon formulaire
 $number = $nextnumber;
 $name = "";
 $description = "";

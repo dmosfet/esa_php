@@ -1,2 +1,0 @@
-Vérifier que le nom de la tâche n'existe pas déjà avant de la créér
-Rajouter un id pour les fichiers

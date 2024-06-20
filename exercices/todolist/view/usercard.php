@@ -1,5 +1,6 @@
 <div class="viewcard">
     <?php
+    // Si un message est passé en $_GET (après une action sur la tâche), on l'affiche dans une dialog box
     if (isset($_GET['msg'])) {
         $message = $_GET['msg'];
         ?>
@@ -13,9 +14,9 @@
         </dialog>
         <?php
     }
+    // On récupère les informations de l'utilisateur connecté pour les afficher
     $allusers = arrayfromcsv("./model/users.csv");
     $user = finduser($allusers, $_SESSION['id']);
-
     ?>
     <fieldset class="card">
         <div class="cardview">
@@ -44,9 +45,7 @@
                     </form>
                     <hr>
                 <?php } ?>
-
             </div>
-
             <table>
                 <tbody>
                 <tr>

@@ -1,5 +1,5 @@
 <?php
-
+// Affiche les différentes catégories dans une table
 $alltags = arrayfromcsv('./model/tags.csv');
 $colortheme = arrayfromcsv('./model/colortheme.csv');
 

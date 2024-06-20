@@ -1,9 +1,11 @@
 <?php
+// On récupère le type de tri utilisé pour chaque status. Ils sont stockés dans des cookies
 $filternew = $_COOKIE['new'] ?? 'taskid_ascsort';
 $filterstarted = $_COOKIE['started'] ?? 'taskid_ascsort';
 $filterclosed = $_COOKIE['closed'] ?? 'taskid_ascsort';
 $filtercancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
 
+// On récupère les tâches. On les répartis en fonction de leur statut (0, 1, 2, 3)
 $alltasks = arrayfromcsv('./model/tasks.csv');
 ?>
 <div class="kanban">

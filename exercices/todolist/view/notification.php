@@ -1,6 +1,8 @@
 <?php
-$notifications = [];
+
+// On récupère toutes les notifications et on les filtres sur base de l'utilisateur connecté actuellement.
 $allnotifications = arrayfromcsv("./model/notification.csv");
+$notifications = [];
 
 foreach ($allnotifications as $notification) {
     if ($notification['iduser'] == $_SESSION['id']) {
@@ -8,6 +10,7 @@ foreach ($allnotifications as $notification) {
     }
 }
 ?>
+
 <fieldset class="card">
     <legend class="legendkanban"><span class="button bell"></span>Notifications</legend>
     <div class="notiftable">
@@ -22,9 +25,8 @@ foreach ($allnotifications as $notification) {
             <tbody>
             <?php
             if ($notifications != null) {
-                foreach ($notifications
-
-                         as $lign) {
+                foreach ($notifications as $lign) {
+                    // On affiche chaque notification en mettant en évidence les notifications non lues
                     ?>
                     <tr>
                         <td class="<?php if ($lign['status'] == "0") {

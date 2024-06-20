@@ -1,32 +1,37 @@
 <?php
+
+// Si un message est passé en $_GET (après une action généralement), on l'affiche dans une dialog box
 if (isset($_GET['msg'])) {
-$message = $_GET['msg'];
-?>
-<dialog open>
-    <form method="dialog">
-        <div class="dialog">
-            <label>
-                <p>Listes des erreurs</p>
-                <?php
-                $errors=explode(',', $message);
-                foreach ($errors as $error) {
-                    echo $error . "<br>";
-                }
-                ?>
-            </label>
-            <button>OK</button>
-        </div>
-    </form>
-</dialog>
-<?php
+    $message = $_GET['msg'];
+    ?>
+    <dialog open>
+        <form method="dialog">
+            <div class="dialog">
+                <label>
+                    <p>Listes des erreurs</p>
+                    <?php
+                    $errors = explode(',', $message);
+                    foreach ($errors as $error) {
+                        echo $error . "<br>";
+                    }
+                    ?>
+                </label>
+                <button>OK</button>
+            </div>
+        </form>
+    </dialog>
+    <?php
 }
 
+// Je récupère la tâche à modifier
 $tasknumber = $_GET['task'] ?? $_SESSION['task'];
 $alltasks = arrayfromcsv("./model/tasks.csv");
 $task = findtask($alltasks, $tasknumber);
 
+// Je récupère toutes les catégories existantes
 $alltags = arrayfromcsv('./model/tags.csv');
 
+// On prépare les valeurs par défaut de mon formulaire
 $number = $task['number'];
 $name = $task['name'];
 $description = $task['description'];

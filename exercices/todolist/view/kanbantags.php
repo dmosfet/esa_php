@@ -1,12 +1,13 @@
 <?php
-
+// On récupère la liste des tâches et des catégories.
 $alltasks = arrayfromcsv('./model/tasks.csv');
 $alltags = arrayfromcsv('./model/tags.csv');
+
 ?>
 <div class="kanban">
 
     <?php
-
+    // On créé un kanban par catégorie existantes. Les tâches sans catégories sont regroupées dans un kanban séparé
     if ($alltags != NULL) {
         foreach ($alltags as $tag) {
             ?>

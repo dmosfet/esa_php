@@ -1,9 +1,12 @@
 <?php
+// On récupère les valeurs de tri stockées dans un cookie.
+// Si n'existe pas on choisi le tri par id par ordre croissant par défaut
 $new= $_COOKIE['new'] ?? 'taskid_ascsort';
 $started = $_COOKIE['started'] ?? 'taskid_ascsort';
 $closed = $_COOKIE['closed'] ?? 'taskid_ascsort';
 $cancelled = $_COOKIE['cancelled'] ?? 'taskid_ascsort';
 
+// On explicite la valeur des variables pour un affichage
 $new = match ($new) {
     'taskid_ascsort' => "Par numéro, ordre croissant",
     'taskid_descsort' => "Par numéro, ordre décroissant",
@@ -31,6 +34,7 @@ $cancelled = match ($cancelled) {
     'taskname_descsort' => 'Par nom, ordre décroissant',
 };
 
+// Si on veut modifier les filtres, on affiche le formulaire adéquat, sinon on affiche simplement un tableau
 if ($_GET['view'] == "modifyfilter") {
     include('./view/form/filtermenuform.php');
 } else { ?>

@@ -1,39 +1,41 @@
 <?php
-
+// On récupère toutes les tâches
 $alltasks = arrayfromcsv('./model/tasks.csv');
 
-
+// On les répartis en fonction de leur statut
 $newtasks = statusfilteredarray($alltasks, "0");
 $startedtasks = statusfilteredarray($alltasks, "1");
 $closedtasks = statusfilteredarray($alltasks, "2");
 $cancelledtasks = statusfilteredarray($alltasks, "3");
 
-
-
+// On les comptes
 $nbrnewtasks = count($newtasks);
 $nbrstartedtasks = count($startedtasks);
 $nbrclosedtasks = count($closedtasks);
 $nbrcancelledtasks = count($cancelledtasks);
 $nbrtasks = count($alltasks);
 
-
+// On initialise des valeurs pour le calcul de certains délais
 $delais = [];
 $maxdelai = 0;
 $delaimoyen = 0;
 $total = 0;
 
+// On créé un tableau des délais des tâches terminées
 foreach ($closedtasks as $task) {
     $delai = ($task['closed'] - $task['start']);
     $total += $task['closed'] - $task['start'];
     $delais[] = $delai;
 }
 
+// Si le tableau n'est pas vide, on calcul les délais max et la moyenne
 if ($nbrclosedtasks > 0) {
     $maxdelai = max($delais) / 60 / 60 / 24;;
     $delaimoyen = $total / $nbrclosedtasks / 60 / 60 / 24;
 }
 
 ?>
+<!-- On met tout dans un beau tableau -->
 <div class="viewstat">
     <fieldset class="card">
         <legend class="legendkanban"><span class="button chart"></span>Statistiques</legend>

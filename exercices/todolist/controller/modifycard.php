@@ -1,7 +1,6 @@
 <?php ob_start();
 require("../function.php");
 
-
 // On récupère les données du formulaire envoyées depuis ../form/modifycardform.php
 $updatedtask = $_POST;
 $number = $updatedtask['number'];
@@ -13,7 +12,6 @@ unset($updatedtask['submit']);
 // On récupère toutes les tâches déjà encodées
 $alltasks = arrayfromcsv("../model/tasks.csv");
 
-
 foreach ($alltasks as $task) {
     if ($task['number'] == $updatedtask['number']) {
         $oldvaluetask = $task;
@@ -21,14 +19,12 @@ foreach ($alltasks as $task) {
     }
 }
 
-
 // On recast les dates en int même si pas modifié
 $updatedtask['creation'] = !(empty($updatedtask['creation'])) ? strtotime($updatedtask['creation']) : '';
 $updatedtask['start'] = !(empty($updatedtask['start'])) ? strtotime($updatedtask['start']) : '';
 $updatedtask['due'] = !(empty($updatedtask['due'])) ? strtotime($updatedtask['due']) : '';
 $updatedtask['closed'] = !(empty($updatedtask['closed'])) ? strtotime($updatedtask['closed']) : '';
 $updatedtask['cancelled'] = !(empty($updatedtask['cancelled'])) ? strtotime($updatedtask['cancelled']) : '';
-
 
 // On transforme l'array tags reçues en un string séparé par une virgule'
 if (!(empty($updatedtask['tags']))) {
@@ -45,7 +41,6 @@ $closed = $updatedtask['closed'];
 $cancelled = $updatedtask['cancelled'];
 
 $errors = checksondate($start, $due, $closed, $cancelled);
-
 
 // On réalise des vérifications avant de réécrire
 //On initialise une variable $checked à true. On la change en false si on trouve une incohérence

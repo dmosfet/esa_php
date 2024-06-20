@@ -1,9 +1,13 @@
 <?php
 
+// Affichage des taches et de leur statut en fonction des jours de la semaine en cours
 $alltasks = arrayfromcsv('./model/tasks.csv');
+
+// On récupère la période de temps pour laquel il faut afficher le statut
 $annee = isset($_GET["year"]) ? $_GET["year"] : date('Y');
 $sem = isset($_GET["sem"]) ? $_GET["sem"] : date('W');
 $date = date_create();
+
 ?>
 <div class="viewplanning">
     <fieldset class="card">
@@ -85,7 +89,6 @@ $date = date_create();
                     ?>
                     <tr>
                         <td><?php echo $task['name']; ?></td>
-
                         <?php
                         for ($i = 1; $i <= 7; $i++) {
                             date_isodate_set($date, $annee, $sem, $i);
@@ -106,6 +109,7 @@ $date = date_create();
         </div>
     </fieldset>
 </div>
+<!-- Une petite légende pour mieux comprendre le tableau -->
 <div class="legendplanning">
     <fieldset class="card">
         <legend class="legendkanban">Legende</legend>

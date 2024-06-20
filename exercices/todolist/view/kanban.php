@@ -1,4 +1,5 @@
 <?php
+// On récupère le type de kanban qui sera affiché sur base d'un formulaire
 $kanbanviewmode = $_POST['kanbanview'] ?? "status";
 ?>
     <form action="index.php" method="post">
@@ -22,6 +23,7 @@ $kanbanviewmode = $_POST['kanbanview'] ?? "status";
     </form>
 <?php
 
+// On affiche le bon kanban
 if ($kanbanviewmode == "status") {
     require('kanbanstatus.php');
 } else if ($kanbanviewmode == "tags") {

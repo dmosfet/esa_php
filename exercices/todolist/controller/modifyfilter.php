@@ -1,10 +1,9 @@
 <?php ob_start();
-
 include("../function.php");
 
 // On récupère les données du formulaire
 
-$new= $_POST['new'];
+$new = $_POST['new'];
 $started = $_POST['started'];
 $closed = $_POST['closed'];
 $cancelled = $_POST['cancelled'];

@@ -1,7 +1,9 @@
 <?php
 
+// On récupère les tâches supprimées (statut = -1)
 $deletedtask = [];
 $alltasks = arrayfromcsv("./model/tasks.csv");
+
 foreach ($alltasks as $task) {
     if ($task['status'] == "-1") {
         $deletedtask[] = $task;
@@ -10,6 +12,7 @@ foreach ($alltasks as $task) {
 
 if ($deletedtask != null) {
     foreach ($deletedtask as $task) {
+        // On affiche chaque tâche avce l'option de la lire, de la supprimer, ou de la restaurer
         ?>
         <div class="cartouche">
             <a href="index.php?mode=cardviewer&task=<?php echo $task['number']; ?>"

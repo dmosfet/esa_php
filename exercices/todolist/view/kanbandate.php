@@ -1,6 +1,9 @@
 <?php
+// On récupère toutes les tâches à afficher
 $alltasks = arrayfromcsv('./model/tasks.csv');
 
+// On les trie dans 4 autres tableaux: Les tâches en retard, les tâches qui arrivent bientot à échéance (7j),
+// les tâches qui arrivent à échéance dans le mois et les tâches non planifiées (sans date d'échéance)
 foreach ($alltasks as $task) {
     if (!empty($task['due']) && $task['due'] < time() && empty($task['closed'])) {
         $latetasks[] = $task;
@@ -91,9 +94,7 @@ foreach ($alltasks as $task) {
     </fieldset>
     <?php
 }
-
 ?>
-
     <fieldset class="kanbanbytag">
         <legend class="legendkanban">Dans 30 jours</legend>
         <?php

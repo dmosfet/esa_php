@@ -1,7 +1,6 @@
 <?php ob_start();
 require("../function.php");
 
-
 // On récupère les données du formulaire envoyées depuis ../form/modifyuserform.php
 $updateduser = $_POST;
 $id = $updateduser['id'];
@@ -21,7 +20,6 @@ foreach ($allusers as $user) {
 
 // On réalise des vérifications avant de réécrire
 //On initialise une variable $checked à true. On la change en false si on trouve une incohérence
-
 $allusers[array_search($oldvalueuser, $allusers)] = $updateduser;
 csvfromarray($allusers, '../model/users.csv');
 $msg = "Modification réalisée";
