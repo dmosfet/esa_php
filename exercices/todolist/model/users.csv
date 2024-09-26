@@ -1,4 +1,0 @@
-id,email,password,lastname,firstname,pseudo,creation,team
-0,test@test.be,098f6bcd4621d373cade4e832627b4f6,test,test,test,1718651000,default
-1,jonathan.istace@proximus.be,c274ba3d2e9678b3e250f42f5c234c4b,Istace,Jonathan,dmosfet,1718651503,default
-2,celine.hermal@gmail.com,84218f0228baafabeb370dd5dcbe5346,HERMAL,Céline,Balaïka,1718802290,default
