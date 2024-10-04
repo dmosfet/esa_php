@@ -2,6 +2,6 @@
 
 require 'Palindrome.php';
 
-$palindrome = new Palindrome("connasse");
+$palindrome = new Palindrome("Étudiant");
 
 $palindrome->testpalindrome();
