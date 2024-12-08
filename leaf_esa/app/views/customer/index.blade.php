@@ -19,7 +19,7 @@
                     <td>{{ $customer->City }}</td>
                     <td>
                         <a href="{{route('customers.edit', $customer->CustomerId)}}"><button>Edit</button></a>
-                        <form action="{{route('customer.destroy')}}" method="post">
+                        <form action="{{route('customers.destroy')}}" method="post">
                             <?php csrf()->form(); ?>
                             <input type="hidden" name="CustomerId" value="{{ $customer->CustomerId }}"/>
                             <button type="submit">Delete</button>

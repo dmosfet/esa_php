@@ -17,7 +17,7 @@ class CustomerController extends Controller
     function create()
     {
         $customer = new Customer();
-        render('customer.create');
+        render('customer.create',compact('customer'));
     }
 
     function store()
