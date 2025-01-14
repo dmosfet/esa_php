@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <p></p>
+   <br/>
         <h3>{{ $titre }}</h3>
-        <div><a href="/ponies/create"><button>Créer un nouveau poney</button></a></div>
+        <div><a href="ponies/create"><button>Créer un nouveau poney</button></a></div>
+        <br/>
         <table>
             <tr>
                 <th>Nom du Poney</th>
@@ -18,20 +18,15 @@
                     <td>{{ $pony->Temperament->TemperamentName }}</td>
                     <td>{{ $pony->PonyMaxWorkHour }}</td>
                     <td>
-                        <span>
-                            <a href="{{route('ponies.edit', $pony->PonyId)}}"><button class="modify"></button></a>
-                        </span>
-                        <span>
-                            <form action="{{route('ponies.destroy')}}" method="post">
-                                    <?php csrf()->form(); ?>
-                                <input type="hidden" name="PonyId" value="{{ $pony->PonyId }}"/>
-                                <button type="submit" class="delete">Supprimer</button>
-                            </form>
-                        </span>
+                        <div class="actionbuttonbar">
+                            <a href="{{route('ponies.details', $pony->PonyId)}}"><div class="detailsbutton"></div></a>
+                            <a href="{{route('ponies.edit', $pony->PonyId)}}"><div class="modifybutton"></div></a>
+                            <a href="{{route('ponies.destroy', $pony->PonyId)}}"><div class="deletebutton"></div></a>
+                        </div>
                     </td>
                 </tr>
 
             @endforeach
         </table>
-    </div>
+
 @endsection

@@ -13,10 +13,15 @@ class ClientController extends Controller {
         render('client.index',compact('clients','titre'));
     }
 
-    function edit() {
+    function details(int $ClientId) {
+        $titre= "Fiche Client";
+        $clients = Client::where('ClientId', $ClientId)->get();
+        render('client.details',compact('clients','titre','ClientId'));
+    }
+
+    function edit(int $ClientId) {
         $titre= 'Modifier un client';
-        $clients = Client::select('ClientId','ClientName','ClientEmail')->orderBy('ClientId','DESC')->get();
-        //$ponies = Pony::all();
-        render('client.edit',compact('clients','titre'));
+        $clients = Client::where('ClientId', $ClientId)->get();
+        render('client.edit',compact('clients','titre','ClientId'));
     }
 }

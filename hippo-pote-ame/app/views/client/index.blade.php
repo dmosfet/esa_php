@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container">
-        <p></p>
+        <br/>
         <h3>{{ $titre }}</h3>
         <div><a href="/clients/create"><button>Créer un nouveau client</button></a></div>
+        <br/>
         <table>
             <tr>
                 <th>Nom du client</th>
@@ -18,16 +19,11 @@
                     <td>{{ $client->ClientBCE }}</td>
                     <td>{{ $client->ClientEmail }}</td>
                     <td>
-                        <span>
-                            <a href="{{route('clients.edit', $client->ClientId)}}"><button>Modifier</button></a>
-                        </span>
-                        <span>
-                            <form action="{{route('clients.destroy')}}" method="post">
-                                    <?php csrf()->form(); ?>
-                                <input type="hidden" name="ClientId" value="{{ $client->ClientId }}"/>
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </span>
+                        <div class="actionbuttonbar">
+                            <a href="{{route('clients.details', $client->ClientId)}}"><div class="detailsbutton"></div></a>
+                            <a href="{{route('clients.edit', $client->ClientId)}}"><div class="modifybutton"></div></a>
+                            <a href="{{route('clients.destroy', $client->ClientId)}}"><div class="deletebutton"></div></a>
+                        </div>
                     </td>
                 </tr>
 
