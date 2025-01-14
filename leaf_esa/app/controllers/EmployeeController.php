@@ -21,15 +21,25 @@ class EmployeeController extends Controller
 
     function store()
     {
-        $data=request()->postData();
-        $employee = new Employee();
-        $employee->FirstName = $data['FirstName'];
-        $employee->LastName = $data['LastName'];
-        $employee->Title = $data['Title'];
-        $employee->BirthDate = $data['BirthDate'];
-        $employee->Country = $data['Country'];
-        $employee->save();
-        response()->redirect('/employees');
+        $validate = request()->validate([
+            'FirstName' => 'min'
+            ]);
+        if(!$validate){
+            $errors = request()->errors();
+            $employee = new Employee(request()->postData());
+            render('employee.create',compact('errors', 'employee'));
+        } else {
+            Employee::create(request()->postData());
+//            $data=request()->postData();
+//            $employee = new Employee();
+//            $employee->FirstName = $data['FirstName'];
+//            $employee->LastName = $data['LastName'];
+//            $employee->Title = $data['Title'];
+//            $employee->BirthDate = $data['BirthDate'];
+//            $employee->Country = $data['Country'];
+//            $employee->save();
+            response()->redirect('/employees');
+        }
     }
 
     function edit(int $employeeId) {
