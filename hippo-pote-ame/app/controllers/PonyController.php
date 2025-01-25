@@ -9,29 +9,38 @@ class PonyController extends Controller {
 
     function index() {
         $titre= 'Listing des poneys';
-        $ponies = Pony::with('Temperament')->get();
+        $ponies = Pony::with('Temperament')
+            ->orderBy('Name', 'ASC')
+            ->get();
         render('pony.index',compact('ponies','titre'));
     }
 
-    function details(int $PonyId) {
+    function details($PonyId) {
         $titre= "Carte d'identité d'un poney";
-        $ponies = Pony::where('PonyId', $PonyId)->with('Temperament')->get();
-        render('pony.details',compact('ponies','titre','PonyId'));
+        $pony= Pony::with('Temperament')
+            ->where('PonyId', $PonyId)
+            ->first();
+        render('pony.details',compact('pony','titre','PonyId'));
     }
 
-    function edit(int $PonyId) {
+    function edit() {
+        $PonyId = $_POST['PonyId'];
         $titre= 'Modifier un poney';
-        $ponies = Pony::where('PonyId', $PonyId)->with('Temperament')->get();
+        $pony= Pony::with('Temperament')
+            ->where('PonyId', $PonyId)
+            ->first();
         $temperaments = Temperament::all();
-        render('pony.edit',compact('ponies','temperaments','titre','PonyId'));
+        render('pony.edit',compact('pony','temperaments','titre','PonyId'));
     }
 
     function update() {
         $data=request()->postData();
         $pony = Pony::find($data['PonyId']);
-        $pony->PonyName = $data['PonyName'];
-        $pony->PonyTemperamentId = $data['PonyTemperamentId'];
-        $pony->PonyMaxWorkHour = $data['PonyMaxWorkHour'];
+        $pony->Name = $data['Name'];
+        $pony->DateOfBirth = $data['DateOfBirth'];
+        $pony->Height = $data['Height'];
+        $pony->TemperamentId = $data['TemperamentId'];
+        $pony->MaxWorkHour = $data['MaxWorkHour'];
         $pony->save();
         response()->redirect(route('ponies.details',$data['PonyId']));
     }
@@ -48,10 +57,21 @@ class PonyController extends Controller {
     {
         $data=request()->postData();
         $pony = new Pony();
-        $pony->PonyName = $data['PonyName'];
-        $pony->PonyTemperamentId = $data['PonyTemperamentId'];
-        $pony->PonyMaxWorkHour = $data['PonyMaxWorkHour'];
+        $pony->Name = $data['Name'];
+        $pony->DateOfBirth = $data['DateOfBirth'];
+        $pony->Height = $data['Height'];
+        $pony->TemperamentId = $data['TemperamentId'];
+        $pony->MaxWorkHour = $data['MaxWorkHour'];
         $pony->save();
-        response()->redirect('/ponies');
+        response()->redirect(route('ponies.index'));
+    }
+    function destroy()
+    {
+        $PonyId = $_POST['PonyId'];
+        $pony = Pony::findOrFail($PonyId);
+        if ($pony) {
+            $pony->delete();
+        }
+        response()->redirect(route('ponies.index'));
     }
 }

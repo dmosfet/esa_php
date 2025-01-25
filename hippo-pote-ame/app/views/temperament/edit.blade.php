@@ -6,26 +6,24 @@
         <h3>{{ $titre }}</h3>
         <table>
             <tr>
-                <th>Id</th>
                 <th>Tempérament</th>
+                <th>Description</th>
                 <th>Action</th>
             </tr>
-            @foreach($temperaments as $temperament)
                 <tr>
-                        <?php csrf()->form(); ?>
                     <form action="{{ route('temperaments.update') }}" method="post">
-                            <?php csrf()->form(); ?>
+                        <?php csrf()->form(); ?>
+                        <input type="hidden" name="TemperamentId" id="TemperamentId" placeholder="{{$temperament->TemperamentId}}" value="{{$temperament->TemperamentId}}">
                         <td>
-                            <input type="hidden" name="TemperamentId" id="TemperamentId" placeholder="{{$temperament->TemperamentId}}" value="{{$temperament->TemperamentId}}">
+                            <input type="text" name="Name" id="Name" value="{{$temperament->Name}}">
                         </td>
                         <td>
-                            <input type="text" name="TemperamentName" id="TemperamentName" value="{{$temperament->TemperamentName}}"></td>
+                            <input type="text" name="Description" id="Description" value="{{$temperament->Description}}"></td>
                         <td>
                             <button type="submit">Enregistrer</button>
                         </td>
                     </form>
                 </tr>
-            @endforeach
         </table>
     </div>
 @endsection

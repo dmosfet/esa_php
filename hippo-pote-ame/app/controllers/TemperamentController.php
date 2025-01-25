@@ -8,27 +8,30 @@ class TemperamentController extends Controller {
 
     function index() {
         $titre= 'Temperaments';
-        $temperaments= Temperament::select('TemperamentId','TemperamentName')->orderBy('TemperamentId','DESC')->get();
+        $temperaments= Temperament::all()->sortBy('TemperamentId');
         render('temperament.index',compact('temperaments','titre'));
     }
 
-    function details(int $TemperamentId) {
-        $titre= "Fiche Client";
-        $temperaments = Temperament::where('TemperamentId', $TemperamentId)->get();
-        render('temperament.details',compact('temperaments','titre','TemperamentId'));
+    function details($TemperamentId) {
+        $titre= "Définition du tempérament";
+        $temperament = Temperament::where('TemperamentId',$TemperamentId)->first();
+        render('temperament.details',compact('temperament','titre','TemperamentId'));
     }
 
-    function edit(int $TemperamentId) {
+    function edit() {
+        $TemperamentId = $_POST['TemperamentId'];
         $titre= 'Modifier un caractère';
-        $temperaments = Temperament::where('TemperamentId', $TemperamentId)->get();
-        render('temperament.edit',compact('temperaments','titre','TemperamentId'));
+        $temperament = Temperament::where('TemperamentId',$TemperamentId)->first();
+        render('temperament.edit',compact('temperament','titre'));
     }
+
     function update() {
         $data=request()->postData();
-        $temperament = Temperament::find($data['TemperamentId']);
-        $temperament->TemperamentName = $data['TemperamentName'];
+        $temperament = Temperament::where('TemperamentId',$data['TemperamentId'])->first();
+        $temperament->Name = $data['Name'];
+        $temperament->Description = $data['Description'];
         $temperament->save();
-        response()->redirect(route('temperaments.details',$data['TemperamentId']));
+        response()->redirect(route('temperaments.index'));
     }
 
     function create()
@@ -42,9 +45,19 @@ class TemperamentController extends Controller {
     {
         $data=request()->postData();
         $temperament= new Temperament();
-        $temperament->TemperamentName = $data['TemperamentName'];
+        $temperament->Name = $data['Name'];
+        $temperament->Description = $data['Description'];
         $temperament->save();
         response()->redirect('/temperaments');
+    }
+
+    function destroy() {
+        $TemperamentId=$_POST['TemperamentId'];
+        $temperament = Temperament::findOrFail($TemperamentId);
+        if ($temperament) {
+            $temperament->delete();
+        }
+        response()->redirect(route('temperaments.index'));
     }
 }
 

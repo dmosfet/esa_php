@@ -4,19 +4,40 @@
     <div class="container">
         <p></p>
         <h3>{{ $titre }}</h3>
-        <a href="{{route('temperaments.edit', $TemperamentId)}}"><button>Modifier</button></a>
-        <a href="{{route('temperaments.destroy', $TemperamentId)}}"><button>Supprimer</button></a>
         <table>
             <tr>
-                <th>ID</th>
-                <th>Tempérament</th>
+                <td>
+                    <form action="{{route('temperaments.edit', $temperament->TemperamentId)}}" method="post">
+                        <?php csrf()->form(); ?>
+                        <input type="hidden" name="TemperamentId" value="{{$temperament->TemperamentId}}"> <!-- ID du client -->
+                        <input type="submit" value="Modifier">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{route('temperaments.destroy')}}" method="post">
+                        <?php csrf()->form(); ?>
+                        <input type="hidden" name="TemperamentId" value="{{$temperament->TemperamentId}}"> <!-- ID du client -->
+                        <input type="submit" value="Supprimer">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{route('temperaments.index')}}" method="post">
+                        <?php csrf()->form(); ?>
+                        <input type="submit" value="Retour">
+                    </form>
+                </td>
             </tr>
-            @foreach($temperaments as $temperament)
-                <tr>
-                    <td>{{ $temperament->TemperamentId}}</td>
-                    <td>{{ $temperament->TemperamentName }}</td>
-                </tr>
-            @endforeach
+        </table>
+        <table>
+            <tr>
+                <th>{{ $temperament->Name }}</th>
+            </tr>
+            <tr>
+                <td>Description:</td>
+            </tr>
+            <tr>
+                <td>{{ $temperament->Description }}</td>
+            </tr>
         </table>
     </div>
 @endsection

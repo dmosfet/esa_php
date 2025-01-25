@@ -8,21 +8,39 @@
         <br/>
         <table>
             <tr>
-                <th>Nom du client</th>
+                <th>Type</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Societé</th>
                 <th>BCE</th>
-                <th>Email</th>
                 <th>Action</th>
             </tr>
             @foreach($clients as $client)
                 <tr>
-                    <td>{{ $client->ClientName}}</td>
-                    <td>{{ $client->ClientBCE }}</td>
-                    <td>{{ $client->ClientEmail }}</td>
+                    <td>{{ $client->ClientType->Name}}</td>
+                    <td>{{ $client->FirstName}}</td>
+                    <td>{{ $client->LastName }}</td>
+                    <td>{{ $client->SocietyName }}</td>
+                    <td>{{ $client->BCE }}</td>
                     <td>
                         <div class="actionbuttonbar">
-                            <a href="{{route('clients.details', $client->ClientId)}}"><div class="detailsbutton"></div></a>
-                            <a href="{{route('clients.edit', $client->ClientId)}}"><div class="modifybutton"></div></a>
-                            <a href="{{route('clients.destroy', $client->ClientId)}}"><div class="deletebutton"></div></a>
+                            <form action="{{route('clients.details', $client->ClientId)}}" method="get">
+                                <?php csrf()->form(); ?>
+                                <input type="hidden" name="ClientId" value="{{$client->ClientId}}"> <!-- ID du client -->
+                                <button type="submit" class="detailsbutton"></button>
+                            </form>
+                            <form action="{{route('clients.edit')}}" method="post">
+                                    <?php csrf()->form(); ?>
+                                <input type="hidden" name="ClientId" value="{{$client->ClientId}}"> <!-- ID du client -->
+                                <button type="submit" class="modifybutton"></button>
+                            </form>
+                            <form action="{{route('clients.destroy')}}" method="post">
+                                <?php csrf()->form(); ?>
+                                <input type="hidden" name="ClientId" value="{{$client->ClientId}}"> <!-- ID du client -->
+                                <button type="submit" class="deletebutton">
+                                    <i class="fa fa-user"></i>
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>

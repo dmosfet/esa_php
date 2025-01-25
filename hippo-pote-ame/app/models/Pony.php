@@ -2,15 +2,18 @@
 
 namespace App\Models;
 class Pony extends Model {
-    protected $table = 'pony';
     protected $primaryKey = 'PonyId';
     public $timestamps = false;
     protected $fillable = [
-        'PonyName', 'PonyMaxWorkHour','PonyTemperamentId',
+        'Name', 'DateOfBirth','Heigth','MaxWorkHour','TemperamentId',
     ];
 
     public function temperament()
     {
-        return $this->hasOne('App\Models\Temperament', 'TemperamentId','PonyTemperamentId');
+        return $this->hasOne('App\Models\Temperament', 'TemperamentId','TemperamentId');
+    }
+    public function SessionPony()
+    {
+        return $this->belongsTo(SessionPony::class,'PonyId','PonyId');
     }
 }
