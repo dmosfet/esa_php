@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <br/>
+    <hr>
+    <div class="container-title">
         <h3>{{ $titre }}</h3>
-        <div><a href="{{route('temperaments.create')}}"><button>Créer un nouveau temperament</button></a></div>
-        <br/>
+        <a href="{{route('temperaments.create')}}"><button class="addbutton"></button></a>
+    </div>
+    <div class="container">
         <table>
             <tr>
                 <th>Code</th>
@@ -46,5 +47,10 @@
                 </tr>
             @endforeach
         </table>
+    </div>
+    <div class="container-footer">
+        <a href="{{route('ponies.index')}}">
+            <button>Retour</button>
+        </a>
     </div>
 @endsection

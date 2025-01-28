@@ -6,11 +6,28 @@ use App\Models\Client;
 
 class ClientController extends Controller {
 
-    function index() {
+    function index($type=null) {
         $titre= 'Liste de nos clients';
-        $clients = Client::with('ClientType')
-            ->orderBy('ClientId','DESC')
-            ->get();
+        if ($type == 'society') {
+            $clients = Client::with('ClientType')
+                ->where('ClientTypeId', 1)
+                ->orderBy('SocietyName','ASC')
+                ->orderBy('LastName','ASC')
+                ->get();
+
+        } elseif ($type == 'private') {
+            $clients = Client::with('ClientType')
+                ->where('ClientTypeId', 2)
+                ->orderBy('SocietyName','ASC')
+                ->orderBy('LastName','ASC')
+                ->get();
+        } else {
+            $clients = Client::with('ClientType')
+                ->orderBy('SocietyName','ASC')
+                ->orderBy('LastName','ASC')
+                ->get();
+        }
+
         render('client.index',compact('clients','titre'));
     }
 

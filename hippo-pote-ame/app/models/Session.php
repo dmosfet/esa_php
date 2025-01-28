@@ -27,14 +27,12 @@ class Session extends Model {
 
     public function Statut()
     {
-        $datesession = date('d/m/Y', strtotime($this->DateSession));
-        $datejour = date('d/m/Y');
-        $heurejour = date('H:i:s');
-        $heuredebutsession = date('H:i:s', strtotime($this->HourSession));
-        $finsession = new Datetime($this->HourSession);
-        $finsession->modify('+' . $this->Duration . ' minutes');
-        $heurefinsession = date_format($finsession, 'H:i:s');
-
+        $datejour = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+        $heurejour = DateTime::createFromFormat('H:i:s', date('H:i:s'));
+        $datesession= DateTime::createFromFormat('Y-m-d', $this->DateSession);
+        $heuredebutsession = DateTime::createFromFormat('H:i:s', $this->HourSession);
+        $heurefinsession = Datetime::createFromFormat('H:i:s',$this->HourSession);
+        $heurefinsession->modify('+' . $this->Duration . ' minutes');
         if ($datesession > $datejour) {
             $statut = "Non-démarrée";
         } elseif ($datesession == $datejour) {

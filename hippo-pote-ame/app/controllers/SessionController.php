@@ -12,12 +12,33 @@ use DateTime;
 class SessionController extends Controller
 {
 
-    function index()
+    function index($type=null)
     {
         $titre = 'Liste des Sessions';
-        $sessions = Session::with('SessionType')
-            ->orderBy('DateSession', 'ASC')
-            ->get();
+        if ($type == 'groups') {
+            $sessions = Session::with('SessionType')
+                ->where('SessionTypeId', 1)
+                ->orderBy('DateSession', 'ASC')
+                ->get();
+        } elseif ($type == 'private') {
+            $sessions = Session::with('SessionType')
+                ->where('SessionTypeId', 2)
+                ->orderBy('DateSession', 'ASC')
+                ->get();
+        } elseif ($type == 'all') {
+            $sessions = Session::with('SessionType')
+                ->orderBy('DateSession', 'ASC')
+                ->get();
+        } elseif ($type == 'today') {
+            $sessions = Session::with('SessionType')
+                ->where('DateSession', date('Y-m-d'))
+                ->orderBy('DateSession', 'ASC')
+                ->get();
+        } else {
+            $sessions = Session::with('SessionType')
+                ->orderBy('DateSession', 'ASC')
+                ->get();
+        }
         render('session.index', compact('sessions', 'titre'));
     }
 
@@ -27,8 +48,6 @@ class SessionController extends Controller
         $session = Session::where('SessionId', $SessionId)->first();
         $sessionclients = SessionClient::with('client')->where('SessionId', $SessionId)->get();
         $sessionponies = SessionPony::with('pony')->where('SessionId', $SessionId)->get();
-        //$clients = Client::with('SessionClient')->get();
-        //$ponies = Pony::with('SessionPony')->get();
         render('session.details', compact('session', 'sessionclients','sessionponies','titre', 'SessionId',));
     }
 
@@ -96,7 +115,7 @@ class SessionController extends Controller
             $session->Duration = $data['Duration'];
             $session->Participants = $data['Participants'];
             $session->save();
-            response()->redirect(route('sessions.index'));
+            response()->redirect(route('sessions.index'),'');
         }
 
 

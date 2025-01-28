@@ -8,6 +8,7 @@ class MainController extends Controller {
 
     function index() {
         $titre= 'Welcome Page';
-        render('main.index',compact('titre'));
+        $currentview = ('Main');
+        render('main.index',compact('titre', 'currentview'));
     }
 }

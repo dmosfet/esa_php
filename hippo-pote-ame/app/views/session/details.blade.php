@@ -46,7 +46,13 @@
         <table>
             <tr>
                 <td><h3>Clients inscrits</h3></td>
-                <td><a href="{{route('sessionclients.create', $SessionId)}}"><button>Inscrire</button></a></td>
+                @if (
+                    ($session->SessionTypeId == 1 && $sessionclients->count()<1)
+                    ||
+                    ($session->SessionTypeId == 2 && $sessionclients->count()< $session->Participants)
+                    )
+                    <td><a href="{{route('sessionclients.create', $SessionId)}}"><button>Inscrire</button></a></td>
+                @endif
             </tr>
         </table>
         <hr>
@@ -72,7 +78,7 @@
                         @else
                             <td>{{ $sessionclient->Client->LastName}}</td>
                             <td>{{ $sessionclient->Client->FirstName}}</td>
-                            <td>{{ $sessionclient->Client->DateOfBirth}}</td>
+                            <td>{{ date("d/m/Y",strtotime($sessionclient->Client->DateOfBirth))}}</td>
                         @endif
                         <td>
                             <form action="{{route('sessionclients.destroy')}}" method="post">
@@ -94,7 +100,10 @@
         <table>
             <tr>
                 <td><h3>Poneys attribués</h3></td>
-                <td><a href="{{route('sessionponies.create', $SessionId)}}"><button>Attribuer un poney</button></a></td>
+                @if ($sessionponies->count()< $session->Participants)
+                    <td><a href="{{route('sessionponies.create', $SessionId)}}"><button>Attribuer un poney</button></a></td>
+                @endif
+
              </tr>
         </table>
         <hr>
