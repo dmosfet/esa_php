@@ -2,10 +2,11 @@
 
 namespace App\Models;
 class SessionClient extends Model {
+    protected $primaryKey = null;
     public $table='session_clients';
     public $timestamps = false;
     protected $fillable = [
-        'ClientId', 'SessionId','Price', 'Paid'
+        'ClientId', 'SessionId','Price', 'Invoice','Paid'
     ];
 
     public function client()

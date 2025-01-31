@@ -32,7 +32,6 @@
             <td>{{ $pony->MaxWorkHour }}</td>
         </tr>
     </table>
-    </div>
     <div class="container-footer">
         <form action="{{route('ponies.index')}}" method="post">
             <?php csrf()->form(); ?>

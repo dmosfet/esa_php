@@ -113,9 +113,9 @@ class SessionController extends Controller
             $session->DateSession = $data['DateSession'];
             $session->HourSession = $data['HourSession'];
             $session->Duration = $data['Duration'];
-            $session->Participants = $data['Participants'];
+            $session->Participants = (int)$data['Participants'];
             $session->save();
-            response()->redirect(route('sessions.index'),'');
+            response()->redirect(route('sessions.index','today'));
         }
 
 
@@ -127,6 +127,6 @@ class SessionController extends Controller
         if ($session) {
             $session->delete();
         }
-        response()->redirect(route('sessions.index'));
+        response()->redirect(route('sessions.index','today'));
     }
 }

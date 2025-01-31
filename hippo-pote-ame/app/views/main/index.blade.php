@@ -8,6 +8,7 @@
     <hr>
     <div class="container">
         <p>Bienvenue sur l'application de gestion de notre association</p>
+        <div class="logo-hippo"></div>
     </div>
 
 @endsection

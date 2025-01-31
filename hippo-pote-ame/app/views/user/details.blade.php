@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<hr>
-<div class="container-title">
-    <h3>{{ $titre }}</h3>
-</div>
-<hr>
+    <hr>
+    <div class="container-title">
+        <h3>{{ $titre }}</h3>
+    </div>
+    <hr>
     <table>
         <tr>
             <th>Nom</th>
@@ -13,19 +13,19 @@
             <th>Date de création</th>
             <th>Date de mise à jour</th>
         </tr>
-            <tr>
-                <td>{{$data->user['username']}}</td>
-                <td>{{$data->user['email']}}</td>
-                <td>{{$data->user['created_at']}}</td>
-                <td>{{$data->user['updated_at']}}</td>
-            </tr>
+        <tr>
+            <td>{{$user['username']}}</td>
+            <td>{{$user['email']}}</td>
+            <td>{{$user['created_at']}}</td>
+            <td>{{$user['updated_at']}}</td>
+        </tr>
     </table>
     <table>
         <tr>
             <th>Rôle</th>
         </tr>
         <tr>
-            @foreach ($data->roles as $role)
+            @foreach (explode(',', $user['leaf_auth_user_roles']) as $role)
                 <td>{{$role}}</td>
             @endforeach
         </tr>
@@ -34,11 +34,11 @@
         <tr>
             <th>Permissions</th>
         </tr>
-            @foreach ($data->permissions as $permissions)
+        @foreach (explode(',', $user['leaf_auth_user_roles']) as $permissions)
             <tr>
                 <td>{{$permissions}}</td>
             </tr>
-            @endforeach
+        @endforeach
 
     </table>
 @endsection

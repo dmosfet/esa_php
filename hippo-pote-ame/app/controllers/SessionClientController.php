@@ -48,5 +48,17 @@ class SessionClientController extends Controller
         $sessionclient->delete();
         response()->redirect('/session/' . $data['SessionId'] . '/details');
     }
+
+    function update()
+    {
+        $data = request()->postData();
+        $sessionclient = SessionClient::where('SessionId',$data['SessionId'])->where("ClientId",$data['ClientId'])->first();
+        $sessionclient->ClientId = $data['ClientId'];
+        $sessionclient->SessionId = $data['SessionId'];
+        $sessionclient->Price = $data['Price'];
+        $sessionclient->Paid = $data['Paid'];
+        $sessionclient->save();
+        response()->redirect(route('invoices.index'));
+    }
 }
 

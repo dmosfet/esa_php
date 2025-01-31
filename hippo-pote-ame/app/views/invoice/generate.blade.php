@@ -1,20 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <p></p>
+    <hr>
+    <div class="container-title">
         <h3>{{ $titre }}</h3>
-        @foreach ($filteredsessionclients as $filteredsessionclient)
-                <?php
-                if ($filteredsessionclient[0]->Client->ClientTypeId == 1) {
-                    $client = $filteredsessionclient[0]->Client->SocietyName;
-                } else {
-                    $client = $filteredsessionclient[0]->Client->LastName . " " . $filteredsessionclient[0]->Client->FirstName;
-                }
-                $reference = $year . $month ."/". $filteredsessionclient[0]->Client->ClientId . '/' . date('dmY');
-                ?>
-            <fieldset class="invoice-proforma">
-                <legend><h4>Ref: {{$reference}}</h4></legend>
+    </div>
+    <hr>
+    @foreach ($filteredsessionclients as $filteredsessionclient)
+            <?php
+            if ($filteredsessionclient[0]->Client->ClientTypeId == 1) {
+                $client = $filteredsessionclient[0]->Client->SocietyName;
+            } else {
+                $client = $filteredsessionclient[0]->Client->LastName . " " . $filteredsessionclient[0]->Client->FirstName;
+            }
+            $Reference = $Year . $Month . "/" . $filteredsessionclient[0]->Client->ClientId . '/' . date('dmY');
+            ?>
+        <fieldset class="invoice-proforma">
+            <form action="{{route('invoices.store')}}" method="POST">
+                <?php csrf()->form(); ?>
+                <input type="hidden" name="Reference" id="Reference" value="{{$Reference}}">
+                <input type="hidden" name="Year" id="Year" value="{{$Year}}">
+                <input type="hidden" name="Month" id="Month" value="{{$Month}}">
+                <input type="hidden" name="ClientId" id="ClientId"
+                       value="{{$filteredsessionclient[0]->Client->ClientId}}">
+                <legend><h4>Ref: {{$Reference}}</h4></legend>
                 <table>
                     <tr>
                         <th>Client</th>
@@ -33,9 +42,10 @@
                 </table>
                     <?php
                     $total = 0;
-                    $paid = 0;
+                    $Paid = 0;
                     $nbrsession = 0;
-                    $client = ""
+                    $client = "";
+                    $SessionIdList = array();
                     ?>
                 <table>
                     <tr>
@@ -46,15 +56,16 @@
                     @foreach ($filteredsessionclient as $sessionclient)
                         <tr>
                             <td>{{date("d/m/Y",strtotime($sessionclient->Session->DateSession))}}</td>
-                            <td>{{substr($sessionclient->Price,0,-2) . '€'}}</td>
+                            <td>{{$sessionclient->Price . '€'}}</td>
                             <td>{{$sessionclient->Paid . ' €'}}</td>
-                                <?php
-                                ++$nbrsession;
-                                $paid += $sessionclient->Paid;
-                                $total += $sessionclient->Price;
-                                $ClientId = $sessionclient->ClientId;
-                                ?>
                         </tr>
+                            <?php
+                            ++$nbrsession;
+                            $Paid += $sessionclient->Paid;
+                            $total += $sessionclient->Price;
+                            $ClientId = $sessionclient->ClientId;
+                            $SessionIdList[] = $sessionclient->SessionId;
+                            ?>
                     @endforeach
                 </table>
                 <table>
@@ -67,32 +78,26 @@
                         <th>Solde</th>
                     </tr>
                     <tr>
-                        <?php
-                            $solde = $total - $paid;
-                            $TVA = (float)$total * 21 /100;
+                            <?php
+                            $solde = $total - $Paid;
+                            $TVA = (float)$total * 21 / 100;
                             $HTVA = (float)$total - $TVA;
                             $TVAC = (float)$total;
-                        ?>
+                            ?>
+                        <input type="hidden" name="SessionIdList" id="SessionIdList"
+                               value="{{implode(',',$SessionIdList)}}">
                         <td>{{$nbrsession}}</td>
-                        <td>{{$HTVA . ' €'}}</td>
-                        <td>{{$TVA . ' €'}}</td>
-                        <td>{{$TVAC . ' €'}}</td>
-                        <td>{{$paid . ' €'}}</td>
+                        <td><input type="text" name="HTVA" id="HTVA" value="{{$HTVA . ' €'}}" readonly></td>
+                        <td><input type="text" name="TVA" id="TVA" value="{{$TVA . ' €'}}" readonly></td>
+                        <td><input type="text" name="TVAC" id="TVAC" value="{{$TVAC . ' €'}}" readonly></td>
+                        <td><input type="text" name="Paid" id="Paid" value="{{$Paid . ' €'}}" readonly></td>
                         <td>{{$solde . ' €'}}</td>
                         <td>
-                            <div class="actionbuttonbar">
-                                <form action="{{route('invoices.create')}}" method="post">
-                                        <?php csrf()->form(); ?>
-                                    <input type="hidden" name="ClientId" value="{{$ClientId}}">
-                                    <button type="submit" class="invoicebutton"></button>
-                                </form>
-                            </div>
+                            <button type="submit" class="invoicebutton"></button>
                         </td>
                     </tr>
                 </table>
-            </fieldset>
-        @endforeach
-
-    </div>
-
+            </form>
+        </fieldset>
+    @endforeach
 @endsection

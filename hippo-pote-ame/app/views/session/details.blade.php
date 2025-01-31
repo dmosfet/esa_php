@@ -1,33 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <hr/>
-        <table>
-            <tr>
-                <td><h3>{{ $titre }}</h3></td>
-                <td>
-                    <form action="{{route('sessions.edit')}}" method="post">
-                        <?php csrf()->form(); ?>
-                        <input type="hidden" name="SessionId" id="SessionId" value="{{$session->SessionId}}">
-                        <input type="submit" value="Modifier">
-                    </form>
-                </td>
-                <td>
-                    <form action="{{route('sessions.destroy')}}" method="post">
-                        <?php csrf()->form(); ?>
-                        <input type="hidden" name="SessionId" id="SessionId" value="{{$session->SessionId}}">
-                        <input type="submit" value="Supprimer">
-                    </form>
-                </td>
-                <td>
-                    <form action="{{route('sessions.index')}}" method="post">
-                        <?php csrf()->form(); ?>
-                        <input type="submit" value="Retour">
-                    </form>
-                </td>
-            </tr>
-        </table>
+        <hr>
+        <div class="container-title">
+        <h3>{{ $titre }}</h3>
+            <form action="{{route('sessions.edit')}}" method="post">
+                <?php csrf()->form(); ?>
+                <input type="hidden" name="SessionId" id="SessionId" value="{{$session->SessionId}}">
+                <button type="submit" class="modifybutton"></button>
+            </form>
+                <form action="{{route('sessions.destroy')}}" method="post">
+                    <?php csrf()->form(); ?>
+                    <input type="hidden" name="SessionId" id="SessionId" value="{{$session->SessionId}}">
+                    <button type="submit" class="deletebutton"></button>
+                </form>
+        </div>
+        <hr>
         <table>
             <tr>
                 <th>Date</th>
@@ -130,6 +118,11 @@
                     </tr>
                 @endif
         </table>
-    </div>
+        <div class="container-footer">
+            <form action="{{route('sessions.index', 'today')}}" method="post">
+                <?php csrf()->form(); ?>
+                <input type="submit" value="Retour">
+            </form>
+        </div>
 @endsection
 

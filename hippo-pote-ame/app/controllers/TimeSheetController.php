@@ -2,30 +2,39 @@
 
 namespace App\Controllers;
 
-use \App\Models\Session;
+use App\Models\Session;
+use App\Models\SessionType;
 use DateTime;
 
 class TimeSheetController extends Controller {
-    function index() {
+    function index($mode=null) {
         $titre= 'Agenda';
+        switch($mode){
+            case('today');
+                $number=1;
+            break;
+            case('week');
+                $number=7;
+            break;
+        }
         if (isset($_POST['today'])) {
-            $today = DateTime::createFromFormat('d-m-Y', $_POST['today']);
-            $firstday = DateTime::createFromFormat('d-m-Y', $_POST['today']);
-            $before = DateTime::createFromFormat('d-m-Y', $_POST['today']);
-            $after = DateTime::createFromFormat('d-m-Y', $_POST['today']);
+            $today = date_create_from_format('d-m-Y', $_POST['today']);
+            $firstday = $today;
         } else {
             $today = new DateTime();
             $firstday = new DateTime();
-            $before = new DateTime();
-            $after = new DateTime();
         }
-        $firstday->modify('-' . ($today->format('N')-1) . ' days');
+        $after = new DateTime();
+
+        if ($mode!='today') {
+            $firstday->modify('-' . ($today->format('N')-1) . ' days');
+        }
         $day = $firstday;
-        $before->modify('-' . 7+($today->format('N')-1) . ' days');
-        $after->modify('+' . 7-($today->format('N')). ' days');
+        $after->modify('+' . $number-($today->format('N')). ' days');
         $heuredebut = DateTime::createFromFormat('H:i', '09:00');
         $heurefin = DateTime::createFromFormat('H:i', '17:00');
+        $sessiontypes = SessionType::all();
         $sessions = Session::all();
-        render('timesheet.index',compact('sessions','titre', 'day', 'firstday','before','after', 'heuredebut', 'heurefin'));
+        render('timesheet.index',compact('sessions','titre', 'number', 'day', 'mode', 'firstday','after', 'sessiontypes','heuredebut', 'heurefin'));
     }
 }

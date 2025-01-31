@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use Leaf\Helpers\Password;
 
 class AuthController extends Controller {
 

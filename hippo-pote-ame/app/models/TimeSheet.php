@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Model;
+namespace App\Models;
 
 class TimeSheet extends Model {
     private $date;

@@ -19,7 +19,7 @@
             <th>Année</th>
             <th>Mois</th>
             <th>Client</th>
-            <th>Date</th>
+            <th>Date de création</th>
             <th>Date du paiement</th>
             <th>Action</th>
         </tr>
@@ -32,24 +32,27 @@
                 @else
                     <td>{{ $invoice->client->LastName & " " & $invoice->client->FirstName }}</td>
                 @endif
+                <th>{{ $invoice->created_at->format('d-m-Y') }}</th>
                 <td>{{ $invoice->DatePaid }}</td>
                 <td>
                     <div class="actionbuttonbar">
-                        <form action="{{route('invoices.details', $invoice->InvoceId)}}" method="get">
+                        <form action="{{route('invoices.details', $invoice->InvoiceId)}}" method="get">
                                 <?php csrf()->form(); ?>
-                            <input type="hidden" name="InvoicetId" value="{{$invoice->InvoceId}}">
+                            <input type="hidden" name="InvoicetId" value="{{$invoice->InvoiceId}}">
                             <button type="submit" class="detailsbutton"></button>
                         </form>
                         <form action="{{route('invoices.edit')}}" method="post">
                                 <?php csrf()->form(); ?>
-                            <input type="hidden" name="InvoiceId" value="{{$invoice->InvoceId}}">
+                            <input type="hidden" name="InvoiceId" value="{{$invoice->InvoiceId}}">
                             <button type="submit" class="modifybutton"></button>
                         </form>
-                        <form action="{{route('invoices.destroy')}}" method="post">
-                                <?php csrf()->form(); ?>
-                            <input type="hidden" name="InvoiceId" value="{{$invoice->InvoceId}}"> <!-- ID du client -->
-                            <button type="submit" class="deletebutton"></button>
-                        </form>
+                        @if (auth()->user()->can('delete invoices'))
+                                <form action="{{route('invoices.destroy')}}" method="post">
+                                    <?php csrf()->form(); ?>
+                                <input type="hidden" name="InvoiceId" value="{{$invoice->InvoiceId}}">
+                                <button type="submit" class="deletebutton"></button>
+                            </form>
+                        @endif
                     </div>
                 </td>
             </tr>

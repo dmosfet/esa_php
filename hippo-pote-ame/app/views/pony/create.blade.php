@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <p></p>
+    <hr>
+    <div class="container-title">
         <h3>{{ $titre }}</h3>
+    </div>
+    <hr>
         <table>
             <tr>
                 <th>Nom du Poney</th>
