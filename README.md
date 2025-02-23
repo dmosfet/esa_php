@@ -18,6 +18,8 @@ Nom d'utilisateur: Demo
 
 Mot de passe: demo
 
+Pour les autres utilisateurs éventuellement déjà encodés dans l'application (pour tester les rôles), le mot de passe est toujours leur prénom (sans majuscules)
+
 ## Installation
 L'application a été déveveloppée avec Leaf\mvc : https://leafphp.dev/docs/mvc/
 
