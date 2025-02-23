@@ -52,7 +52,6 @@ class SessionController extends Controller
                 ->withPath('/all/sessions');
         } elseif ($type == 'birthday') {
             $sessions = Session::with('SessionType')
-                ->where('DateSession', date('Y-m-d'))
                 ->where('SessionTypeId', 3)
                 ->orderBy('DateSession', 'DESC')
                 ->paginate($parPage, ['*'], 'page', $page)
