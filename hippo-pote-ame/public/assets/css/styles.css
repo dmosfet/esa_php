@@ -1,0 +1,357 @@
+header {
+    display: block;
+    position: absolute;
+    height:80px;
+}
+
+button {
+    border: 3px solid wheat;
+    background-color: saddlebrown;
+}
+
+button[type=submit] {
+    border: 3px solid wheat;
+    background-color: saddlebrown;
+}
+
+hr {
+    color: mediumpurple;
+    background-color: saddlebrown;
+    height:10px;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    font-family: DM Sans, sans-serif;
+    font-size: 14px;
+    background-color: #cfc8b8;
+}
+
+.left-panel {
+    margin-top:80px;
+    height: 100%;
+    background-color: #cfc8b8;
+    width: 25vw;
+}
+
+.center-panel {
+    margin-top:65px;
+    margin-left: auto;
+    margin-right: 30px;
+    height: 100%;
+    width: 95%;
+}
+
+.center-panel a {
+    text-decoration: none;
+}
+
+.user-menu {
+    display: inline-grid;
+    padding-top:15px;
+    grid-template-columns: 100px 75% 180px 60px 60px 60px;
+    width: 100vw;
+    text-align: left;
+    background-color: #cfc8b8;
+    flex-direction: row;
+}
+
+.user-menu h4{
+    margin-left: 50px;
+    line-height: 40px;
+    text-align: left;
+}
+
+.container-title {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.container-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.left-panel button {
+    width: 80%;
+    margin-left:10%;
+    margin-top:25px;
+}
+
+.actionbuttonbar {
+    display: flex;
+}
+
+.actionbuttonbar form {
+    margin-left: 10px;
+}
+
+.addbutton, .addallbutton, .backbutton, .deletebutton, .editbutton, .deletebutton, .beforebutton, .nextbutton, .closebutton, .detailsbutton, .invoicebutton, .logoutbutton, .userbutton, .messagebutton, .checkbutton, .lockbutton, .pdfbutton {
+    height: 44px;
+    width: 44px;
+    background-color: saddlebrown;
+    border: 3px solid wheat;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.addbutton {
+    border: none;
+    border-radius: 30px;
+    background-image: url("../../../public/assets/img/plus_circle_icon.png");
+}
+.addallbutton {
+    border: none;
+    border-radius: 30px;
+    background-image: url("../../../public/assets/img/plus_all_circle_icon.png");
+}
+
+
+.addbutton[type='submit'] {
+    width: 44px;
+}
+
+.backbutton {
+    background-image: url("../../../public/assets/img/close_cross_icon.png");
+}
+
+.beforebutton {
+    height: 30px;
+    width: 30px;
+    background-size: 28px 28px;
+    background-image: url("../../../public/assets/img/chevron_left_icon.png");
+}
+.navbar {
+    display:flex;
+}
+
+.pagebutton {
+    align-items: center; /* Centre verticalement */
+    justify-content: center;
+    line-height: 1px;
+    height: 30px;
+    width: 30px;
+}
+
+.currentpage {
+    color: black;
+    background-color: wheat;
+    border-color: saddlebrown;
+}
+.nextbutton {
+    height: 30px;
+    width: 30px;
+    background-size: 28px 28px;
+    background-image: url("../../../public/assets/img/chevron_right_icon.png");
+}
+
+.editbutton {
+    background-image: url("../../../public/assets/img/edit_icon.png");
+    background-size: 35px 35px;
+}
+
+.closebutton {
+    background-image: url("../../../public/assets/img/close_cross_icon.png");
+    background-size: 35px 35px;
+}
+
+.deletebutton {
+    background-image: url("../../../public/assets/img/trash_icon.png");
+    background-size: 35px 35px;
+}
+
+.detailsbutton {
+    background-image: url("../../../public/assets/img/view_icon.png");
+    background-size: 35px 35px;
+}
+
+.invoicebutton {
+    background-image: url("../../../public/assets/img/save_icon.png");
+    background-size: 35px 35px;
+}
+
+.pdfbutton {
+    background-image: url("../../../public/assets/img/printer_icon.png");
+    background-size: 35px 35px;
+}
+
+.lockbutton {
+    background-image: url("../../../public/assets/img/lock_icon.png");
+    background-size: 35px 35px;
+}
+
+.userbutton {
+    background-image: url("../../../public/assets/img/user_icon.png");
+    background-size: 35px 35px;
+}
+
+.messagebutton {
+    background-image: url("../../../public/assets/img/mail_icon.png");
+    background-size: 35px 35px;
+}
+
+.checkbutton {
+    background-image: url("../../../public/assets/img/check_square_icon.png");
+    background-size: 35px 35px;
+}
+.logoutbutton {
+    background-image: url("../../../public/assets/img/log_out_icon.png");
+    background-size: 35px 35px;
+}
+
+.calendar {
+    display: flex;
+}
+.timesheet td {
+    min-width: 25px;
+    height: 30px;
+}
+
+.timesheet {
+    width: 30%;
+}
+
+.agenda a {
+    margin:auto;
+    text-align: center;
+    font-size: 22px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+}
+.typesession_Gro {
+    padding:0;
+    background-color: wheat;
+}
+
+.typesession_Cou {
+    padding:0;
+    background-color: saddlebrown;
+}
+
+.typesession_Ann {
+    padding:0;
+    background-color: tan;
+}
+
+.timesheet th, .timesheet td {
+    text-align: center;
+    vertical-align: middle;
+    font-family: DM Sans, sans-serif;
+    font-size: 25px;
+}
+
+tr {
+    height: 40px;
+}
+
+th, td {
+    vertical-align: middle;
+    font-family: DM Sans, sans-serif;
+    font-size: 20px;
+}
+
+.timesheet tr {
+    height: 100px;
+}
+
+.truncate-txt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+.invoice-proforma {
+    border: 10px solid saddlebrown;
+    border-radius: 30px;
+}
+
+.invoice-proforma legend {
+    padding-top:15px;
+    margin-left:50px;
+}
+
+.logo-hippo{
+    height: 750px;
+    width: auto;
+    background-image: url("../../../public/assets/img/hippo-pote-ame.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.ico-hippo{
+    margin-left:30px;
+    height: 60px;
+    width: 60px;
+    background-image: url("../../../public/assets/img/hippo-pote-ame.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.left-logo {
+    width: 33%;
+    height: 100vh;
+    background-image: url("../../../public/assets/img/hippo-pote-ame.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.authentification {
+    width: 33%;
+    height: 100%;
+}
+
+.right-logo {
+    width: 33%;
+    height: 100vh;
+    background-image: url("../../../public/assets/img/hippo-pote-ame.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+table, tbody, tr, th, td {
+    background-color: transparent;
+}
+
+.nonread {
+    font-weight: bold ;
+}
+
+.messageheader span {
+    font-size:20px;
+    line-height: 20px;
+    padding-top:15px;
+    padding-right: 80px;
+}
+
+.messageobject {
+    font-size:20px;
+}
+
+.message{
+    width:100%;
+    height: 300px;
+    background-color: wheat;
+    padding:20px;
+    font-size:20px;
+
+}
+
+.messageaction {
+    display:flex;
+}

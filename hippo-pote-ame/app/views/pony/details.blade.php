@@ -5,14 +5,14 @@
     <div class="container-title">
         <h3>{{ $titre }}</h3>
         <form action="{{route('ponies.edit')}}" method="post">
-            <?php csrf()->form(); ?>
+            @php csrf()->form();  @endphp
             <input type="hidden" name="PonyId" id="PonyId" value="{{$pony->PonyId}}">
-            <button type="submit" class="modifybutton"></button>
+            <button type="submit" class="editbutton"></button>
         </form>
         <form action="{{route('ponies.destroy')}}" method="post">
-            <?php csrf()->form(); ?>
+            @php csrf()->form();  @endphp
             <input type="hidden" name="PonyId" id="PonyId" value="{{$pony->PonyId}}">
-            <button type="submit" class="deletebutton"></button>
+            <button type="submit" class="deletebutton" onclick="this.form.action = confirm('Êtes-vous sûr de vouloir supprimer ce poney ?') ? this.form.action : event.preventDefault()"></button>
         </form>
     </div>
     <hr>
@@ -34,8 +34,8 @@
     </table>
     <div class="container-footer">
         <form action="{{route('ponies.index')}}" method="post">
-            <?php csrf()->form(); ?>
-            <input type="submit" value="Retour">
+            @php csrf()->form();  @endphp
+            <button type="submit">Retour</button>
         </form>
     </div>
 @endsection

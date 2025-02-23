@@ -1,8 +1,9 @@
-<?php
-$route = app()->getRoute();
-$data = auth()->data();
-$roles = auth()->roles();
-?>
+@php
+    $route = app()->getRoute();
+    $data = auth()->data();
+    $roles = auth()->roles();
+@endphp
+
     <!doctype html>
 <html lang="fr">
 <head>
@@ -19,11 +20,14 @@ $roles = auth()->roles();
     <h1>Gestion de l'association Hippo-Pote-Ame</h1>
     <h4>{{$data->user['username']}}</h4>
     <a href="{{ route('dashboard.index') }}">
-        <button class="userbutton"></button>
+        <button class="userbutton" title="Afficher l'espace personne de l'utilisateur"></button>
+    </a>
+    <a href="{{ route('messages.index') }}">
+        <button class="messagebutton" title="Afficher les messages de l'utilisateur"></button>
     </a>
     <form action="{{route('auth.logout')}}" method="POST">
-        <?php csrf()->form(); ?>
-        <button class="logoutbutton"></button>
+        @php csrf()->form();  @endphp
+        <button class="logoutbutton" title="Se déconnecter"></button>
     </form>
 </header>
 @if(isset($errors) && count($errors) >0)
@@ -43,51 +47,46 @@ $roles = auth()->roles();
     <a href="{{route('main.index')}}">
         <button>Accueil</button>
     </a>
-    @if (auth()->user()->is('admin'))
-        <a href="/users">
-            <button>Utilsateurs</button>
+    @if (auth()->user()->can(['view user','view all']))
+        <a href="{{route('users.index','all')}}">
+            <button>Utilisateurs</button>
         </a>
-        <a href="/all/clients">
-            <button>Clients</button>
-        </a>
+    @endif
+    @if (auth()->user()->can(['view pony','view all']))
         <a href="{{route('ponies.index')}}">
             <button>Poneys</button>
         </a>
-        <a href="/today/sessions">
-            <button>Session</button>
-        </a>
-        <a href="/today/timesheets">
-            <button>Agenda</button>
-        </a>
-        <a href="{{route('invoices.index')}}">
-            <button>Facturation</button>
-        </a>
-        <a href="{{route('kpis.index')}}">
-            <button>Statistiques</button>
-        </a>
-    @elseif(auth()->user()->can('view invoices'))
-        <a href="/all/clients">
+    @endif
+    @if(auth()->user()->can(['view clients','view all']))
+        <a href="{{route('clients.index', 'all')}}">
             <button>Clients</button>
         </a>
-        <a href="{{route('invoices.index')}}">
+    @endif
+    @if(auth()->user()->can(['view invoices','view all']))
+        <a href="{{route('invoices.index', 'all')}}">
             <button>Facturation</button>
         </a>
-    @elseif(auth()->user()->is('booker'))
-        <a href="/all/clients">
-            <button>Clients</button>
+    @endif
+    @if(auth()->user()->can(['view sessions','view all']))
+        <a href="{{route('sessions.index', 'all')}}">
+            <button>Sessions</button>
         </a>
-        <a href="{{route('timesheets.index')}}">
+    @endif
+    @if(auth()->user()->can(['view timesheets','view all']))
+        <a href="{{route('timesheets.index', 'today')}}">
             <button>Agenda</button>
         </a>
-        <a href="/all/sessions">
-            <button>Session</button>
+    @endif
+    @if(auth()->user()->can(['view kpis','view all']))
+        <a href="{{route('kpis.index','ponies')}}">
+            <button>Indicateurs</button>
         </a>
-    @else
     @endif
 </div>
 <main class="center-panel">
     @switch($route['name'])
         @case ('clients.index')
+            <hr>
             <a href="/all/clients">
                 <button>Clients</button>
             </a>
@@ -98,11 +97,18 @@ $roles = auth()->roles();
                 <button>Particuliers</button>
             </a>
             @break
+        @case ('clients.details')
+            <hr>
+            <a href="{{route('invoices.index', $client->ClientId)}}">
+                <button>Factures</button>
+            </a>
+            @break
         @case ('ponies.index')
+            <hr>
             <a href="/ponies">
                 <button>Poneys</button>
             </a>
-            <a href="/ponies/medical">
+            <a href="{{route('medicals.index', $PonyId="all")}}">
                 <button>Dossiers médicaux</button>
             </a>
             <a href="/ponies/temperaments">
@@ -110,11 +116,25 @@ $roles = auth()->roles();
             </a>
             @break
         @case ('ponies.details')
-            <a href="/{PonyId}/ponies/medical">
+            <hr>
+            <a href="{{route('medicals.index', $PonyId)}}">
                 <button>Dossiers médicaux</button>
             </a>
             @break
+        @case ('kpis.index')
+            <hr>
+            <a href="{{route('kpis.index','ponies')}}">
+                <button>Poneys</button>
+            </a>
+            <a href="{{route('kpis.index','sessions')}}">
+                <button>Sessions</button>
+            </a>
+            <a href="{{route('kpis.index','invoices')}}">
+                <button>Invoices</button>
+            </a>
+            @break
         @case ('sessions.index')
+            <hr>
             <a href="/today/sessions">
                 <button>Aujourd'hui</button>
             </a>
@@ -127,8 +147,12 @@ $roles = auth()->roles();
             <a href="/private/sessions">
                 <button>Cours collectifs</button>
             </a>
+            <a href="/birthday/sessions">
+                <button>Anniversaire</button>
+            </a>
             @break
         @case ('timesheets.index')
+            <hr>
             <a href="/today/timesheets">
                 <button>Aujourd'hui</button>
             </a>
@@ -137,6 +161,7 @@ $roles = auth()->roles();
             </a>
             @break
         @case ('users.index')
+            <hr>
             <a href="/all/users">
                 <button>Tous</button>
             </a>
@@ -158,6 +183,9 @@ $roles = auth()->roles();
                         @case ('caretaker')
                             <button>Soigneur</button>
                             @break
+                        @case ('animator')
+                            <button>Animateur</button>
+                            @break
                         @case ('user')
                             <button>Utilisateur</button>
                             @break
@@ -167,25 +195,25 @@ $roles = auth()->roles();
                     @endswitch
                 </a>
             @endforeach
-        @break
+            @break
         @case ('users.edit')
+            <hr>
             <div class="actionbuttonbar">
                 <form action="/users/id/edit" method="post">
-                        <?php csrf()->form(); ?>
+                    @php csrf()->form();  @endphp
                     <input type="hidden" name="id" value="{{$user->id}}">
                     <button type="submit">Identifiants</button>
                 </form>
                 <form action="/users/pwd/edit" method="post">
-                        <?php csrf()->form(); ?>
+                    @php csrf()->form();  @endphp
                     <input type="hidden" name="id" value="{{$user->id}}">
                     <button type="submit">Mot de passe</button>
                 </form>
                 <form action="/users/roles/edit" method="post">
-                        <?php csrf()->form(); ?>
+                    @php csrf()->form();  @endphp
                     <input type="hidden" name="id" value="{{$user->id}}">
                     <button type="submit">Rôle et permissions</button>
                 </form>
-
             </div>
             @break
         @default

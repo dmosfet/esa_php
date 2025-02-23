@@ -6,9 +6,5 @@
         <h3>{{ $titre }}</h3>
     </div>
     <hr>
-    <div class="container">
-        <p>Bienvenue sur l'application de gestion de notre association</p>
-        <div class="logo-hippo"></div>
-    </div>
-
+    <div class="logo-hippo"></div>
 @endsection

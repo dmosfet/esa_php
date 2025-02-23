@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class MedicalRecord extends Model {
     protected $primaryKey = 'RecordId';
     protected $foreignKey = 'PonyId';
@@ -9,8 +11,9 @@ class MedicalRecord extends Model {
         'Date', 'Description'
     ];
 
-    public function pony()
+    //Gestion des relations avec Eloquent
+    public function Pony(): HasOne
     {
-        return $this->hasOne('App\Models\Pony', 'Ponyid','Ponyid');
+        return $this->hasOne('App\Models\Pony', 'PonyId','PonyId');
     }
 }

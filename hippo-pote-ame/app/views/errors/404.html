@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Petit poney s'est perdu dans la forêt :(</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+    <link rel="stylesheet" href="/../../public/assets/css/errors.css">
+</head>
+<header class="user-menu">
+    <div class="ico-hippo"></div>
+    <h1>Gestion de l'association Hippo-Pote-Ame</h1>
+    <a href="{{ route('dashboard.index') }}">
+        <button class="userbutton"></button>
+    </a>
+    <a href="{{ route('messages.index') }}">
+        <button class="messagebutton"></button>
+    </a>
+    <form action="{{route('auth.logout')}}" method="POST">
+        <?php csrf()->form(); ?>
+        <button class="logoutbutton"></button>
+    </form>
+</header>
+<body>
+<div class="message">
+    <h2>Error 4<span role="img" aria-label="O">&#x1f635;</span>4</h2>
+    <p>
+        Ton petit poney s'est perdu dans la forêt :(
+    </p>
+    <a href="/">
+        <button>Retoune à l'écurie</button>
+    </a>
+</div>
+</body>
+</html>

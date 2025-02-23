@@ -42,16 +42,19 @@
                         @endforeach
                     </select>
                 </td>
-                <td><input type="date" name="DateSession" id="DateSession" value="{{$session->DateSession}}"></td>
-                <td><input type="time" name="HourSession" id="HourSession" value="{{$session->HourSession}}"></td>
+                <td><input type="date" name="DateSession" id="DateSession" value="{{isset ($_GET['DateSession']) ? $_GET['DateSession']: $session->DateSession}}"></td>
+                <td><input type="time" name="HourSession" id="HourSession" value="{{isset ($_GET['HourSession']) ? $_GET['HourSession'] : $session->HourSession}}"></td>
                 <td><input type="number" name="Participants" id="Participants" value="{{$session->Participants}}"
                            min="1" max="8"></td>
-                <td>
-                    <button type="submit">Enregistrer</button>
-                </td>
+                <td> <button type="submit">Enregistrer</button></td>
             </tr>
         </table>
     </form>
+    <table>
+        <tr>
+            <th><a href="{{route('timesheets.index', 'week')}}"><button>Retourner à l'agenda</button></a></th>
+        </tr>
+    </table>
 
 @endsection
 

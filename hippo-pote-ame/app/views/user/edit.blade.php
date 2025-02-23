@@ -19,7 +19,7 @@
                         <input type="hidden" name="id" id="id" value="{{$user->id}}">
                         <input type="hidden" name="modificationtype" id="modificationtype" value="pwd">
                         <td><input type="password" name="password" id="password" value=""></td>
-                        <td><input type="submit"></td>
+                        <td><button type="submit">Modifier</button></td>
                     </form>
                 </tr>
             </table>
@@ -38,6 +38,7 @@
                         <input type="hidden" name="modificationtype" id="modificationtype" value="roles">
                         <td>
                             <select name="deleterole" id="deleterole">
+                                <option selected>aucun</option>
                                 @foreach($roles as $role=>$permissions)
                                     <option value="{{$role}}">{{$role}}</option>
                                 @endforeach
@@ -45,12 +46,13 @@
                         </td>
                         <td>
                             <select name="addrole" id="addrole">
+                                <option selected>aucun</option>
                                 @foreach($roles as $role=>$permissions)
                                     <option value="{{$role}}">{{$role}}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td><input type="submit"></td>
+                        <td><button type="submit">Modifier</button></td>
                     </form>
                 </tr>
             </table>
@@ -69,7 +71,7 @@
                         <input type="hidden" name="modificationtype" id="modificationtype" value="all">
                         <td><input type="text" name="username" id="username" value="{{$user->username}}"></td>
                         <td><input type="email" name="email" id="email" value="{{$user->email}}"></td>
-                        <td><input type="submit"></td>
+                        <td><button type="submit">Modifier</button></td>
                     </form>
                 </tr>
             </table>

@@ -1,0 +1,62 @@
+
+button {
+    border: 3px solid wheat;
+    background-color: saddlebrown;
+}
+
+body {
+    background-color: #cfc8b8;
+}
+
+.message {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    height: 95vh !important;
+}
+
+.user-menu {
+    display: inline-grid;
+    padding-top:15px;
+    grid-template-columns: 100px 75% 60px 60px 60px;
+    width: 100vw;
+    text-align: left;
+    background-color: #cfc8b8;
+    flex-direction: row;
+}
+
+.logoutbutton, .userbutton, .messagebutton {
+    height: 44px;
+    width: 44px;
+    background-color: saddlebrown;
+    border: 3px solid wheat;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.userbutton {
+    background-image: url("../../../public/assets/img/user_icon.png");
+    background-size: 35px 35px;
+}
+
+.messagebutton {
+    background-image: url("../../../public/assets/img/mail_icon.png");
+    background-size: 35px 35px;
+}
+
+.logoutbutton {
+    background-image: url("../../../public/assets/img/log_out_icon.png");
+    background-size: 35px 35px;
+}
+
+.ico-hippo {
+    margin-left:30px;
+    height: 60px;
+    width: 60px;
+    background-image: url("../../../public/assets/img/hippo-pote-ame.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}

@@ -28,21 +28,43 @@
                 <td>
                     <div class="actionbuttonbar">
                         <a href="{{route('clients.details', $client->ClientId)}}">
-                            <button type="submit" class="detailsbutton"></button>
+                            <button type="submit" class="detailsbutton" title="Afficher le client"></button>
                         </a>
                         <form action="{{route('clients.edit')}}" method="post">
-                                <?php csrf()->form(); ?>
+                            @php csrf()->form();  @endphp
                             <input type="hidden" name="ClientId" value="{{$client->ClientId}}">
-                            <button type="submit" class="modifybutton"></button>
+                            <button type="submit" class="editbutton" title="Modifier le client"></button>
                         </form>
                         <form action="{{route('clients.destroy')}}" method="post">
-                                <?php csrf()->form(); ?>
+                            @php csrf()->form();  @endphp
                             <input type="hidden" name="ClientId" value="{{$client->ClientId}}">
-                            <button type="submit" class="deletebutton"></button>
+                            <button type="submit" class="deletebutton" title="Supprimer le client"></button>
                         </form>
                     </div>
                 </td>
             </tr>
         @endforeach
     </table>
+    <hr>
+    @if ($clients->lastPage() >1)
+        <navbar>
+            <div class="navbar">
+                <a href="{{$clients->previousPageUrl()}}">
+                    <button class="beforebutton" title="Page précédente"></button>
+                </a>
+                @for ($i=1; $i<=$clients->lastPage(); $i++)
+                    <a href="/clients?page={{$i}}">
+                        <button class="pagebutton
+                    @if ($clients->currentPage() == $i)
+                        currentpage
+                    @endif
+                    ">{{$i}}</button>
+                    </a>
+                @endfor
+                <a href="{{$clients->nextPageUrl()}}">
+                    <button class="nextbutton" title="Page suivante"></button>
+                </a>
+            </div>
+        </navbar>
+    @endif
 @endsection

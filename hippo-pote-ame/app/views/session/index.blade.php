@@ -31,17 +31,17 @@
                 <td>
                     <div class="actionbuttonbar">
                         <form action="{{route('sessions.details', $session->SessionId)}}" method="get">
-                                <?php csrf()->form(); ?>
+                            @php csrf()->form();  @endphp
                             <input type="hidden" name="SessionId" value="{{$session->SessionId}}">
                             <button type="submit" class="detailsbutton"></button>
                         </form>
                         <form action="{{route('sessions.edit')}}" method="post">
-                                <?php csrf()->form(); ?>
+                            @php csrf()->form();  @endphp
                             <input type="hidden" name="SessionId" value="{{$session->SessionId}}">
-                            <button type="submit" class="modifybutton"></button>
+                            <button type="submit" class="editbutton"></button>
                         </form>
                         <form action="{{route('sessions.destroy')}}" method="post">
-                                <?php csrf()->form(); ?>
+                            @php csrf()->form();  @endphp
                             <input type="hidden" name="SessionId" id="SessionId" value="{{$session->SessionId}}">
                             <button type="submit" class="deletebutton"></button>
                         </form>
@@ -50,5 +50,25 @@
             </tr>
         @endforeach
     </table>
+    <hr>
+    @if ($sessions->lastPage() >1)
+        <div class="navbar">
+            <a href="{{$sessions->previousPageUrl()}}">
+                <button class="beforebutton"></button>
+            </a>
+            @for ($i=1; $i<=$sessions->lastPage(); $i++)
+                <a href="/all/sessions?page={{$i}}">
+                    <button class="pagebutton
+                    @if ($sessions->currentPage() == $i)
+                        currentpage
+                    @endif
+                    ">{{$i}}</button>
+                </a>
+            @endfor
+            <a href="{{$sessions->nextPageUrl()}}">
+                <button class="nextbutton"></button>
+            </a>
+        </div>
+    @endif
 @endsection
 

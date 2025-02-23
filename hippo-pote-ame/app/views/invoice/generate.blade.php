@@ -4,100 +4,101 @@
     <hr>
     <div class="container-title">
         <h3>{{ $titre }}</h3>
+        <form action="{{route('invoices.storeall')}}" method="post">
+            @php csrf()->form(); @endphp
+            <input type="hidden" name="Invoices" id="Invoices"
+                   value="{{json_encode($invoices,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)}}">
+            <button type="submit" class="invoicebutton" title="Générer les factures pour la période"></button>
+        </form>
     </div>
     <hr>
-    @foreach ($filteredsessionclients as $filteredsessionclient)
-            <?php
-            if ($filteredsessionclient[0]->Client->ClientTypeId == 1) {
-                $client = $filteredsessionclient[0]->Client->SocietyName;
-            } else {
-                $client = $filteredsessionclient[0]->Client->LastName . " " . $filteredsessionclient[0]->Client->FirstName;
-            }
-            $Reference = $Year . $Month . "/" . $filteredsessionclient[0]->Client->ClientId . '/' . date('dmY');
-            ?>
-        <fieldset class="invoice-proforma">
-            <form action="{{route('invoices.store')}}" method="POST">
-                <?php csrf()->form(); ?>
-                <input type="hidden" name="Reference" id="Reference" value="{{$Reference}}">
-                <input type="hidden" name="Year" id="Year" value="{{$Year}}">
-                <input type="hidden" name="Month" id="Month" value="{{$Month}}">
-                <input type="hidden" name="ClientId" id="ClientId"
-                       value="{{$filteredsessionclient[0]->Client->ClientId}}">
-                <legend><h4>Ref: {{$Reference}}</h4></legend>
-                <table>
-                    <tr>
-                        <th>Client</th>
-                        <th>Rue</th>
-                        <th>Numéro</th>
-                        <th>CP</th>
-                        <th>Localité</th>
-                    </tr>
-                    <tr>
-                        <td>{{$client}}</td>
-                        <td>{{$filteredsessionclient[0]->Client->Address}}</td>
-                        <td>{{$filteredsessionclient[0]->Client->Number}}</td>
-                        <td>{{$filteredsessionclient[0]->Client->ZipCode}}</td>
-                        <td>{{$filteredsessionclient[0]->Client->City}}</td>
-                    </tr>
-                </table>
-                    <?php
-                    $total = 0;
-                    $Paid = 0;
-                    $nbrsession = 0;
-                    $client = "";
-                    $SessionIdList = array();
-                    ?>
-                <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>Prix</th>
-                        <th>Payé</th>
-                    </tr>
-                    @foreach ($filteredsessionclient as $sessionclient)
-                        <tr>
-                            <td>{{date("d/m/Y",strtotime($sessionclient->Session->DateSession))}}</td>
-                            <td>{{$sessionclient->Price . '€'}}</td>
-                            <td>{{$sessionclient->Paid . ' €'}}</td>
-                        </tr>
-                            <?php
-                            ++$nbrsession;
-                            $Paid += $sessionclient->Paid;
-                            $total += $sessionclient->Price;
-                            $ClientId = $sessionclient->ClientId;
-                            $SessionIdList[] = $sessionclient->SessionId;
-                            ?>
-                    @endforeach
-                </table>
-                <table>
-                    <tr>
-                        <th>Total</th>
-                        <th>HTVA</th>
-                        <th>TVA</th>
-                        <th>TVAC</th>
-                        <th>Payé</th>
-                        <th>Solde</th>
-                    </tr>
-                    <tr>
-                            <?php
-                            $solde = $total - $Paid;
-                            $TVA = (float)$total * 21 / 100;
-                            $HTVA = (float)$total - $TVA;
-                            $TVAC = (float)$total;
-                            ?>
-                        <input type="hidden" name="SessionIdList" id="SessionIdList"
-                               value="{{implode(',',$SessionIdList)}}">
-                        <td>{{$nbrsession}}</td>
-                        <td><input type="text" name="HTVA" id="HTVA" value="{{$HTVA . ' €'}}" readonly></td>
-                        <td><input type="text" name="TVA" id="TVA" value="{{$TVA . ' €'}}" readonly></td>
-                        <td><input type="text" name="TVAC" id="TVAC" value="{{$TVAC . ' €'}}" readonly></td>
-                        <td><input type="text" name="Paid" id="Paid" value="{{$Paid . ' €'}}" readonly></td>
-                        <td>{{$solde . ' €'}}</td>
-                        <td>
-                            <button type="submit" class="invoicebutton"></button>
-                        </td>
-                    </tr>
-                </table>
+    @if (count($invoices) == 0)
+        <h4>Il n'y a pas de sessions de cours non facturées pour la période demandée.</h4>
+        <div class="container-footer">
+            <form action="{{route('invoices.index', 'all')}}" method="get">
+                @php csrf()->form(); @endphp
+                <button type="submit">Retour</button>
             </form>
-        </fieldset>
-    @endforeach
+        </div>
+    @else
+        @foreach ($invoices as $invoice)
+            <fieldset class="invoice-proforma">
+                <form action="{{route('invoices.store')}}" method="POST">
+                    @php csrf()->form(); @endphp
+                    <input type="hidden" name="Reference" id="Reference" value="{{$invoice['Reference']}}">
+                    <input type="hidden" name="Year" id="Year" value="{{$Year}}">
+                    <input type="hidden" name="Month" id="Month" value="{{$Month}}">
+                    <input type="hidden" name="ClientId" id="ClientId"
+                           value="{{$invoice['ClientId']}}">
+                    <legend><h4>Ref: {{$invoice['Reference']}}</h4></legend>
+                    <table>
+                        <tr>
+                            <th>Client</th>
+                            <th>Rue</th>
+                            <th>Numéro</th>
+                            <th>CP</th>
+                            <th>Localité</th>
+                        </tr>
+                        <tr>
+                            <td>{{$invoice['ClientName']}}</td>
+                            <td>{{$invoice['ClientAddress']}}</td>
+                            <td>{{$invoice['ClientNumber']}}</td>
+                            <td>{{$invoice['ClientZipCode']}}</td>
+                            <td>{{$invoice['ClientCity']}}</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Date</th>
+                            <th>Prix</th>
+                            <th>Payé</th>
+                        </tr>
+                        @php
+                            // Extraction des valeurs de la clé "ville"
+                            $SessionIds= array_column($invoice['SessionList'], 'SessionId');
+
+                            // Création de la chaîne avec une virgule
+                            $SessionIdList = implode(", ", $SessionIds);
+                        @endphp
+
+                        <input type="hidden" name="SessionIdList" id="SessionIdList" value="{{$SessionIdList}}">
+
+                        @foreach ($invoice['SessionList'] as $sessionclient)
+
+                            <tr>
+                                <td>{{date('d-m-Y', strtotime($sessionclient['DateSession']))}}</td>
+                                <td>{{$sessionclient['Price'] . '€'}}</td>
+                                <td>{{$sessionclient['Paid'] . ' €'}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Total</th>
+                            <th>HTVA</th>
+                            <th>TVA</th>
+                            <th>TVAC</th>
+                            <th>Payé</th>
+                            <th>Solde</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr>
+                            <td>{{count($invoice['SessionList'])}}</td>
+                            <td><input type="text" name="HTVA" id="HTVA" value="{{$invoice['HTVA'] . ' €'}}" readonly>
+                            </td>
+                            <td><input type="text" name="TVA" id="TVA" value="{{$invoice['TVA'] . ' €'}}" readonly></td>
+                            <td><input type="text" name="TVAC" id="TVAC" value="{{$invoice['TVAC'] . ' €'}}" readonly>
+                            </td>
+                            <td><input type="text" name="Paid" id="Paid" value="{{$invoice['Paid'] . ' €'}}" readonly>
+                            </td>
+                            <td>{{$invoice['TVAC'] - $invoice['Paid'] . ' €'}}</td>
+                            <td>
+                                <button type="submit" class="invoicebutton" title="Générer la facture de ce client pour la période demandée"></button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </fieldset>
+        @endforeach
+    @endif
 @endsection

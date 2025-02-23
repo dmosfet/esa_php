@@ -1,0 +1,46 @@
+header {
+    display: block;
+    position: absolute;
+    height:80px;
+}
+
+hr {
+    color: wheat;
+    background-color: saddlebrown;
+    height:5px;
+}
+
+body {
+    min-height: 80vh;
+    width: 100vw;
+    display: flex;
+    font-family: DM Sans, sans-serif;
+    font-size: 14px;
+}
+
+tr {
+    height: 10px;
+}
+
+th, td {
+    vertical-align: middle;
+    font-family: DM Sans, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    text-align: left;
+}
+
+
+.invoice-proforma {
+    border: 5px solid saddlebrown;
+    border-radius: 15px;
+}
+
+img{
+    height: 80px;
+    width: auto;
+}
+
+table, tbody, tr, th, td {
+    background-color: transparent;
+}

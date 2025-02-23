@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Models;
+use Carbon\Carbon;
 use DateTime;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Session extends Model {
     protected $primaryKey = 'SessionId';
@@ -10,21 +13,26 @@ class Session extends Model {
         'SessionTypeId','DateSession', 'HourSession','Duration', 'Participants',
     ];
 
-    public function SessionType()
+    //Gestion des relations avec Eloquent
+    public function sessiontype(): HasOne
     {
         return $this->hasOne('App\Models\SessionType', 'SessionTypeId', 'SessionTypeId');
     }
 
-    public function SessionClient()
+    public function sessionclient(): HasMany
     {
         return $this->hasMany('App\Models\SessionClient', 'SessionId');
     }
 
-    public function SessionPony()
+    public function sessionpony(): HasMany
     {
         return $this->hasMany('App\Models\SessionPony', 'SessionId');
     }
 
+    // Calcul du statu de la session:
+    //      'Non démarée' => la session n'a pas encore commencée
+    //      'En cours' => la session est en cours
+    //      'Terminée' => la session en terminée
     public function Statut()
     {
         $datejour = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
@@ -47,5 +55,28 @@ class Session extends Model {
             $statut = "Terminée";
         }
         return $statut;
+    }
+
+    // Permet de récupérer toutes les sessions qui ont eu lieu dans le mois en cours
+    // Les sessions sont triées par typ de session: groupe, cours, anniversaire
+    public static function getEventsOfCurrentMonth()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        return [
+            'groupe' => self::with('sessionpony','sessionclient')
+                ->whereBetween('DateSession', [$startOfMonth, $endOfMonth])
+                ->where('SessionTypeId', 1)
+                ->get(),
+            'cours' => self::with('sessionpony','sessionclient')
+                ->whereBetween('DateSession', [$startOfMonth, $endOfMonth])
+                ->where('SessionTypeId', 2)
+                ->get(),
+            'anniversaire' => self::with('sessionpony','sessionclient')
+                ->whereBetween('DateSession', [$startOfMonth, $endOfMonth])
+                ->where('SessionTypeId', 3)
+                ->get(),
+        ];
     }
 }

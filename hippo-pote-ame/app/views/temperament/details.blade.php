@@ -8,21 +8,23 @@
             <tr>
                 <td>
                     <form action="{{route('temperaments.edit', $temperament->TemperamentId)}}" method="post">
-                        <?php csrf()->form(); ?>
-                        <input type="hidden" name="TemperamentId" value="{{$temperament->TemperamentId}}"> <!-- ID du client -->
+                        @php csrf()->form();  @endphp
+                        <input type="hidden" name="TemperamentId" value="{{$temperament->TemperamentId}}">
+                        <!-- ID du client -->
                         <input type="submit" value="Modifier">
                     </form>
                 </td>
                 <td>
                     <form action="{{route('temperaments.destroy')}}" method="post">
-                        <?php csrf()->form(); ?>
-                        <input type="hidden" name="TemperamentId" value="{{$temperament->TemperamentId}}"> <!-- ID du client -->
+                        @php csrf()->form();  @endphp
+                        <input type="hidden" name="TemperamentId" value="{{$temperament->TemperamentId}}">
+                        <!-- ID du client -->
                         <input type="submit" value="Supprimer">
                     </form>
                 </td>
                 <td>
                     <form action="{{route('temperaments.index')}}" method="post">
-                        <?php csrf()->form(); ?>
+                        @php csrf()->form();  @endphp
                         <input type="submit" value="Retour">
                     </form>
                 </td>
