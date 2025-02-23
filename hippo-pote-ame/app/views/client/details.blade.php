@@ -84,6 +84,5 @@
             @php csrf()->form();  @endphp
             <button type="submit">Retour</button>
         </form>
-
     </div>
 @endsection

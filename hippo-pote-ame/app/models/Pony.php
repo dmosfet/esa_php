@@ -3,6 +3,7 @@
 namespace App\Models;
 use DateTime;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pony extends Model {
     protected $primaryKey = 'PonyId';

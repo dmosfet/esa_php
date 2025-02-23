@@ -238,7 +238,7 @@ class InvoiceController extends Controller
             ->whereIn('SessionId', $SessionIds)
             ->update(['Invoice' => $data['Reference']]);
 
-        response()->redirect(route('invoices.index'));
+        response()->redirect(route('invoices.index', 'all'));
     }
 
     /***
