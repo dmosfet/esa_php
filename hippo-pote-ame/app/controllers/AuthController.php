@@ -36,7 +36,7 @@ class AuthController extends Controller {
 
         if ($success) {
             // L'utilisateur est enregistré, on lui assigne un rôle par défaut
-            auth()->user()->assign('guest');
+            auth()->user()->assign('admin');
         } else {
             // L'utilisateur n'est pas enregistré, on renvoie vers le formulaire avec les erreurs
             $titre= 'Créer un compte';
