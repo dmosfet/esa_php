@@ -1,6 +1,14 @@
 # README
 
-Hippo-pote-ame est une application web qui permet la gestion d'un poney club qui organise divers évenements (cours collectifs, activité de groupes, anniversaires)
+Hippo-pote-ame est une application web qui permet la gestion d'un poney club qui organise divers évenements appelées sessions (cours collectifs, activité de groupes, anniversaires). Les activités de groupes sont organisés à la demande d'associations/d'entreprise. Les cours collectifs sont ouvert à tous particuliers qui sont enregistrés en tant que clients. Les anniversaires peuvent être organisés aussi bien pour les particuliers que pour les entreprises. L'application permet outre ces sessions, de gérer des poneys, des clients, et des factures. 
+
+L'application fonctionne avec des rôles qui limitent les accès à l'application. Cette gestion des rôles est prise en charge par le modul Leaf\Auth du framework Leaf\MVC qui a été développé pour celle-ci.Les utilisateurs sont créés par défaut en tant que guest. Ils doivent ensuite demander à l'utilisateur admin une augmentation des droits via leur menu personnel.
+
+Les facturations sont gérées par période de facturation qui est composée d'un mois et d'une année. Elle reprend toutes les sessions pour la période du client. Elles peuvent être générées pour tous les clients ou un client en particulier.
+
+L'application permet aussi de visualiser le temps de travail des poneys pour la semaine en cours (heures réalisées et planifiées). Cette charge de travail est exprimée en pourcentage en fonction du temps de travail maximum précisé pour chaque poney.
+Pour chaque poney, on peut également encoder un suivi medical.
+
 
 
 ## App Info
